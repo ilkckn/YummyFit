@@ -46,7 +46,6 @@ const userSchema = new Schema(
     age: {
       type: Number,
       required: true,
-      min: 18,
     },
     gender: {
       type: String,
@@ -69,6 +68,11 @@ const userSchema = new Schema(
       required: true,
       min: 0,
     },
+    target_weight_change: {
+      type: String,
+      enum:["500g", "1kg"],
+      default: "1kg",
+    },
     daily_calories: {
       type: Number,
       required: true,
@@ -89,6 +93,32 @@ const userSchema = new Schema(
       type: [String],
       default: [],
     },
+    food_preferences: {
+      type: [String],
+      enum: ["vegetarian", "vegan", "paleo", "keto", "gluten-free"],
+      default: [],
+    },
+    cuisine_preferences: {
+      type: [String],
+      default: [],
+    },
+    disease: {
+      type: [String],
+      default: [],
+    },
+    items: [
+      {
+        food: {
+          type: Schema.Types.ObjectId,
+          ref: "Food",
+        },
+        quantity: String,
+        fromRecipe: {
+          type: Schema.Types.ObjectId,
+          ref: "Recipe",
+        },
+      },
+    ],
   },
   { timestamps: true }
 );

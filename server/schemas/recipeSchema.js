@@ -23,18 +23,18 @@ const recipeSchema = new Schema(
       required: true,
     },
     ingredients: [
-        {
-          food: {
-            type: Schema.Types.ObjectId,
-            ref: "Food", 
-            required: true,
-          },
-          quantity: {
-            type: String,
-            required: true,
-          },
-        }
-      ],
+      {
+        food: {
+          type: Schema.Types.ObjectId,
+          ref: "Food",
+          required: true,
+        },
+        quantity: {
+          type: String,
+          required: true,
+        },
+      },
+    ],
     steps: [
       {
         type: String,
@@ -56,6 +56,34 @@ const recipeSchema = new Schema(
       type: Number,
       required: true,
       trim: true,
+    },
+    favorite: {
+      type: Boolean,
+      default: false,
+    },
+    comments: [
+      {
+        userId: {
+          type: Schema.Types.ObjectId,
+          ref: "User",
+          required: true,
+        },
+        text: {
+          type: String,
+          required: true,
+          trim: true,
+        },
+        date: {
+          type: Date,
+          default: Date.now,
+        },
+      },
+    ],
+    rating: {
+      type: Number,
+      default: 0,
+      min: 0,
+      max: 5,
     },
   },
   { timestamps: true }

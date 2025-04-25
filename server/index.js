@@ -4,6 +4,9 @@ import cors from "cors";
 import { config } from "dotenv";
 import cookieParser from "cookie-parser";
 import { errorHandler } from "./utils/errorHandler.js";
+import userRoutes from "./routes/userRoutes.js";
+import foodRoutes from "./routes/foodRoutes.js";
+import recipeRoutes from "./routes/recipeRoutes.js";
 
 config();
 
@@ -20,6 +23,11 @@ app.use(
   json({ limit: "50mb" }),
   cookieParser()
 );
+
+// Routes
+app.use("/users", userRoutes);
+app.use("/foods", foodRoutes);
+app.use("/recipes", recipeRoutes); 
 
 app.use("/", (req, res) => {
   res.send("Welcome to the server!");

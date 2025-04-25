@@ -12,7 +12,7 @@ function FoodContextProvider({ children }) {
     const fetchFood = async () => {
       try {
         const res = await axios.get(
-          `https://api.spoonacular.com/recipes/random?apiKey=28d28fc5e9564a0c985200bb43f5b355&number=50`
+          `https://api.spoonacular.com/recipes/random?apiKey=db503ed3d3e947a2862694314c5ba2a0&number=50`
         );
         setFood(res.data);
         console.log(res.data.recipes);

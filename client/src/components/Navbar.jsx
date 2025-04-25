@@ -5,11 +5,11 @@ function Navbar() {
   return (
     <div className="flex justify-start items-center px-4">
       <div className="">
-        <NavLink to="/" className="logo text-xl">
-          <img src={logo} alt="YummyFit Logo" className="h-40 w-40 mr-12" />
+        <NavLink to="/">
+          <img src={logo} alt="YummyFit Logo" className="h-40 w-40" />
         </NavLink>
       </div>
-      <div className="flex-none">
+      <div className="ml-12">
         <ul className="menu menu-horizontal px-1 gap-3 lato-bold text-lg">
           <li>
             <NavLink to="/" className={({ isActive }) => isActive ? "active-link" : "menu-link"}>

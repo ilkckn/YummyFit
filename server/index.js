@@ -27,7 +27,8 @@ app.use(
 // Routes
 app.use("/users", userRoutes);
 // app.use("/foods", foodRoutes);
-// app.use("/recipes", recipeRoutes); 
+// app.use("/recipes", recipeRoutes);
+app.use("/favorites", favoriteRoutes);
 
 app.use("/", (req, res) => {
   res.send("Welcome to the server!");

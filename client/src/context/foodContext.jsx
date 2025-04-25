@@ -4,8 +4,11 @@ import axios from "axios";
 const FoodContext = createContext();
 
 function FoodContextProvider({ children }) {
-  const [food, setFood] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [food, setFood] = useState(() => {
+    const localData = localStorage.getItem("foodData");
+    return localData ? JSON.parse(localData) : [];
+  });
+  const [loading, setLoading] = useState(food.length === 0);
   const [error, setError] = useState(null);
 
   useEffect(() => {
@@ -14,8 +17,9 @@ function FoodContextProvider({ children }) {
         const res = await axios.get(
           `https://api.spoonacular.com/recipes/random?apiKey=db503ed3d3e947a2862694314c5ba2a0&number=50`
         );
-        setFood(res.data);
         console.log(res.data.recipes);
+        setFood(res.data.recipes);
+        localStorage.setItem("foodData", JSON.stringify(res.data.recipes));
         setLoading(false);
       } catch (error) {
         setError(error.message);
@@ -25,11 +29,9 @@ function FoodContextProvider({ children }) {
   }, []);
 
   return (
-    <div>
-      <FoodContext.Provider value={{ food, setFood, loading, error }}>
-        {children}
-      </FoodContext.Provider>
-    </div>
+    <FoodContext.Provider value={{ food, setFood, loading, error }}>
+      {children}
+    </FoodContext.Provider>
   );
 }
 

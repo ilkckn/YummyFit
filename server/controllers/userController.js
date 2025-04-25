@@ -42,8 +42,7 @@ export const createUser = asyncHandler(async (req, res) => {
     first_name,
     last_name,
     email,
-    password: hashedPassword,
-    role,
+    password: hashedPassword
   });
 
   if (image) {

@@ -45,27 +45,27 @@ const userSchema = new Schema(
     },
     age: {
       type: Number,
-      required: true,
+      // required: true,
     },
     gender: {
       type: String,
-      required: true,
+      // required: true,
       enum: ["male", "female", "other"],
       default: "male",
     },
     height: {
       type: Number,
-      required: true,
+      // required: true,
       min: 0,
     },
     weight: {
       type: Number,
-      required: true,
+      // required: true,
       min: 0,
     },
     target_weight: {
       type: Number,
-      required: true,
+      // required: true,
       min: 0,
     },
     target_weight_change: {
@@ -75,7 +75,7 @@ const userSchema = new Schema(
     },
     daily_calories: {
       type: Number,
-      required: true,
+      // required: true,
       min: 0,
     },
     activity_level: {

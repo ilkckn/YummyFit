@@ -8,7 +8,7 @@ import {
 } from "../controllers/foodController.js";
 
 const router = express.Router();
-//aa 
+
 router.get("/", getFoods);
 router.get("/:id", getFoodById);
 router.post("/", createFood);

@@ -27,7 +27,7 @@ export const getUserById = asyncHandler(async (req, res) => {
 
 // create a user
 export const createUser = asyncHandler(async (req, res) => {
-  const {username,first_name, last_name, email, password, role } = req.body;
+  const {username,first_name, last_name, email, password } = req.body;
   const image = req.file;
 
   const uniqueEmail = await User.findOne({ email });

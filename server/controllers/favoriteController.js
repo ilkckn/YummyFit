@@ -1,6 +1,6 @@
-import { CustomError } from "../utils/errorHandler";
-import { Favorite } from "../schemas/favoriteSchema.js";
-import { Recipe } from "../schemas/recipeSchema.js";
+import { CustomError } from "../utils/errorHandler.js";
+import Favorite from "../schemas/favoriteSchema.js";
+import Recipe from "../schemas/recipeSchema.js";
 import asyncHandler from "../utils/asyncHandler.js";
 
 // Get all favorites for the authenticated user

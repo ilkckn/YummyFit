@@ -31,7 +31,7 @@ export default function ContactUs() {
     <div className="p-6 max-w-2xl mx-auto text-white bg-gray-900 rounded-lg shadow-md">
       <h1 className="text-3xl font-bold text-white mb-6">Contact Us</h1>
       <form onSubmit={sendEmail} className="space-y-4">
-        {/* Hidden input for sending time */}
+     
         <input
           type="hidden"
           name="time"

@@ -14,7 +14,7 @@ function App() {
 
   return (
     <Router>
-      <div className='w-full h-screen bg-[#333d25]'>
+      <div className='w-full bg-white'>
         <Navbar /> 
         <Routes>
           <Route path="/" element={<Home />} />

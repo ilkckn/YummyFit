@@ -1,8 +1,6 @@
-import mongoose from "mongoose";
-import {asynscHandler} from "../utils/asyncHandler.js";
+import asynscHandler from "../utils/asyncHandler.js";
 import { CustomError } from "../utils/errorHandler.js";
-import {User} from "../schemas/userSchema.js";
-import {Recipe} from "../schemas/recipeSchema.js";
+import Recipe from "../schemas/recipeSchema.js";
 
 export const getRecipes = asynscHandler(async(req,res) => {
     const recipes = await Recipe.find().populate("userId", "username email");
@@ -42,4 +40,28 @@ export const createRecipe = asynscHandler(async(req,res) => {
     await newRecipe.save();
 
     res.status(201).json(newRecipe);
+})
+
+export const updateRecipe = asynscHandler(async(req,res) => {
+    const recipeId = req.params.id;
+    const update = req.body;
+
+    const updatedRecipe = await Recipe.findByIdAndUpdate(recipeId, update,
+        {new: true}).populate("userId", "username email");
+
+    if (!updatedRecipe)
+        throw new CustomError("recipe not found", 404);
+
+    res.status(200).json(updatedRecipe);
+})
+
+export const deleteRecipe = asynscHandler(async(req,res) => {
+    const recipeId = req.params.id;
+
+    const deletedRecipe = await Recipe.findByIdAndDelete(recipeId);
+
+    if (!deletedRecipe)
+        throw new CustomError("recipe not found", 404);
+
+    res.status(200).json({message: "recipe deleted successfully"});
 })

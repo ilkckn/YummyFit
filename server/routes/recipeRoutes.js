@@ -1,20 +1,19 @@
-// import express from "express";
-// import {
-//   getRecipes,
-//   getRecipeById,
-//   createRecipe,
-//   updateRecipe,
-//   deleteRecipe,
-//   addCommentToRecipe,
-// } from "../controllers/recipeController.js";
+import express from "express";
+import {
+  getRecipes,
+  getRecipeById,
+  createRecipe,
+  updateRecipe,
+  deleteRecipe,
+} from "../controllers/recipeController.js";
+import { auth } from "../middlewares/authMiddleware.js";
 
-// const router = express.Router();
+const router = express.Router();
 
-// router.get("/", getRecipes);
-// router.get("/:id", getRecipeById);
-// router.post("/", createRecipe);
-// router.put("/:id", updateRecipe);
-// router.delete("/:id", deleteRecipe);
-// router.post("/:id/comments", addCommentToRecipe); // For adding comments
+router.get("/", auth, getRecipes);
+router.post("/",auth, createRecipe);
+router.get("/:id",auth, getRecipeById);
+router.put("/:id",auth, updateRecipe);
+router.delete("/:id",auth, deleteRecipe);
 
-// export default router;
+export default router;

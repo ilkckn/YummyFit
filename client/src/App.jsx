@@ -13,6 +13,7 @@ import Navbar from "./components/Navbar";
 function App() {
 
   return (
+
     <Router>
       <div className='w-full h-screen bg-[#333d25]'>
         <Navbar /> 

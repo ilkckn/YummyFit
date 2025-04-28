@@ -1,4 +1,4 @@
-import { CustomError } from "../utils/errorHandler";
+import { CustomError } from "../utils/errorHandler.js";
 import jwt from "jsonwebtoken";
 import { config } from "dotenv";
 

@@ -5,8 +5,9 @@ import { config } from "dotenv";
 import cookieParser from "cookie-parser";
 import { errorHandler } from "./utils/errorHandler.js";
 import userRoutes from "./routes/userRoutes.js";
-// import foodRoutes from "./routes/foodRoutes.js";
-// import recipeRoutes from "./routes/recipeRoutes.js";
+import foodRoutes from "./routes/foodRoutes.js";
+import recipeRoutes from "./routes/recipeRoutes.js";
+import favoriteRoutes from "./routes/favoriteRoutes.js";
 
 config();
 
@@ -26,8 +27,8 @@ app.use(
 
 // Routes
 app.use("/users", userRoutes);
-// app.use("/foods", foodRoutes);
-// app.use("/recipes", recipeRoutes);
+app.use("/foods", foodRoutes);
+app.use("/recipes", recipeRoutes);
 app.use("/favorites", favoriteRoutes);
 
 app.use("/", (req, res) => {

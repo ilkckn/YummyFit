@@ -3,7 +3,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { ORIGIN_URL } from "../config";
 
-const AuthContext = createContext();
+export const AuthContext = createContext();
 
 function AuthContextProvider({ children }) {
   const [user, setUser] = useState({

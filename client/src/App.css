@@ -1,41 +1,38 @@
-body {
+/* body {
   width: 100%;
   max-width: 1600px;
   margin: 0 auto;
   height: 100%;
   min-height: 100vh;
+} */
+
+.lato-regular {
+  font-family: "Lato", sans-serif;
+  font-weight: 400;
+  font-style: normal;
 }
 
+.lato-bold {
+  font-family: "Lato", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+}
 
-  .lato-regular {
-    font-family: "Lato", sans-serif;
-    font-weight: 400;
-    font-style: normal;
-  }
-  
-  .lato-bold {
-    font-family: "Lato", sans-serif;
-    font-weight: 700;
-    font-style: normal;
-  }
-  
-  .lato-black {
-    font-family: "Lato", sans-serif;
-    font-weight: 900;
-    font-style: normal;
-  }
+.lato-black {
+  font-family: "Lato", sans-serif;
+  font-weight: 900;
+  font-style: normal;
+}
 
-  .menu-link{
-    color: #333d25;
-  }
+.menu-link {
+  color: #333d25;
+}
 
-  .active-link{
-    background-color: #ecdb51;
-    color:#333d25;
-    border-radius: 5px;
-    box-shadow: 5px 5px 3px 0px rgb(31 38 22);
-    -webkit-box-shadow: 5px 5px 3px 0px rgb(31 38 22);
-    -moz-box-shadow: 5px 5px 3px 0px rgb(31 38 22);
-  }
-  
-  
+.active-link {
+  background-color: #ecdb51;
+  color: #333d25;
+  border-radius: 5px;
+  box-shadow: 5px 5px 3px 0px rgb(31 38 22);
+  -webkit-box-shadow: 5px 5px 3px 0px rgb(31 38 22);
+  -moz-box-shadow: 5px 5px 3px 0px rgb(31 38 22);
+}

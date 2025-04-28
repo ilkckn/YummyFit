@@ -3,7 +3,7 @@ import logo from '../assets/images/logo/logo.png';
 
 function Navbar() {
   return (
-    <div className="flex justify-start items-center px-4">
+    <div className="flex justify-start items-center px-4 z-3 relative">
       <div className="">
         <NavLink to="/">
           <img src={logo} alt="YummyFit Logo" className="h-40 w-40" />

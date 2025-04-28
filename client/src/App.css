@@ -6,6 +6,9 @@
   min-height: 100vh;
 } */
 
+  color:#245240;
+}
+
 .lato-regular {
   font-family: "Lato", sans-serif;
   font-weight: 400;
@@ -24,15 +27,29 @@
   font-style: normal;
 }
 
-.menu-link {
-  color: #333d25;
+.menu-link{
+  color: #245240;
 }
 
-.active-link {
+.active-link,.yummy-btn{
   background-color: #ecdb51;
-  color: #333d25;
+  color:#245240;
   border-radius: 5px;
-  box-shadow: 5px 5px 3px 0px rgb(31 38 22);
-  -webkit-box-shadow: 5px 5px 3px 0px rgb(31 38 22);
-  -moz-box-shadow: 5px 5px 3px 0px rgb(31 38 22);
+  box-shadow: 2px 3px 4px 0px rgb(183 211 198);
+  -webkit-box-shadow: 2px 3px 4px 0px rgb(183 211 198);
+  -moz-box-shadow: 2px 3px 4px 0px rgb(183 211 198);
+  transition: all 0.3s ease-in-out;
+}
+
+.yummy-btn:hover{
+  background-color: #245240;
+  color:#ecdb51;
+  box-shadow: 2px 3px 4px 0px rgb(183 211 198);
+  -webkit-box-shadow: 2px 3px 4px 0px rgb(183 211 198);
+  -moz-box-shadow: 2px 3px 4px 0px rgb(183 211 198);
+}
+
+.food-image-home{
+  background: url(../src/assets/images/landingpage-food.png) no-repeat;
+  background-size: cover;
 }

@@ -57,10 +57,6 @@ const recipeSchema = new Schema(
       required: true,
       trim: true,
     },
-    favorite: {
-      type: Boolean,
-      default: false,
-    },
     comments: [
       {
         userId: {

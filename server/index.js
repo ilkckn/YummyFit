@@ -6,9 +6,10 @@ import cookieParser from "cookie-parser";
 import { errorHandler } from "./utils/errorHandler.js";
 import userRoutes from "./routes/userRoutes.js";
 import ratingRoutes from "./routes/ratingRoutes.js";
-// import foodRoutes from "./routes/foodRoutes.js";
-// import recipeRoutes from "./routes/recipeRoutes.js";
-
+import foodRoutes from "./routes/foodRoutes.js";
+import recipeRoutes from "./routes/recipeRoutes.js";
+import favoriteRoutes from "./routes/favoriteRoutes.js";
+import commentsRouter from "./routes/commentRoutes.js" 
 config();
 
 const app = express();
@@ -28,8 +29,10 @@ app.use(
 // Routes
 app.use("/users", userRoutes);
 app.use("/ratings", ratingRoutes);
-// app.use("/foods", foodRoutes);
-// app.use("/recipes", recipeRoutes); 
+app.use("/foods", foodRoutes);
+app.use("/recipes", recipeRoutes);
+app.use("/favorites", favoriteRoutes);
+app.use("/comments", commentsRouter); 
 
 app.use("/", (req, res) => {
   res.send("Welcome to the server!");

@@ -1,42 +1,55 @@
 import React from 'react';
+import AboutTacosImage from '../assets/images/about.png';
 
-export default function About() {
+const AboutPage = () => {
   return (
-    <div className="p-6 max-w-4xl mx-auto text-white">
-      <h1 className="text-4xl font-bold mb-6">About YummyFit</h1>
+    <div className="min-h-screen flex justify-center items-center py-10">
+      <div className="relative w-11/12 md:w-3/4 flex flex-col md:flex-row items-center overflow-hidden rounded-lg">
 
-      <p className="text-lg mb-4 text-white">
-        <strong>Welcome to YummyFit</strong> — your smart companion on the journey to healthy living and delicious nutrition.
-      </p>
+        {/* Left Text Section */}
+        <div className="flex-1 p-10">
+          <h1 className="text-6xl font-light mb-6 text-green-600">Yummy Fit</h1>
+          <h1 className="text-5xl font-bold mb-6 leading-tight">
+            to live in <br />
+            <span className="border-l-4 border-orange-500 pl-2">the future</span>
+          </h1>
+          <p className="text-gray-600 mb-6">
+          At YummyFit, we believe that eating healthy should be easy and enjoyable. That’s why we’ve built a platform that combines smart technology with thousands of delicious, nutritious recipes — all conveniently in one place.
+          </p>
+          <h2 className="text-2xl font-semibold text-green-500 mt-6 mb-2">What We Offer</h2>
+          <ul className="list-disc list-inside mb-4">
+            <li><strong>Personalized Meal Planning:</strong> Tailor-made meal plans based on your health goals, dietary preferences, allergies, and fitness level.</li>
+            <li><strong>Smart Recipe Search:</strong> Discover healthy recipes using ingredients you already have.</li>
+            <li><strong>Nutrition Tracking:</strong> Keep track of calories, macronutrients, and daily goals with our easy-to-use dashboard.</li>
+            <li><strong>Grocery List Generator:</strong> Automatically generate your shopping list based on your daily/weekly meal plan.</li>
+          </ul>
 
-      <p className="mb-4 text-white">
-        At YummyFit, we believe that eating well shouldn’t be a challenge — it should be a pleasure. That’s why we’ve created a platform that brings together smart technology, expert-backed nutrition advice, and thousands of healthy, mouth-watering recipes, all in one place.
-      </p>
+          <button className="bg-green-500 text-white font-semibold px-6 py-2 rounded hover:bg-green-600 transition">
+            Register Now
+          </button>
+        </div>
 
-      <h2 className="text-2xl font-semibold text-green-500 mt-6 mb-2">What We Offer</h2>
-      <ul className="list-disc list-inside mb-4 text-white">
-        <li><strong>Personalized Meal Planning:</strong> Tailor-made meal plans based on your health goals, dietary preferences, allergies, and fitness level.</li>
-        <li><strong>Smart Recipe Search:</strong> Discover healthy recipes using ingredients you already have.</li>
-        <li><strong>Nutrition Tracking:</strong> Keep track of calories, macronutrients, and daily goals with our easy-to-use dashboard.</li>
-        <li><strong>Grocery List Generator:</strong> Automatically generate your shopping list based on your weekly meal plan.</li>
-      </ul>
+        {/* Right Image Section with White Triangle */}
+        <div className="flex-1 relative flex items-center justify-center p-6 w-full aspect-[4/5]">
+          <div
+            className="w-full h-full rounded-lg overflow-hidden"
+            style={{
+              backgroundImage: `url(${AboutTacosImage})`,
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+            }}
+          ></div>
+        </div>
 
-      <h2 className="text-2xl font-semibold text-green-500 mt-6 mb-2">Who It's For</h2>
-      <p className="mb-4 text-white">
-        Whether you're a fitness enthusiast, a busy parent, or someone simply trying to eat better, YummyFit is here to make your life healthier — and tastier.
-      </p>
 
-      <h2 className="text-2xl font-semibold text-green-500 mt-6 mb-2">Our Mission</h2>
-      <p className="mb-4 text-white">
-        <strong>Empower healthier lifestyles</strong> by combining delicious food with personalized nutrition tools that fit your life, not the other way around.
-      </p>
+        {/* Decorative Dots Bottom Left */}
+        <div className="absolute bottom-0 left-0 p-4 z-0">
+          <div className="text-orange-400 text-4xl select-none">⋯⋯⋯⋯</div>
+        </div>
 
-      <h2 className="text-2xl font-semibold text-green-500 mt-6 mb-2">Coming Soon...</h2>
-      <ul className="list-disc list-inside mb-4 text-white">
-        <li>Sync with fitness trackers</li>
-        <li>AI meal suggestions based on your mood and activity</li>
-        <li>Social features to share meals and challenges with friends</li>
-      </ul>
+      </div>
     </div>
   );
-}
+};
+
+export default AboutPage;

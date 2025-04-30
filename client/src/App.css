@@ -1,12 +1,10 @@
-/* body {
+body {
   width: 100%;
   max-width: 1600px;
   margin: 0 auto;
   height: 100%;
   min-height: 100vh;
-} */
-
-  color:#245240;
+  color: #245240;
 }
 
 .lato-regular {
@@ -27,13 +25,14 @@
   font-style: normal;
 }
 
-.menu-link{
+.menu-link {
   color: #245240;
 }
 
-.active-link,.yummy-btn{
+.active-link,
+.yummy-btn {
   background-color: #ecdb51;
-  color:#245240;
+  color: #245240;
   border-radius: 5px;
   box-shadow: 2px 3px 4px 0px rgb(183 211 198);
   -webkit-box-shadow: 2px 3px 4px 0px rgb(183 211 198);
@@ -41,15 +40,15 @@
   transition: all 0.3s ease-in-out;
 }
 
-.yummy-btn:hover{
+.yummy-btn:hover {
   background-color: #245240;
-  color:#ecdb51;
+  color: #ecdb51;
   box-shadow: 2px 3px 4px 0px rgb(183 211 198);
   -webkit-box-shadow: 2px 3px 4px 0px rgb(183 211 198);
   -moz-box-shadow: 2px 3px 4px 0px rgb(183 211 198);
 }
 
-.food-image-home{
+.food-image-home {
   background: url(../src/assets/images/landingpage-food.png) no-repeat;
   background-size: cover;
 }

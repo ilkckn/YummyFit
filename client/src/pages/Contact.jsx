@@ -5,8 +5,10 @@ import { MdDriveFileRenameOutline } from "react-icons/md";
 import { MdAlternateEmail } from "react-icons/md";
 import { MdOutlineSubject } from "react-icons/md";
 import { LuMessageSquare } from "react-icons/lu";
+import { useNavigate } from "react-router-dom";
 
 export default function ContactUs() {
+  const navigate = useNavigate();
   const [form, setForm] = useState({
     name: "",
     email: "",
@@ -44,10 +46,10 @@ export default function ContactUs() {
   return (
     <div className="w-full min-h-[calc(100vh-160px)] flex flex-wrap justify-between items-center bg-white p-12">
       <div className="left flex flex-col justify-center items-start flex-1/2 gap-10">
-        <h1 className="w-[75%] text-black text-7xl tracking-[0.2rem] font-medium lato-regular leading-[5rem]">
+        <h1 className="w-[85%] text-black text-5xl tracking-[0.2rem] font-medium lato-regular leading-[4rem]">
           Have Questions About Your Journey? Reach Out!
         </h1>
-        <form onSubmit={sendEmail} className="w-[60rem] flex flex-col gap-4">
+        <form onSubmit={sendEmail} className="w-[40rem] flex flex-col gap-4">
           <input
             type="hidden"
             name="time"
@@ -113,12 +115,12 @@ export default function ContactUs() {
           recipes or tracking your progress? Send us your questions,
           suggestions, or feedback. We're excited to hear from you!"
         </p>
-        <p className="w-[100%] text-black text-2xl underline uppercase font-normal leading-normal cursor-pointer">
+        <p onClick={() => {navigate("/login")}} className="w-[100%] text-black text-2xl underline uppercase font-normal leading-normal cursor-pointer">
           "Start your healthy lifestyle today — sign up now!"
         </p>
       </div>
       <div className="right flex flex-1/2 justify-center items-center">
-        <figure className="w-[63rem] ">
+        <figure className="w-[45rem] ">
           <img src={rightImage} alt="image" />
         </figure>
       </div>

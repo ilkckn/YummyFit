@@ -6,35 +6,18 @@ import { ORIGIN_URL } from "../config";
 export const AuthContext = createContext();
 
 function AuthContextProvider({ children }) {
-  const [user, setUser] = useState({
-    username: "",
-    first_name: "",
-    last_name: "",
-    email: "",
-    password: "",
-    image: "",
-    age: "",
-    gender: "male",
-    height: "",
-    weight: "",
-    target_weight: "",
-    target_weight_change: "1kg",
-    daily_calories: "",
-    activity_level: "sedentary",
-    allergies: [],
-    food_preferences: [],
-    cuisine_preferences: [],
-    disease: [],
-  });
-
+  const navigate = useNavigate();
+  const [user, setUser] = useState(null);
   const [sessionLoading, setSessionLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [successLoggedIn, setSuccessLoggedIn] = useState(false);
+  const [successRegistered, setSuccessRegistered] = useState(false);
 
   const handleChange = (e) => {
-    setUser({
-      ...user,
+    setUser(prevUser => ({
+      ...(prevUser || {}), 
       [e.target.name]: e.target.value,
-    });
+    }));
   };
 
   const handleRegister = async (e) => {
@@ -71,7 +54,7 @@ function AuthContextProvider({ children }) {
       );
       setUser(res.data.user);
       setError(null);
-      navigate("/home");
+      navigate("/");
     } catch (error) {
       setError("Invalid email or password");
     }
@@ -92,20 +75,29 @@ function AuthContextProvider({ children }) {
     }
   };
 
-  useEffect(() => {
-    const checkSession = async () => {
-      try {
-        const res = await axios.get(`${ORIGIN_URL}/users/check-session`, {
-          withCredentials: true,
-        });
+useEffect(() => {
+  const checkSession = async () => {
+    try {
+      const res = await axios.get(`${ORIGIN_URL}/users/check-session`, {
+        withCredentials: true,
+      });
+
+      console.log("Session check response:", res.data);
+      
+      if (res.data.authenticated && res.data.user) {
         setUser(res.data.user);
-        setSessionLoading(false);
-      } catch (error) {
-        setError("Session check failed. Please log in again.");
+      } else {
+        setUser(null);
       }
-    };
-    checkSession();
-  }, []);
+      setSessionLoading(false);
+    } catch (error) {
+      console.error("Session check error:", error);
+      setUser(null);
+      setSessionLoading(false);
+    }
+  };
+  checkSession();
+}, []);
 
   return (
     <div>
@@ -119,6 +111,11 @@ function AuthContextProvider({ children }) {
           handleLogin,
           handleLogout,
           handleRegister,
+          successLoggedIn,
+          setSuccessLoggedIn,
+          successRegistered,
+          setSuccessRegistered,
+          navigate
         }}
       >
         {children}

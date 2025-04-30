@@ -1,5 +1,5 @@
 import './App.css'
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import Contact from "./pages/Contact";
 // import Recipe from "./pages/Recipe";
@@ -14,7 +14,6 @@ function App() {
 
   return (
 
-    <Router>
       <div className='w-full bg-[#e3f5ed]'>
         <Navbar /> 
         <Routes>
@@ -28,7 +27,7 @@ function App() {
           <Route path="/food" element={<Food />} />
         </Routes>
       </div>
-  </Router>
+
   )
 }
 

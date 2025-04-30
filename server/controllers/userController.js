@@ -162,7 +162,11 @@ export const logoutUser = (req, res) => {
 
 export const checkSession = (req, res) => {
   if(req.user){
-    res.json({authenticated: true, user: req.user});
+    res.json({authenticated: true, user: {
+      id: req.user.id,
+      username: req.user.username,
+      email: req.user.email
+    }});
   }else {
     res.json({authenticated: false});
   }

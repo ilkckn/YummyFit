@@ -15,7 +15,7 @@ function FoodContextProvider({ children }) {
     const fetchFood = async () => {
       try {
         const res = await axios.get(
-          `https://api.spoonacular.com/recipes/random?apiKey=28d28fc5e9564a0c985200bb43f5b3550&number=50`
+          `https://api.spoonacular.com/recipes/random?apiKey=20ba636938234a9b93fe16c6a6ab84b6&number=50&includeNutrition=true`
         );
         console.log(res.data.recipes);
         setFood(res.data.recipes);
@@ -27,7 +27,7 @@ function FoodContextProvider({ children }) {
     };
     fetchFood();
   }, []);
-
+ console.log(food);
   return (
     <FoodContext.Provider value={{ food, setFood, loading, error }}>
       {children}

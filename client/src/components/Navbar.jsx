@@ -11,7 +11,7 @@ function Navbar() {
       <div className="left w-full flex-1/2 flex items-center">
         <div className="">
           <NavLink to="/">
-            <img src={logo} alt="YummyFit Logo" className="h-40 w-40" />
+            <img src={logo} alt="YummyFit Logo" className="h-35 w-40" />
           </NavLink>
         </div>
         <div className="ml-12">
@@ -23,7 +23,7 @@ function Navbar() {
                   isActive ? "active-link" : "menu-link"
                 }
               >
-                Home
+              🏠 Home
               </NavLink>
             </li>
             <li>
@@ -33,7 +33,7 @@ function Navbar() {
                   isActive ? "active-link" : "menu-link"
                 }
               >
-                Food
+              🍴 Food
               </NavLink>
             </li>
             <li>
@@ -43,7 +43,7 @@ function Navbar() {
                   isActive ? "active-link" : "menu-link"
                 }
               >
-                About
+               ℹ️ About
               </NavLink>
             </li>
             <li>
@@ -53,7 +53,7 @@ function Navbar() {
                   isActive ? "active-link" : "menu-link"
                 }
               >
-                Contact
+               📞 Contact
               </NavLink>
             </li>
           </ul>
@@ -107,5 +107,8 @@ function Navbar() {
     </div>
   );
 }
+<nav>
+
+</nav>
 
 export default Navbar;

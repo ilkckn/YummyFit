@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import emailjs from "emailjs-com";
-import rightImage from "../assets/images/form-food.png";
+import rightImage from "../assets/images/contactPage/contact.png";
 import { MdDriveFileRenameOutline } from "react-icons/md";
 import { MdAlternateEmail } from "react-icons/md";
 import { MdOutlineSubject } from "react-icons/md";

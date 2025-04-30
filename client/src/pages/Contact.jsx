@@ -5,8 +5,10 @@ import { MdDriveFileRenameOutline } from "react-icons/md";
 import { MdAlternateEmail } from "react-icons/md";
 import { MdOutlineSubject } from "react-icons/md";
 import { LuMessageSquare } from "react-icons/lu";
+import { useNavigate } from "react-router-dom";
 
 export default function ContactUs() {
+  const navigate = useNavigate();
   const [form, setForm] = useState({
     name: "",
     email: "",
@@ -113,7 +115,7 @@ export default function ContactUs() {
           recipes or tracking your progress? Send us your questions,
           suggestions, or feedback. We're excited to hear from you!"
         </p>
-        <p className="w-[100%] text-black text-2xl underline uppercase font-normal leading-normal cursor-pointer">
+        <p onClick={() => {navigate("/login")}} className="w-[100%] text-black text-2xl underline uppercase font-normal leading-normal cursor-pointer">
           "Start your healthy lifestyle today — sign up now!"
         </p>
       </div>

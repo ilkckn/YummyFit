@@ -11,7 +11,7 @@ function Navbar() {
       <div className="left w-full flex-1/2 flex items-center">
         <div className="">
           <NavLink to="/">
-            <img src={logo} alt="YummyFit Logo" className="h-40 w-40" />
+            <img src={logo} alt="YummyFit Logo" className="h-35 w-40" />
           </NavLink>
         </div>
         <div className="ml-12">

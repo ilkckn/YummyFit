@@ -9,6 +9,7 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Profile from "./pages/Profile";
 import Navbar from "./components/Navbar";
+import RecipeDetail from './pages/RecipeDetail';
 
 function App() {
 
@@ -23,7 +24,7 @@ function App() {
           <Route path="/profile" element={<Profile />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          {/* <Route path="/recipe" element={<Recipe />} /> */}
+          <Route path="/food/:id" element={<RecipeDetail />} />
           <Route path="/food" element={<Food />} />
         </Routes>
       </div>

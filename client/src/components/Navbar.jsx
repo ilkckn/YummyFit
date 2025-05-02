@@ -23,7 +23,7 @@ function Navbar() {
                   isActive ? "active-link" : "menu-link"
                 }
               >
-              🏠 Home
+              <span className="navber-icon">🏠</span> Home
               </NavLink>
             </li>
             <li>
@@ -33,7 +33,7 @@ function Navbar() {
                   isActive ? "active-link" : "menu-link"
                 }
               >
-              🍴 Food
+              <span className="navber-icon">🍴</span> Recipe
               </NavLink>
             </li>
             <li>
@@ -43,7 +43,7 @@ function Navbar() {
                   isActive ? "active-link" : "menu-link"
                 }
               >
-               ℹ️ About
+               <span className="navber-icon">ℹ️</span> About
               </NavLink>
             </li>
             <li>
@@ -53,7 +53,7 @@ function Navbar() {
                   isActive ? "active-link" : "menu-link"
                 }
               >
-               📞 Contact
+               <span className="navber-icon">📞</span> Contact
               </NavLink>
             </li>
           </ul>

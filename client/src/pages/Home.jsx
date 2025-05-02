@@ -7,7 +7,6 @@ import { FoodContext } from "../context/foodContext"
 function Home() {
   const { food,loading,dishTypeList } = useContext(FoodContext);
   const foodList = food?.slice(0, 15); // Get the first 15 food items
-  console.log(food)
 
   return (
     <>

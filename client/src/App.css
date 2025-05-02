@@ -52,6 +52,15 @@ body {
   -webkit-box-shadow: 2px 3px 4px 0px rgb(183 211 198);
   -moz-box-shadow: 2px 3px 4px 0px rgb(183 211 198);
 }
+
+.navber-icon{
+  opacity: 0;
+}
+
+.active-link .navber-icon,.menu-link:hover .navber-icon{
+  opacity: 1;
+}
+
 /* link & button styles */
 
 .food-image-home{

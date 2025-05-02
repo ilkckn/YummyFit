@@ -33,7 +33,7 @@ function Navbar() {
                   isActive ? "active-link" : "menu-link"
                 }
               >
-              <span className="navber-icon">🍴</span> Recipe
+              <span className="navber-icon">🍴</span> Recipes
               </NavLink>
             </li>
             <li>

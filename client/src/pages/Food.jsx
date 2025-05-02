@@ -3,12 +3,13 @@ import { FoodContext } from "../context/foodContext";
 
 function Food() {
   const { food, loading, error } = useContext(FoodContext);
-
+  console.log(food);
   const getNutrient = (nutrients, name) => {
     const nutrient = nutrients.find((n) => n.name === name);
     return nutrient ? `${Math.round(nutrient.amount)}${nutrient.unit}` : "N/A";
-  };
 
+  };
+  
   const formatTime = (minutes) => {
     const h = Math.floor(minutes / 60);
     const m = minutes % 60;
@@ -16,7 +17,7 @@ function Food() {
     if (h > 0) return `${h}h`;
     return `${m}min`;
   };
-
+  
   return (
     <div className="food-container w-full min-h-[100vh] flex flex-wrap justify-center items-center gap-4 p-4">
       {loading && <p>Loading...</p>}

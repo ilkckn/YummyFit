@@ -22,6 +22,22 @@ function FoodContextProvider({ children }) {
   ];
   const [foodByType,setFoodByType] = useState([]);
 
+  useEffect(() => {
+    const fetchFood = async () => {
+      try {
+        const res = await axios.get(
+          `https://api.spoonacular.com/recipes/random?apiKey=c2a5e3c185e0427cb448401a8f6653a2&number=50&includeNutrition=true`
+        );
+        console.log(res.data.recipes);
+        setFood(res.data.recipes);
+        localStorage.setItem("foodData", JSON.stringify(res.data.recipes));
+        setLoading(false);
+      } catch (error) {
+        setError(error.message);
+      }
+    };
+    fetchFood();
+  }, []);
   // useEffect(() => {
   //   const fetchFood = async () => {
   //     try {

@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import { FoodContext } from "../context/foodContext";
+import { Link } from "react-router-dom";
 
 function Food() {
   const { food, loading, error } = useContext(FoodContext);
@@ -86,9 +87,10 @@ function Food() {
                 <div className="details text-[1rem] text-[#333d25] font-normal underline tracking-[.5px] border-none px-5 py-4 cursor-pointer">
                   Details
                 </div>
-                <button className="badge text-white font-medium bg-[#333d25] border-none px-5 py-4 cursor-pointer">
+                <Link to={`/food/${item.id}`} 
+                   className="badge text-white font-medium bg-[#333d25] border-none px-5 py-4 cursor-pointer">
                   Recipe
-                </button>
+                </Link>
               </div>
             </div>
           </div>

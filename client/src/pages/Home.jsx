@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom"
+import { NavLink,Link } from "react-router-dom"
 import Slider from "../components/Slider"
 import { useContext } from "react"
 import { FoodContext } from "../context/foodContext"
@@ -36,13 +36,28 @@ function Home() {
         <div className="devider w-[50%] mx-auto h-[1px] bg-[#333d25] mt-18"></div>
 
         <div className="foodType-slider w-[90%] mx-auto py-15">
-          <h2 className="text-3xl mb-1 lato-black">Browse By Food Type</h2>
-          <p className="mb-6">
-            If you are looking for a specific type of food, you can browse by food type.
-            <br/>We have a wide variety of food types to choose from.
-          </p>
-          <Slider foodList={dishTypeList}/>  
-        </div>
+  <h2 className="text-3xl mb-1 lato-black">Browse By Food Type</h2>
+  <p className="mb-6">
+    If you are looking for a specific type of food, you can browse by food type.
+    <br />
+    We have a wide variety of food types to choose from.
+  </p>
+
+  {/* Assuming dishTypeList is an array like [{ title: 'lunch' }, { title: 'dinner' }, ...] */}
+  <Slider foodList={dishTypeList} />
+
+  <div className="flex flex-wrap gap-4 mt-6">
+    {dishTypeList.map((item, index) => (
+      <Link
+        key={index}
+        to={`/foodType/${item.title}`}
+        className="badge text-white font-medium bg-[#333d25] border-none px-5 py-4 cursor-pointer"
+      >
+        {item.title}
+      </Link>
+    ))}
+  </div>
+</div>
 
         <div className="devider w-[50%] mx-auto h-[1px] bg-[#333d25] mt-5"></div>
 

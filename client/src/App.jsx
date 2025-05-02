@@ -10,6 +10,7 @@ import Register from "./pages/Register";
 import Profile from "./pages/Profile";
 import Navbar from "./components/Navbar";
 import RecipeDetail from './pages/RecipeDetail';
+import FoodType from './pages/FoodType';
 
 function App() {
 
@@ -25,6 +26,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/food/:id" element={<RecipeDetail />} />
+          <Route path="/foodType/:type" element={<FoodType />} />
           <Route path="/food" element={<Food />} />
         </Routes>
       </div>

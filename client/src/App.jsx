@@ -10,6 +10,7 @@ import Register from "./pages/Register";
 import Profile from "./pages/Profile";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
+import RecipeDetail from './pages/RecipeDetail';
 
 function App() {
   return (

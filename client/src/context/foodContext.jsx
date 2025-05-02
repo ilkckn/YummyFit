@@ -22,27 +22,27 @@ function FoodContextProvider({ children }) {
   ];
   const [foodByType,setFoodByType] = useState([]);
 
-  useEffect(() => {
-    const fetchFood = async () => {
-      try {
-        const res = await axios.get(
-          `https://api.spoonacular.com/recipes/random?apiKey=20ba636938234a9b93fe16c6a6ab84b6&number=50&includeNutrition=true`
-        );
-        console.log(res.data.recipes);
-        setFood(res.data.recipes);
-        localStorage.setItem("foodData", JSON.stringify(res.data.recipes));
-        setLoading(false);
-      } catch (error) {
-        setError(error.message);
-      }
-    };
-    fetchFood();
-  }, []);
+  // useEffect(() => {
+  //   const fetchFood = async () => {
+  //     try {
+  //       const res = await axios.get(
+  //         `https://api.spoonacular.com/recipes/random?apiKey=1470140a726848baa282af843f7ee110&number=50&includeNutrition=true`
+  //       );
+  //       console.log(res.data.recipes);
+  //       setFood(res.data.recipes);
+  //       localStorage.setItem("foodData", JSON.stringify(res.data.recipes));
+  //       setLoading(false);
+  //     } catch (error) {
+  //       setError(error.message);
+  //     }
+  //   };
+  //   fetchFood();
+  // }, []);
 
-  const fetchFoodByType = (type) => {
-    const foodListByType = food.filter((food) => food.dishTypes.includes(type));
-    setFoodByType(foodListByType);
-  }
+  // const fetchFoodByType = (type) => {
+  //   const foodListByType = food.filter((food) => food.dishTypes.includes(type));
+  //   setFoodByType(foodListByType);
+  // }
 
   return (
     <FoodContext.Provider value={{
@@ -51,7 +51,7 @@ function FoodContextProvider({ children }) {
       loading,
       error,
       dishTypeList,
-      fetchFoodByType,
+      // fetchFoodByType,
       foodByType,
       }}>
       {children}

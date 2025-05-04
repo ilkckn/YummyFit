@@ -27,11 +27,25 @@ body {
   font-weight: 900;
   font-style: normal;
 }
+
+.amatic-sc-regular {
+  font-family: "Amatic SC", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.amatic-sc-bold {
+  font-family: "Amatic SC", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+}
+
 /* font styles */
 
 /* link & button styles */
 .menu-link{
   color: #245240;
+  gap: 5px;
 }
 
 .active-link,
@@ -43,6 +57,7 @@ body {
   -webkit-box-shadow: 2px 3px 4px 0px rgb(183 211 198);
   -moz-box-shadow: 2px 3px 4px 0px rgb(183 211 198);
   transition: all 0.3s ease-in-out;
+  gap: 5px;
 }
 
 .yummy-btn:hover {
@@ -102,7 +117,7 @@ body {
   right:50%;
   transform: translateX(-50%);
   width: 40%;
-  border: 1px solid #579a80;
+  border: 1px solid #cdffec;
   margin: 0 auto;
   font-weight: 600;
 }
@@ -126,3 +141,8 @@ body {
 
 
 /* slider style */
+
+.card:hover .card-image{
+  transform: scale(1.05);
+  transition: all 0.3s ease-in-out;
+}

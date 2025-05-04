@@ -45,7 +45,7 @@ function YummySlider({foodList}) {
       <Slider {...settings}>
         {foodList?.map((food, index) => (
           <div key={index} 
-            className="slider-card mb-[10px] border-1 border-[#7fcfb054] shadow-[-1px_0px_5px_rgba(183,211,198,0.8)]">
+            className="slider-card mb-[10px] border-1 border-[#ebfff754] shadow-[-1px_0px_5px_rgba(206,237,223,0.8)]">
             <img src={food.image} alt={food.title} 
               className="slider-image rounded-lg mx-auto" />
               <div className="slider-content flex items-center justify-center">

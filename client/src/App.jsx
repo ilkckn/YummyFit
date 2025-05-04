@@ -2,8 +2,7 @@ import "./App.css";
 import { Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import Contact from "./pages/Contact";
-// import Recipe from "./pages/Recipe";
-import Food from "./pages/Food";
+import Recipe from "./pages/Recipe";
 import About from "./pages/About";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
@@ -14,7 +13,7 @@ import RecipeDetail from './pages/RecipeDetail';
 
 function App() {
   return (
-    <div className="w-full bg-white">
+    <div className="w-full bg-[#fcfcfc]">
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
@@ -23,8 +22,8 @@ function App() {
         <Route path="/profile" element={<Profile />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        {/* <Route path="/recipe" element={<Recipe />} /> */}
-        <Route path="/food" element={<Food />} />
+        <Route path="/recipe/:id" element={<RecipeDetail />} />
+        <Route path="/recipe" element={<Recipe />} />
       </Routes>
       <Footer />
     </div>

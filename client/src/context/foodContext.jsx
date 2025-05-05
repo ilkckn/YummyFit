@@ -16,33 +16,17 @@ function FoodContextProvider({ children }) {
     {title:"dessert",image:"https://img.freepik.com/free-photo/brownie-chocolate-ice-cream-mint-sugar-powder-side-view_141793-15452.jpg?t=st=1745935086~exp=1745938686~hmac=1bc63ba8b720927923db35a4e8635f14a52c8b374eebef5c6ae4c0487f3bec6b&w=1380"},
     {title:"appetizer",image:"https://img.freepik.com/free-photo/antipasto-catering-platter-with-bacon-jerky-salami-cheese-grapes-wooden-table_2829-19732.jpg?t=st=1745935129~exp=1745938729~hmac=ee35c75b1178363bbe4f0ac7d3916564bed387d99533488908621390fec38030&w=996"},
     {title:"salad",image:"https://img.freepik.com/free-photo/dietary-salad-with-tomatoes-feta-lettuce-spinach-pine-nuts_2829-20128.jpg?t=st=1745935202~exp=1745938802~hmac=c366279cf8e2d8b37d11713e08f8373c9caec3ce93e2e1da8c193118f2afd434&w=1380"},
-    {title:"soup",image:"https://img.freepik.com/free-photo/red-lentil-soup-with-slice-lemon-breadcrumbs_140725-1001.jpg?t=st=1745935260~exp=1745938860~hmac=5596def709881014d9ce60e1cd31647dd8ac515f9b7788fcc06d58ea95888fde&w=826"},
+    {title:"soup",image:"https://img.freepik.com/free-photo/bowl-lentil-soup-garnished-with-lemon-slice_140725-6916.jpg?t=st=1746361487~exp=1746365087~hmac=3000e3b5e4d647a1a6e0da35734a0c17eeb641bf109f4915b152e199353a2108&w=1380"},
     {title:"breakfast",image:"https://img.freepik.com/free-photo/muesli-with-berries-coffee-tray_23-2147678791.jpg?t=st=1745934656~exp=1745938256~hmac=2e1915103eee282881e9a32c2207ae0730cbdf1e3d48347a46c49478826f08a9&w=900"},
     {title:"beverage",image:"https://img.freepik.com/free-photo/high-angle-mix-alcoholic-drinks_23-2148673763.jpg?t=st=1745935309~exp=1745938909~hmac=ed5a58745a3810432e102d7da11eef4100bf937432581940b74b2c50c665488e&w=1060"},
   ];
   const [foodByType,setFoodByType] = useState([]);
 
-  useEffect(() => {
-    const fetchFood = async () => {
-      try {
-        const res = await axios.get(
-          `https://api.spoonacular.com/recipes/random?apiKey=c2a5e3c185e0427cb448401a8f6653a2&number=150&includeNutrition=true`
-        );
-        console.log(res.data.recipes);
-        setFood(res.data.recipes);
-        localStorage.setItem("foodData", JSON.stringify(res.data.recipes));
-        setLoading(false);
-      } catch (error) {
-        setError(error.message);
-      }
-    };
-    fetchFood();
-  }, []);
   // useEffect(() => {
   //   const fetchFood = async () => {
   //     try {
   //       const res = await axios.get(
-  //         `https://api.spoonacular.com/recipes/random?apiKey=1470140a726848baa282af843f7ee110&number=50&includeNutrition=true`
+  //         `https://api.spoonacular.com/recipes/random?apiKey=c2a5e3c185e0427cb448401a8f6653a2&number=50&includeNutrition=true`
   //       );
   //       console.log(res.data.recipes);
   //       setFood(res.data.recipes);

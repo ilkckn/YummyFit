@@ -15,7 +15,7 @@ import FoodType from './pages/FoodType';
 
 function App() {
   return (
-    <div className="w-full bg-white">
+    <div className="w-full bg-[#fcfcfc]">
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />

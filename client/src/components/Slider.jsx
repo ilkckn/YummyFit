@@ -45,13 +45,13 @@ function YummySlider({foodList}) {
       <div className="slider-container w-full mx-auto px-4">
         <Slider {...settings}>
           {foodList?.map((food, index) => {
-            const title = food.title; // works with strings or objects
+            const title = food.title; 
   
             return (
               <Link
                 key={index}
                 to={`/foodType/${title}`}
-                className="slider-card block border border-[#7fcfb054] rounded-lg overflow-hidden shadow-sm hover:shadow-md transition"
+                className="slider-card mb-[10px] border-1 border-[#7fcfb054] shadow-[-1px_0px_5px_rgba(183,211,198,0.8)] rounded-lg overflow-hidden hover:shadow-md transition"
               >
                 {food.image && (
                   <img

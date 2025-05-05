@@ -8,14 +8,14 @@ function Navbar() {
   const isLoggedIn = user && user.email;
   return (
     <div className="flex justify-between items-center px-10 z-3 relative">
-      <div className="left w-full flex-1/2 flex items-center">
+      <div className="left w-full flex-1/2 flex-wrap flex items-center">
         <div className="">
           <NavLink to="/">
             <img src={logo} alt="YummyFit Logo" className="h-35 w-40" />
           </NavLink>
         </div>
-        <div className="ml-12">
-          <ul className="menu menu-horizontal px-1 gap-3 lato-bold text-lg">
+        <div className="ml-10">
+          <ul className="menu menu-horizontal px-1 gap-2 amatic-sc-bold text-2xl">
             <li>
               <NavLink
                 to="/"
@@ -23,7 +23,7 @@ function Navbar() {
                   isActive ? "active-link" : "menu-link"
                 }
               >
-              <span className="navber-icon">🏠</span> Home
+              <span className="navber-icon text-lg">🏠</span>Home
               </NavLink>
             </li>
             <li>
@@ -33,7 +33,7 @@ function Navbar() {
                   isActive ? "active-link" : "menu-link"
                 }
               >
-              <span className="navber-icon">🍴</span> Recipes
+              <span className="navber-icon text-lg">🍴</span> Recipes
               </NavLink>
             </li>
             <li>
@@ -43,7 +43,7 @@ function Navbar() {
                   isActive ? "active-link" : "menu-link"
                 }
               >
-               <span className="navber-icon">ℹ️</span> About
+               <span className="navber-icon text-lg">ℹ️</span> About
               </NavLink>
             </li>
             <li>
@@ -53,7 +53,7 @@ function Navbar() {
                   isActive ? "active-link" : "menu-link"
                 }
               >
-               <span className="navber-icon">📞</span> Contact
+               <span className="navber-icon text-lg">📞</span> Contact
               </NavLink>
             </li>
           </ul>

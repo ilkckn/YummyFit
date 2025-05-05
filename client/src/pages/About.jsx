@@ -23,7 +23,7 @@ const AboutPage = () => {
             <li><strong>Personalized Meal Planning:</strong> Tailor-made meal plans based on your health goals, dietary preferences, allergies, and fitness level.</li>
             <li><strong>Smart Recipe Search:</strong> Discover healthy recipes using ingredients you already have.</li>
             <li><strong>Nutrition Tracking:</strong> Keep track of calories, macronutrients, and daily goals with our easy-to-use dashboard.</li>
-            <li><strong>Grocery List Generator:</strong> Automatically generate your shopping list based on your daily/weekly meal plan.</li>
+            
           </ul>
         
            <Link

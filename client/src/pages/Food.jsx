@@ -10,17 +10,8 @@ function Recipe() {
     return nutrient ? `${Math.round(nutrient.amount)}${nutrient.unit}` : "N/A";
 
   };
-  function cleanAndLimitHtml(htmlString, sentenceLimit = 6) {
-    const tempDiv = document.createElement("div");
-    tempDiv.innerHTML = htmlString;
-    const plainText = tempDiv.textContent || tempDiv.innerText || "";
-  
-    const sentences = plainText.match(/[^.!?]+[.!?]/g) || [];
-    const limitedSentences = sentences.slice(0, sentenceLimit).join(' ').trim();
-    
-    return limitedSentences;
-  }
-  
+
+
   
   const formatTime = (minutes) => {
     const h = Math.floor(minutes / 60);

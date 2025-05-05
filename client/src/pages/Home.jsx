@@ -1,5 +1,6 @@
 import { NavLink,Link } from "react-router-dom"
 import Slider from "../components/Slider"
+import SliderFoodList from "../components/SliderFoodList"
 import { useContext } from "react"
 import { FoodContext } from "../context/foodContext"
 
@@ -70,7 +71,7 @@ function Home() {
             Discover the latest and greatest recipes to tantalize your taste
             buds.
           </p>
-          <Slider foodList={foodList} />
+          <SliderFoodList foodList={foodList} />
         </div>
 
         <div className="devider w-[50%] mx-auto h-[1px] bg-[#333d25] mt-5"></div>

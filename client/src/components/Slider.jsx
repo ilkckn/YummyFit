@@ -45,7 +45,7 @@ function YummySlider({foodList}) {
       <div className="slider-container w-full mx-auto px-4">
         <Slider {...settings}>
           {foodList?.map((food, index) => {
-            const title = food.title; // works with strings or objects
+            const title = food.title; 
   
             return (
               <Link

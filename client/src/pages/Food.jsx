@@ -10,6 +10,8 @@ function Recipe() {
     return nutrient ? `${Math.round(nutrient.amount)}${nutrient.unit}` : "N/A";
 
   };
+
+
   
   const formatTime = (minutes) => {
     const h = Math.floor(minutes / 60);

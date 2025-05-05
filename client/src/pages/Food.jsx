@@ -10,6 +10,17 @@ function Food() {
     return nutrient ? `${Math.round(nutrient.amount)}${nutrient.unit}` : "N/A";
 
   };
+  function cleanAndLimitHtml(htmlString, sentenceLimit = 6) {
+    const tempDiv = document.createElement("div");
+    tempDiv.innerHTML = htmlString;
+    const plainText = tempDiv.textContent || tempDiv.innerText || "";
+  
+    const sentences = plainText.match(/[^.!?]+[.!?]/g) || [];
+    const limitedSentences = sentences.slice(0, sentenceLimit).join(' ').trim();
+    
+    return limitedSentences;
+  }
+  
   
   const formatTime = (minutes) => {
     const h = Math.floor(minutes / 60);
@@ -44,10 +55,8 @@ function Food() {
                        <div className="card-body">
                          <h2 className="card-title text-[#333d25]">{item.title}</h2>
                          <p className="text-[#333d25]">
-                           {item.summary.length > 100
-                             ? `${item.summary.substring(0, 100)}...`
-                             : item.summary}
-                         </p>
+                  {cleanAndLimitHtml(item.summary, 4)}
+                </p>
          
                          {/* Nutrition Info */}
                          <div className="flex justify-between items-center mt-2 text-sm text-gray-700 font-semibold">

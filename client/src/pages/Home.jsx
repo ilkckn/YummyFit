@@ -1,7 +1,8 @@
-import { NavLink } from "react-router-dom";
-import Slider from "../components/Slider";
-import { useContext } from "react";
-import { FoodContext } from "../context/foodContext";
+import { NavLink,Link } from "react-router-dom"
+import Slider from "../components/Slider"
+import { useContext } from "react"
+import { FoodContext } from "../context/foodContext"
+
 
 function Home() {
   const { food, loading, dishTypeList } = useContext(FoodContext);
@@ -49,15 +50,17 @@ function Home() {
         </div>
 
         <div className="foodType-slider w-[90%] mx-auto py-15">
-          <h2 className="text-3xl mb-1 lato-black">Browse By Food Type</h2>
-          <p className="mb-6">
-            If you are looking for a specific type of food, you can browse by
-            food type.
-            <br />
-            We have a wide variety of food types to choose from.
-          </p>
-          <Slider foodList={dishTypeList} />
-        </div>
+  <h2 className="text-3xl mb-1 lato-black">Browse By Food Type</h2>
+  <p className="mb-6">
+    If you are looking for a specific type of food, you can browse by food type.
+    <br />
+    We have a wide variety of food types to choose from.
+  </p>
+
+  {/* Assuming dishTypeList is an array like [{ title: 'lunch' }, { title: 'dinner' }, ...] */}
+  <Slider foodList={dishTypeList} />
+
+</div>
 
         <div className="devider w-[50%] mx-auto h-[1px] bg-[#333d25] mt-5"></div>
 

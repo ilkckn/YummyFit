@@ -37,9 +37,9 @@ function RecipeDetail() {
                  className="w-full h-[400px] object-cover rounded-xl" />
                 {/* <img src={strawberry} alt="strawberry" className="absolute bottom-0 -left-[50px] h-[100px]" /> */}
         </div>
-        <div className="recipe-details w-[90%] mx-auto flex-wrap flex justify-between items-start py-10">
+        <div className="recipe-details w-[90%] mx-auto flex-wrap flex justify-between items-center py-10">
             <div className="w-[60%] pr-15">
-                <h1 className="text-5xl font-bold mb-7">{foodItem?.title}</h1>
+                <h1 className="text-4xl font-bold mb-7">{foodItem?.title}</h1>
                 <div className="text-xl text-justify" dangerouslySetInnerHTML={{__html: cleanAndLimitHtml(foodItem?.summary) }} />
                 <div className="food-types pt-5">
                     <ul className="list-none flex flex-wrap gap-3">
@@ -49,7 +49,7 @@ function RecipeDetail() {
 
                     </ul>
                 </div>
-                <div className="recipe-rating flex items-center my-7">
+                <div className="recipe-rating flex items-center mt-7">
                 <div className="stars bg-repeat-x w-[150px] h-[30px] relative
                     bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxNCAxNCI+PHBhdGggZD0iTTEwLjU3NyAxMi45MzJsLS45NS00LjI4NiAzLjE5Ni0yLjkxNC00LjIwNS0uMzc2TDcgMS4zMzkgNS4zODIgNS4zNTZsLTQuMjA1LjM3NiAzLjE5NiAyLjkxNC0uOTUgNC4yODZMNyAxMC42NTlsMy41NzcgMi4yNzN6IiBzdHJva2U9IiNGREExMjAiIGZpbGw9Im5vbmUiLz48L3N2Zz4=')]">
                         <span className="filled-star absolute left-0 top-0 h-[30px] min-w-[30px]

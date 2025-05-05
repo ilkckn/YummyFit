@@ -28,7 +28,7 @@ function Navbar() {
             </li>
             <li>
               <NavLink
-                to="/recipe"
+                to="/food"
                 className={({ isActive }) =>
                   isActive ? "active-link" : "menu-link"
                 }

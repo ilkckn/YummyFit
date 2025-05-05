@@ -4,12 +4,13 @@ import { Link } from "react-router-dom";
 
 function Recipe() {
   const { food, loading, error } = useContext(FoodContext);
-
+  console.log(food);
   const getNutrient = (nutrients, name) => {
     const nutrient = nutrients.find((n) => n.name === name);
     return nutrient ? `${Math.round(nutrient.amount)}${nutrient.unit}` : "N/A";
-  };
 
+  };
+  
   const formatTime = (minutes) => {
     const h = Math.floor(minutes / 60);
     const m = minutes % 60;
@@ -17,7 +18,7 @@ function Recipe() {
     if (h > 0) return `${h}h`;
     return `${m}min`;
   };
-
+  
   return (
     <div>
       {loading && <p>Loading...</p>}
@@ -35,7 +36,7 @@ function Recipe() {
 
           return (
             <>
-              <Link to={`/recipe/${item.id}`}>
+              <Link to={`/food/${item.id}`}>
                 <div key={item.id} className="card w-96 h-[420px] shadow-sm">
                   <figure className="h-1/2 w-full overflow-hidden">
                     <img
@@ -44,11 +45,15 @@ function Recipe() {
                       alt={item.title}
                     />
                   </figure>
-                  <div className="card-body">
-                  <h2 className="card-title text-[#333d25]">{item.title}</h2>
+                  <div className="card-body px-4">
+                  <h2 className="card-title text-[#333d25]">
+                    {item.title.length > 35
+                      ? (`${item.title.substring(0, 35)}...`)
+                      : (item.title)}
+                  </h2>
                   <p className="text-[#333d25] text-justify">
                     {item.summary.length > 100
-                      ? (<div dangerouslySetInnerHTML={{__html: `${item.summary.substring(0, 220)}...`}} />)
+                      ? (<div dangerouslySetInnerHTML={{__html: `${item.summary.substring(0, 210)}...`}} />)
                       : (<div dangerouslySetInnerHTML={{__html:item.summary}} />)}
                   </p>
 
@@ -86,12 +91,6 @@ function Recipe() {
                     </div>
                   
                   </div>
-
-                  {/* <div className="card-actions flex justify-end items-center gap-1 mt-4">
-                    <div className="details text-[1rem] text-[#333d25] font-normal underline tracking-[.5px] border-none px-5 py-4 cursor-pointer">
-                      Details
-                    </div>
-                  </div> */}
                   </div>
                 </div>
               </Link>
@@ -100,7 +99,6 @@ function Recipe() {
           );
         })}
       </div>
-      
     </div>
       
   );

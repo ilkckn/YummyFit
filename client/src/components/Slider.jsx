@@ -1,6 +1,7 @@
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import { Link } from "react-router-dom";
 
 function YummySlider({foodList}) {
   // Slider settings
@@ -40,22 +41,36 @@ function YummySlider({foodList}) {
     ]
     };
 
-  return (
-    <div className="slider-container w-[100%] mx-auto">
-      <Slider {...settings}>
-        {foodList?.map((food, index) => (
-          <div key={index} 
-            className="slider-card mb-[10px] border-1 border-[#ebfff754] shadow-[-1px_0px_5px_rgba(206,237,223,0.8)]">
-            <img src={food.image} alt={food.title} 
-              className="slider-image rounded-lg mx-auto" />
-              <div className="slider-content flex items-center justify-center">
-                <h3 className="slider-title text-center">{food.title}</h3>
-              </div>
-          </div>
-        ))}
-      </Slider>
-    </div>
-  )
-}
+    return (
+      <div className="slider-container w-full mx-auto px-4">
+        <Slider {...settings}>
+          {foodList?.map((food, index) => {
+            const title = food.title; // works with strings or objects
+  
+            return (
+              <Link
+                key={index}
+                to={`/foodType/${title}`}
+                className="slider-card mb-[10px] border-1 border-[#7fcfb054] shadow-[-1px_0px_5px_rgba(183,211,198,0.8)] rounded-lg overflow-hidden hover:shadow-md transition"
+              >
+                {food.image && (
+                  <img
+                    src={food.image}
+                    alt={title}
+                    className="slider-image w-full h-[150px] object-cover"
+                  />
+                )}
+                <div className="slider-content flex items-center justify-center p-2 bg-white">
+                  <h3 className="slider-title text-center text-sm font-medium">
+                    {title}
+                  </h3>
+                </div>
+              </Link>
+            );
+          })}
+        </Slider>
+      </div>
+    );
+  }
 
 export default YummySlider

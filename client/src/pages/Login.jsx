@@ -10,7 +10,7 @@ function Login() {
   const navigate = useNavigate();
 
   return (
-    <div className="login w-full min-h-[calc(100vh-160px)] flex justify-center items-center gap-30 bg-white">
+    <div className="login w-full min-h-[calc(100vh-160px)] flex justify-center items-center gap-30">
       <div className="left">
         <figure>
           <img src={image} alt="login-register" className="w-[50rem]" />

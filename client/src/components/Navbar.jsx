@@ -74,9 +74,17 @@ function Navbar() {
           <div
             tabIndex={0}
             role="button"
-            className="btn w-15 h-15 rounded-full bg-gray-100 border border-[#E3F5ED] text-black"
+            className="btn w-15 h-15 flex justify-center items-center rounded-full bg-gray-100 border border-[#E3F5ED] text-black p-0"
           >
-            Image
+            {isLoggedIn ? (
+              <div className="avatar">
+                <div className="w-10 h-10 rounded-full ring ring-[#E3F5ED] ring-offset-4">
+                  {user.image && <img src={user.image} alt="Profile" className="w-full h-full object-cover" />}
+                </div>
+              </div>
+            ) : (
+              <span className="text-sm">Avatar</span>
+            )}
           </div>
           <ul
             tabIndex={0}

@@ -1,8 +1,8 @@
-import asynscHandler from "../utils/asyncHandler.js";
+import asyncHandler from "../utils/asyncHandler.js";
 import { CustomError } from "../utils/errorHandler.js";
 import Recipe from "../schemas/recipeSchema.js";
 
-export const getRecipes = asynscHandler(async(req,res) => {
+export const getRecipes = asyncHandler(async(req,res) => {
     const recipes = await Recipe.find().populate("userId", "username email");
 
     if (!recipes)
@@ -11,7 +11,7 @@ export const getRecipes = asynscHandler(async(req,res) => {
     res.status(200).json({recipes,user:req.user});
 })
 
-export const getRecipeById = asynscHandler(async(req,res) => {
+export const getRecipeById = asyncHandler(async(req,res) => {
     const recipeId = req.params.id;
     const recipe = await Recipe.findById(recipeId).populate("userId", "username email");
 
@@ -21,7 +21,7 @@ export const getRecipeById = asynscHandler(async(req,res) => {
     res.status(200).json(recipe);
 })
 
-export const createRecipe = asynscHandler(async(req,res) => {
+export const createRecipe = asyncHandler(async(req,res) => {
     const {title, description,image, ingredients,steps,calories,prep_time,cook_time} = req.body;
     const userId = req.user.id;
 
@@ -42,7 +42,7 @@ export const createRecipe = asynscHandler(async(req,res) => {
     res.status(201).json(newRecipe);
 })
 
-export const updateRecipe = asynscHandler(async(req,res) => {
+export const updateRecipe = asyncHandler(async(req,res) => {
     const recipeId = req.params.id;
     const update = req.body;
 
@@ -55,7 +55,7 @@ export const updateRecipe = asynscHandler(async(req,res) => {
     res.status(200).json(updatedRecipe);
 })
 
-export const deleteRecipe = asynscHandler(async(req,res) => {
+export const deleteRecipe = asyncHandler(async(req,res) => {
     const recipeId = req.params.id;
 
     const deletedRecipe = await Recipe.findByIdAndDelete(recipeId);

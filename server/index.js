@@ -29,7 +29,7 @@ app.use(
 // Routes
 app.use("/users", userRoutes);
 app.use("/ratings", ratingRoutes);
-app.use("/foods", foodRoutes);
+app.use("/food", foodRoutes);
 app.use("/recipes", recipeRoutes);
 app.use("/favorites", favoriteRoutes);
 app.use("/comments", commentsRouter); 

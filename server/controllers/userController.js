@@ -123,6 +123,20 @@ export const loginUser = asyncHandler(async (req, res) => {
       last_name: user.last_name,
       email: user.email,
       role: user.role,
+      image: user.image,
+      gender: user.gender,
+      age: user.age,
+      height: user.height,
+      weight: user.weight,
+      target_weight: user.target_weight,
+      target_weight_change: user.target_weight_change,
+      daily_calories: user.daily_calories,
+      activity_level: user.activity_level,
+      allergies: user.allergies,
+      food_preferences: user.food_preferences,
+      cuisine_preferences: user.cuisine_preferences,
+      disease: user.disease,
+      items: user.items,
     },
     JWT_SECRET,
     { expiresIn: JWT_EXPIRES_IN }
@@ -138,14 +152,7 @@ export const loginUser = asyncHandler(async (req, res) => {
 
   res.status(200).json({
     message: "Login successful",
-    user: {
-      id: user._id,
-      username: user.username,
-      first_name: user.first_name,
-      last_name: user.last_name,
-      email: user.email,
-      role: user.role,
-    },
+    user,
   });
 });
 
@@ -162,11 +169,7 @@ export const logoutUser = (req, res) => {
 
 export const checkSession = (req, res) => {
   if(req.user){
-    res.json({authenticated: true, user: {
-      id: req.user.id,
-      username: req.user.username,
-      email: req.user.email
-    }});
+    res.json({authenticated: true, user: req.user});
   }else {
     res.json({authenticated: false});
   }

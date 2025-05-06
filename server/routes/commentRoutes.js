@@ -8,9 +8,9 @@ import {
 } from '../controllers/commentController.js';
 import {
   auth,
-  preventMultipleComments,
+  // preventMultipleComments,
   preventRecipeOwnerComment,
-  commentOwner,
+  // commentOwner,
 } from "../middlewares/authMiddleware.js";
 
 const router = express.Router();
@@ -23,7 +23,7 @@ router.post(
   '/recipe/:recipeId',
   auth,
   preventRecipeOwnerComment,
-  preventMultipleComments,
+  // preventMultipleComments,
   createComment
 );
 
@@ -31,9 +31,9 @@ router.post(
 router.get('/:id', auth, getCommentById);
 
 // Update a comment
-router.put('/:id', auth, commentOwner, updateComment);
+router.put('/:id', auth, updateComment);
 
 // Delete a comment
-router.delete('/:id', auth, commentOwner, deleteComment);
+router.delete('/:id', auth, deleteComment);
 
 export default router;

@@ -22,7 +22,7 @@ export const getRecipeById = asyncHandler(async(req,res) => {
 })
 
 export const createRecipe = asyncHandler(async(req,res) => {
-    const {title, description,image, ingredients,steps,calories,prep_time,cook_time} = req.body;
+    const {title, description,image, ingredients,steps,calories,prep_time,cook_time,carbs, fat, protein, food_type, diets,cuisine_type} = req.body;
     const userId = req.user.id;
 
     const newRecipe = new Recipe({
@@ -34,7 +34,13 @@ export const createRecipe = asyncHandler(async(req,res) => {
         calories,
         prep_time,
         cook_time,
-        userId
+        userId,
+        carbs,
+        fat,
+        protein,
+        food_type,
+        diets,
+        cuisine_type,
     });
 
     await newRecipe.save();

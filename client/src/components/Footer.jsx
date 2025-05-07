@@ -13,7 +13,7 @@ function Footer() {
         alt=""
         className="absolute w-[75%] h-full object-fit top-0"
       />
-      <div className="content w-full min-h-[13rem] flex justify-center items-center relative z-10 gap-5">
+      <div className="content w-full min-h-[13rem] flex justify-center items-center relative z-2 gap-5">
         <div className="logo w-full min-h-[13rem] flex flex-1/4 justify-start items-start">
           <figure>
             <img src={logo} alt="" className="w-30" />
@@ -31,7 +31,7 @@ function Footer() {
             <p>© 2025 YummyFit. All content is protected by copyright.</p>
           </div>
         </div>
-        <div className="url-social w-full min-h-[13rem] flex flex-1/4 flex-col text-end justify-end gap-1">
+        <div className="url-social w-full min-h-[13rem] flex flex-1/4 flex-col text-end justify-end gap-1 -z-5">
           <p className="text-[1rem] tracking-[1px] lato-bold">www.yummyfit.com</p>
           <div className="social-icons w-full text-[1.1rem] flex justify-end gap-2 mt-1">
             <FaInstagram />

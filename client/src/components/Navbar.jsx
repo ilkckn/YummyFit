@@ -7,7 +7,7 @@ function Navbar() {
   const { handleLogout, user } = useContext(AuthContext);
   const isLoggedIn = user && user.email;
   return (
-    <div className="flex justify-between items-center px-10 z-3 relative">
+    <div className="flex justify-between items-center px-10 z-3 relative mb-15" >
       <div className="left w-full flex-1/2 flex-wrap flex items-center">
         <div className="">
           <NavLink to="/">

@@ -29,6 +29,8 @@ function EditProfile() {
         withCredentials: true,
       });
       setUser(res.data);
+
+      alert("Updated successfully");
       navigate("/profile");
     } catch (err) {
       console.error("Update failed:", err);

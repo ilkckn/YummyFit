@@ -45,7 +45,7 @@ function SliderFoodList({ foodList }) {
       <Slider {...settings}>
         {foodList?.map((food, index) => {
           const id = food.id;
-
+          const foodName = food.title  // Fallback to id if name/title is not available
           return (
             <Link
               key={index}
@@ -61,7 +61,7 @@ function SliderFoodList({ foodList }) {
               )}
               <div className="slider-content flex items-center justify-center p-2 bg-white">
                 <h3 className="slider-title text-center text-sm font-medium">
-                  {id}
+                  {foodName}
                 </h3>
               </div>
             </Link>

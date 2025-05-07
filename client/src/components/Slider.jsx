@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 function YummySlider({foodList}) {
   // Slider settings
     var settings = {
-        dots: false,
+        dots: true,
         infinite: true,
         slidesToShow: 4,
         slidesToScroll: 1,
@@ -20,7 +20,7 @@ function YummySlider({foodList}) {
           slidesToShow: 3,
           slidesToScroll: 3,
           infinite: true,
-          dots: false
+          dots: true
         }
       },
       {

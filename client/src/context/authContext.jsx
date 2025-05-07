@@ -107,6 +107,7 @@ useEffect(() => {
           setUser,
           sessionLoading,
           error,
+          setError,
           handleChange,
           handleLogin,
           handleLogout,

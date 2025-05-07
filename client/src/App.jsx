@@ -13,11 +13,13 @@ import Footer from "./components/Footer";
 import RecipeDetail from './pages/RecipeDetail';
 import FoodType from './pages/FoodType';
 import EditProfile from "./pages/EditProfile";
+import ScrollToTop from "./components/ScrollToTop";
 
 function App() {
   return (
     <div className="w-full bg-[#fcfcfc]">
       <Navbar />
+      <ScrollToTop />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/contact" element={<Contact />} />
@@ -27,7 +29,9 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         {/* <Route path="/recipe" element={<Recipe />} /> */}
+        
         <Route path="/food" element={<Food />} />
+         
         <Route path="/food/:id" element={<RecipeDetail />} />
         <Route path="/foodType/:type" element={<FoodType />} />
       </Routes>

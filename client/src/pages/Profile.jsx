@@ -1,8 +1,10 @@
 import React, { useContext } from "react";
 import { AuthContext } from "../context/authContext";
+import { useNavigate } from "react-router-dom";
 
 function Profile() {
   const { user, handleLogout, sessionLoading } = useContext(AuthContext);
+  const navigate = useNavigate();
   const {
     first_name,
     last_name,
@@ -143,7 +145,10 @@ function Profile() {
               </div>
             </div>
             <div className="mt-6 flex gap-4">
-              <button className="btn bg-[#FFC649] text-white hover:bg-[#e5b93f] btn-wide">
+              <button
+                className="btn bg-[#FFC649] text-white hover:bg-[#e5b93f] btn-wide"
+                onClick={() => navigate("/edit-profile")}
+              >
                 Edit Profile
               </button>
               <button

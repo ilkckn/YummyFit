@@ -7,7 +7,7 @@ import { ORIGIN_URL } from "../config";
 function EditProfile() {
   const { user, setUser } = useContext(AuthContext);
   const navigate = useNavigate();
-  const [formData, setFormData] = useState({ ...user });
+  const [formData, setFormData] = useState({ ...user, password: "" });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -16,8 +16,16 @@ function EditProfile() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    const updatedData = { ...formData };
+
+    // Remove password if blank
+    if (!updatedData.password || updatedData.password.trim() === "") {
+      delete updatedData.password;
+    }
+
     try {
-      const res = await axios.put(`${ORIGIN_URL}/users/${user._id}`, formData, {
+      const res = await axios.put(`${ORIGIN_URL}/users/${user._id}`, updatedData, {
         withCredentials: true,
       });
       setUser(res.data);
@@ -36,16 +44,10 @@ function EditProfile() {
             <div className="avatar">
               <div className="w-32 h-32 rounded-full ring ring-[#FFC649] ring-offset-4">
                 {user.image ? (
-                  <img
-                    src={user.image}
-                    alt="Profile"
-                    className="w-full h-full object-cover"
-                  />
+                  <img src={user.image} alt="Profile" className="w-full h-full object-cover" />
                 ) : (
                   <div className="bg-gray-300 w-full h-full flex items-center justify-center text-gray-600">
-                    <span className="text-4xl font-bold">
-                      {user.username?.charAt(0)}
-                    </span>
+                    <span className="text-4xl font-bold">{user.username?.charAt(0)}</span>
                   </div>
                 )}
               </div>
@@ -122,6 +124,20 @@ function EditProfile() {
                 </select>
               </div>
 
+              {/* Password */}
+              <div className="col-span-2">
+                <label className="label font-semibold">New Password (optional)</label>
+                <input
+                  name="password"
+                  type="password"
+                  value={formData.password}
+                  onChange={handleChange}
+                  placeholder="Leave blank to keep current password"
+                  className="input input-bordered w-full"
+                />
+              </div>
+
+              {/* Food Preferences */}
               <div className="col-span-2">
                 <label className="label font-semibold">Food Preferences</label>
                 <div className="grid grid-cols-2 gap-2">
@@ -146,50 +162,28 @@ function EditProfile() {
                 </div>
               </div>
 
-              <div className="col-span-2">
-                <label className="label font-semibold">Allergies</label>
-                <input
-                  name="allergies"
-                  value={formData.allergies?.join(", ") || ""}
-                  onChange={(e) =>
-                    setFormData({
-                      ...formData,
-                      allergies: e.target.value.split(",").map((s) => s.trim()),
-                    })
-                  }
-                  className="input input-bordered w-full"
-                />
-              </div>
-
-              <div className="col-span-2">
-                <label className="label font-semibold">Cuisine Preferences</label>
-                <input
-                  name="cuisine_preferences"
-                  value={formData.cuisine_preferences?.join(", ") || ""}
-                  onChange={(e) =>
-                    setFormData({
-                      ...formData,
-                      cuisine_preferences: e.target.value.split(",").map((s) => s.trim()),
-                    })
-                  }
-                  className="input input-bordered w-full"
-                />
-              </div>
-
-              <div className="col-span-2">
-                <label className="label font-semibold">Disease</label>
-                <input
-                  name="disease"
-                  value={formData.disease?.join(", ") || ""}
-                  onChange={(e) =>
-                    setFormData({
-                      ...formData,
-                      disease: e.target.value.split(",").map((s) => s.trim()),
-                    })
-                  }
-                  className="input input-bordered w-full"
-                />
-              </div>
+              {/* Array fields */}
+              {[
+                { name: "allergies", label: "Allergies" },
+                { name: "cuisine_preferences", label: "Cuisine Preferences" },
+                { name: "disease", label: "Disease" },
+              ].map(({ name, label }) => (
+                <div className="col-span-2" key={name}>
+                  <label className="label font-semibold">{label}</label>
+                  <input
+                    name={name}
+                    value={formData[name]?.join(", ") || ""}
+                    onChange={(e) =>
+                      setFormData({
+                        ...formData,
+                        [name]: e.target.value.split(",").map((s) => s.trim()),
+                      })
+                    }
+                    className="input input-bordered w-full"
+                    placeholder={`${label} (comma-separated)`}
+                  />
+                </div>
+              ))}
 
               {/* Buttons */}
               <div className="col-span-2 flex justify-between pt-4">

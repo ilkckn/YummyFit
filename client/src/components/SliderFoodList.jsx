@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 
 function SliderFoodList({ foodList }) {
   const settings = {
-    dots: false,
+    dots: true,
     infinite: true,
     slidesToShow: 4,
     slidesToScroll: 1,
@@ -19,7 +19,7 @@ function SliderFoodList({ foodList }) {
           slidesToShow: 3,
           slidesToScroll: 3,
           infinite: true,
-          dots: false,
+          dots: true,
         },
       },
       {

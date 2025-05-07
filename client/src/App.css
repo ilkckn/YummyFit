@@ -61,7 +61,7 @@ body {
 }
 
 .yummy-btn:hover {
-  background-color: #245240;
+  background-color: #00965b;
   color: #ecdb51;
   box-shadow: 2px 3px 4px 0px rgb(183 211 198);
   -webkit-box-shadow: 2px 3px 4px 0px rgb(183 211 198);
@@ -145,4 +145,17 @@ body {
 .card:hover .card-image{
   transform: scale(1.05);
   transition: all 0.3s ease-in-out;
+}
+
+/* account-setup style */
+.account-setup{
+  background: url(../src/assets/images/account-setup/account-setup.png) no-repeat right bottom;
+  background-size: cover;
+  background-size: 50%;
+}
+
+.food-preferences{
+  background: url(../src/assets/images/account-setup/food-preferences.png) no-repeat center;
+  background-size: cover;
+  background-size: 90% 95%;
 }

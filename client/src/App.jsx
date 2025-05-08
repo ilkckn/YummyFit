@@ -7,19 +7,39 @@ import About from "./pages/About";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Profile from "./pages/Profile";
-import RecipeDetail from "./pages/RecipeDetail";
-import FoodType from "./pages/FoodType";
+import RecipeDetail from './pages/RecipeDetail';
+import FoodType from './pages/FoodType';
+import EditProfile from "./pages/EditProfile";
+import ScrollToTop from "./components/ScrollToTop";
 import AccountSetup from "./components/AccountSetup";
 import FoodPreferences from "./components/FoodPreferences";
 import FoodAvoid from "./components/FoodAvoid";
 import UserInfo from "./components/UserInfo";
 import MainLayout from "./layouts/MainLayout";
 import BlankLayout from "./layouts/BlankLayout";
+import Navbar from "./components/Navbar";
 
 function App() {
   return (
-    <div className="w-full bg-[#fcfcfc]">
-      <Routes>
+    <div className="w-full bg-[#fcfcfc] ">
+       <ScrollToTop />
+      <Navbar />
+      <div className="mt-35">
+        <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/edit-profile" element={<EditProfile />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        {/* <Route path="/recipe" element={<Recipe />} /> */}
+        
+        <Route path="/food" element={<Food />} />
+         
+        <Route path="/food/:id" element={<RecipeDetail />} />
+        <Route path="/foodType/:type" element={<FoodType />} />
+     
         <Route element={<MainLayout />}>
           <Route path="/" element={<Home />} />
           <Route path="/contact" element={<Contact />} />
@@ -42,6 +62,8 @@ function App() {
           <Route path="/account-setup/user-info" element={<UserInfo />} />
         </Route>
       </Routes>
+      </div>
+        
     </div>
   );
 }

@@ -13,6 +13,7 @@ function Navbar() {
   const { handleLogout, user } = useContext(AuthContext);
   const isLoggedIn = user && user.email;
   return (
+ 
     <div className="flex justify-between items-center w-full max-w-[1600px] px-10 z-5 fixed top-0 bg-white shadow-md ">
       <div className="left w-full flex-1/2 flex-wrap flex items-center">
         <div className="">
@@ -203,7 +204,11 @@ function Navbar() {
           </ul>
         </div>
       </div>
+      
     </div>
+ 
+    
+    
   );
 }
 <nav></nav>;

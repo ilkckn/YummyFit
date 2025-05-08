@@ -13,7 +13,7 @@ function Home() {
     <>
       <main>
         {loading && <p>Loading...</p>}
-        <div>
+        <div className="relative flex flex-row items-start min-h-[600px]">
           <div className="absolute right-0 top-0 food-image-home w-[50%] max-w-[700px] h-[600px]"></div>
             <div className="w-[50%] text-right px-9">
               <h1 className="text-6xl lato-black mb-2 mt-5">

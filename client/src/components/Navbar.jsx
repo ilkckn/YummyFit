@@ -8,6 +8,7 @@ import { GiArchiveRegister } from "react-icons/gi";
 import { BiFoodMenu } from "react-icons/bi";
 import { BsBook } from "react-icons/bs";
 import { HiOutlineChatBubbleBottomCenterText } from "react-icons/hi2";
+import Search from "./Search";
 
 function Navbar() {
   const { handleLogout, user } = useContext(AuthContext);

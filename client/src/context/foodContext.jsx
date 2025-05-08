@@ -8,6 +8,7 @@ function FoodContextProvider({ children }) {
     const localData = localStorage.getItem("foodData");
     return localData ? JSON.parse(localData) : [];
   });
+  const [searchedFood, setSearchedFood] = useState([]);
   const [loading, setLoading] = useState(food.length === 0);
   const [error, setError] = useState(null);
   const dishTypeList=[
@@ -21,6 +22,23 @@ function FoodContextProvider({ children }) {
     {id:8,title:"beverage",image:"https://img.freepik.com/free-photo/high-angle-mix-alcoholic-drinks_23-2148673763.jpg?t=st=1745935309~exp=1745938909~hmac=ed5a58745a3810432e102d7da11eef4100bf937432581940b74b2c50c665488e&w=1060"},
   ];
   const [foodByType,setFoodByType] = useState([]);
+
+  const handleSearch = (search, type = "", cuisine = "") => {
+    const searchedFoodList = food.filter((foodItem) => {
+      const matchesTitle = foodItem.title.toLowerCase().includes(search.toLowerCase());
+      const matchesType = type ? foodItem.dishTypes?.includes(type.toLowerCase()) : true;
+
+      const matchesCuisine = cuisine
+        ? Array.isArray(foodItem.cuisines)
+          ? foodItem.cuisines.some((c) => c.toLowerCase() === cuisine.toLowerCase())
+          : foodItem.cuisines?.toLowerCase() === cuisine.toLowerCase()
+        : true;
+  
+      return matchesTitle && matchesType && matchesCuisine;
+    });
+  
+    setSearchedFood(searchedFoodList);
+  };
 
   // useEffect(() => {
   //   const fetchFood = async () => {
@@ -53,6 +71,9 @@ function FoodContextProvider({ children }) {
       dishTypeList,
       // fetchFoodByType,
       foodByType,
+      searchedFood,
+      setSearchedFood,
+      handleSearch,
       }}>
       {children}
     </FoodContext.Provider>

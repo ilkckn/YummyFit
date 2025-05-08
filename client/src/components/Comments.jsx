@@ -38,7 +38,7 @@ function Comments() {
             className="w-full bg-white p-5 px-8 rounded-lg shadow-md mb-1"
           >
             <figure className="flex items-center gap-2 mb-2">
-              <img src={user.image} alt="" className="w-[3rem] rounded-full" />
+              <img src={user?.image} alt="" className="w-[3rem] rounded-full" />
             </figure>
             <p>
               <strong>{comment.userId?.username}:</strong> {comment.text}

@@ -44,7 +44,7 @@ export default function ContactUs() {
   };
 
   return (
-    <div className="w-full min-h-[calc(100vh-160px)] flex flex-wrap justify-between items-center p-12">
+    <div className="w-full min-h-[calc(100vh-160px)] pt-[140px] flex flex-wrap justify-between items-center p-12">
       <div className="left flex flex-col justify-center items-start flex-1/2 gap-10">
         <h1 className="w-[85%] text-black text-5xl tracking-[0.2rem] font-medium lato-regular leading-[4rem]">
           Have Questions About Your Journey? Reach Out!

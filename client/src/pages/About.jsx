@@ -4,9 +4,9 @@ import AboutTacosImage from '../assets/images/aboutPage/about.png';
 
 const AboutPage = () => {
   return (
-    <div className="min-h-screen flex justify-center items-center py-6 bg-white">
-      <div className="w-11/12 flex flex-col md:flex-row items-center overflow-hidden rounded-xl shadow-lg bg-gray-50 relative">
-        
+    <div className="min-h-screen flex justify-center items-center py-10 pt-[140px]">
+      <div className="w-11/12 md:w-3/4 flex flex-col md:flex-row items-center overflow-hidden rounded-lg">
+
         {/* Left Text Section */}
         <div className="flex-1 p-5">
           <h1 className="text-7xl font-light mb-8 text-green-600">Yummy Fit</h1>

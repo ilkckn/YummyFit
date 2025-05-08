@@ -22,7 +22,7 @@ function Recipe() {
   };
   
   return (
-    <div>
+    <div className="pt-[140px]">
       {loading && <p>Loading...</p>}
       <h2 className="text-3xl mb-1 lato-black text-center mt-10">
         Explore Our Delicious Recipes

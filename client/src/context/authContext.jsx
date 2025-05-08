@@ -33,7 +33,7 @@ function AuthContextProvider({ children }) {
       });
       setUser(res.data.user);
       setError(null);
-      navigate("/login");
+      navigate("/account-setup");
     } catch (error) {
       setError("Registration failed. Please try again.");
     }

@@ -36,7 +36,7 @@ function RecipeDetail() {
 
   return (
     <CommentContextProvider recipeId={id}>
-      <div className="w-full min-h-[100vh] flex flex-col items-center">
+      <div className="w-full min-h-[100vh] pt-[140px] flex flex-col items-center">
         {loading && <p>Loading...</p>}
         <div className="recipe-image mt-13 mx-auto w-[70%] shadow-2xl rounded-xl relative">
           <img

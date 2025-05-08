@@ -4,12 +4,14 @@ import vegan from "../assets/images/account-setup/diet-types/vegan.png";
 import paleo from "../assets/images/account-setup/diet-types/paleo.png";
 import keto from "../assets/images/account-setup/diet-types/keto.png";
 import glutenFree from "../assets/images/account-setup/diet-types/gluten-free.png";
+import anything from "../assets/images/account-setup/diet-types/anything.png";
 import axios from "axios";
 import { ORIGIN_URL } from "../config";
 import { AuthContext } from "../context/authContext";
 
 function FoodPreferences() {
     const dietTypes = [
+        { label:"anything", value:"anything",excludes:"Nothing", icon:anything },
         { label:"vegetarian", value:"vegetarian",excludes:"Meat,poultry,Fish,Shellfish",icon:vegetarian },
         { label:"vegan", value:"vegan",excludes:"All animal products (meat,fish,dairy,eggs,honey)", icon:vegan },
         { label:"paleo", value:"paleo",excludes:"Diary,Grains,Legumes,Refined starches,Soy", icon:paleo },
@@ -37,7 +39,7 @@ function FoodPreferences() {
   return (
     <div className="bg-[#f6f0ef]">
         <div className="food-preferences h-[100vh] flex flex-col justify-center items-center">
-            <h2 className="font-bold text-2xl pt-[6%] mb-7 mr-[8%]">
+            <h2 className="font-bold text-2xl pt-[3%] mb-7 mr-[8%]">
                 Which type of diet would you prefer?
             </h2>
             <ul>
@@ -63,7 +65,7 @@ function FoodPreferences() {
                 ))}
             </ul>
             
-            <div className="flex flex-wrap flex-col justify-center items-center gap-[30%] mr-[10%]">
+            <div className="flex flex-wrap flex-col justify-center items-center gap-[40%] mr-[10%]">
                 <button onClick={()=>navigate(-1)} className="yummy-btn px-4 py-2 lato-black cursor-pointer">
                     <i className="fa-solid fa-arrow-left pr-2"></i> Back
                 </button>

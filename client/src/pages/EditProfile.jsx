@@ -7,29 +7,38 @@ import { ORIGIN_URL } from "../config";
 function EditProfile() {
   const { user, setUser } = useContext(AuthContext);
   const navigate = useNavigate();
-  const [formData, setFormData] = useState({ ...user, password: "" });
+  const [formData, setFormData] = useState({ ...user, password: "", image: null });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
+  const handleImageChange = (e) => {
+    setFormData((prev) => ({ ...prev, image: e.target.files[0] }));
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const updatedData = { ...formData };
-
-    // Remove password if blank
-    if (!updatedData.password || updatedData.password.trim() === "") {
-      delete updatedData.password;
+    const data = new FormData();
+    for (const key in formData) {
+      if (key === "image" && formData[key] instanceof File) {
+        data.append("image", formData[key]);
+      } else if (Array.isArray(formData[key])) {
+        formData[key].forEach((val) => data.append(key, val));
+      } else if (formData[key] !== undefined && formData[key] !== "") {
+        data.append(key, formData[key]);
+      }
     }
 
     try {
-      const res = await axios.put(`${ORIGIN_URL}/users/${user._id}`, updatedData, {
+      const res = await axios.put(`${ORIGIN_URL}/users/${user._id}`, data, {
         withCredentials: true,
+        headers: { "Content-Type": "multipart/form-data" },
       });
-      setUser(res.data);
 
+      setUser(res.data);
       alert("Updated successfully");
       navigate("/profile");
     } catch (err) {
@@ -44,7 +53,7 @@ function EditProfile() {
           {/* Left Side */}
           <div className="bg-[#255140] text-white flex flex-col justify-center items-center p-8">
             <div className="avatar">
-              <div className="w-32 h-32 rounded-full ring ring-[#FFC649] ring-offset-4">
+              <div className="w-32 h-32 rounded-full ring ring-[#FFC649] ring-offset-4 overflow-hidden">
                 {user.image ? (
                   <img src={user.image} alt="Profile" className="w-full h-full object-cover" />
                 ) : (
@@ -62,7 +71,7 @@ function EditProfile() {
           <div className="p-8">
             <h2 className="text-2xl font-bold text-[#255140] mb-4">Edit Profile</h2>
             <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {[
+              {[ 
                 { name: "first_name", label: "First Name" },
                 { name: "last_name", label: "Last Name" },
                 { name: "age", label: "Age", type: "number" },
@@ -126,7 +135,6 @@ function EditProfile() {
                 </select>
               </div>
 
-              {/* Password */}
               <div className="col-span-2">
                 <label className="label font-semibold">New Password (optional)</label>
                 <input
@@ -139,7 +147,16 @@ function EditProfile() {
                 />
               </div>
 
-              {/* Food Preferences */}
+              <div className="col-span-2">
+                <label className="label font-semibold">Profile Image</label>
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={handleImageChange}
+                  className="file-input file-input-bordered w-full"
+                />
+              </div>
+
               <div className="col-span-2">
                 <label className="label font-semibold">Food Preferences</label>
                 <div className="grid grid-cols-2 gap-2">
@@ -164,7 +181,6 @@ function EditProfile() {
                 </div>
               </div>
 
-              {/* Array fields */}
               {[
                 { name: "allergies", label: "Allergies" },
                 { name: "cuisine_preferences", label: "Cuisine Preferences" },
@@ -187,7 +203,6 @@ function EditProfile() {
                 </div>
               ))}
 
-              {/* Buttons */}
               <div className="col-span-2 flex justify-between pt-4">
                 <button type="submit" className="btn bg-[#FFC649] text-white hover:bg-[#e5b93f] btn-wide">
                   Save Changes

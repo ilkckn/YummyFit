@@ -78,22 +78,57 @@ export const createUser = asyncHandler(async (req, res) => {
 });
 
 // update a user
-export const updateUser = asyncHandler(async (req, res) => {
+export const updateUser = asyncHandler(async (req, res, next) => {
   const userId = req.params.id;
   const newData = req.body;
+  const image = req.file;
 
   if (newData.password)
     newData.password = await bcrypt.hash(newData.password, 10);
+
+  // Find existing user to keep image if none uploaded
+  const existingUser = await User.findById(userId);
+  if (!existingUser) throw new CustomError("user not found", 404);
+
+  if (image) {
+    try {
+      const blob = bucket.file(
+        `images/${newData.first_name || "user"}/${Date.now()}_${image.originalname}`
+      );
+      const blobStream = blob.createWriteStream({
+        metadata: { contentType: image.mimetype },
+      });
+
+      await new Promise((resolve, reject) => {
+        blobStream.on("error", (err) => reject(new CustomError("Image upload failed", 500)));
+        blobStream.on("finish", resolve);
+        blobStream.end(image.buffer);
+      });
+
+      const signedUrl = await blob.getSignedUrl({
+        action: "read",
+        expires: "03-01-2500",
+      });
+
+      newData.image = signedUrl[0];
+    } catch (error) {
+      console.error("Firebase upload failed:", error);
+      return next(new CustomError("Image upload failed", 500));
+    }
+  } else {
+    // Keep the current image if not uploading a new one
+    newData.image = existingUser.image;
+  }
 
   const updatedUser = await User.findByIdAndUpdate(userId, newData, {
     new: true,
     runValidators: true,
   });
 
-  if (!updatedUser) throw new CustomError("user not found", 404);
-
   res.status(200).json(updatedUser);
 });
+
+
 
 export const deleteUser = asyncHandler(async (req, res) => {
   const userId = req.params.id;

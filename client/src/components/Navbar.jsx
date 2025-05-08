@@ -2,12 +2,19 @@ import React, { useContext } from "react";
 import { AuthContext } from "../context/authContext";
 import { NavLink } from "react-router-dom";
 import logo from "../assets/images/logo/logo.png";
+import { ImProfile } from "react-icons/im";
+import { TbLogout2, TbLogin2 } from "react-icons/tb";
+import { GiArchiveRegister } from "react-icons/gi";
+import { BiFoodMenu } from "react-icons/bi";
+import { BsBook } from "react-icons/bs";
+import { HiOutlineChatBubbleBottomCenterText } from "react-icons/hi2";
 
 function Navbar() {
   const { handleLogout, user } = useContext(AuthContext);
   const isLoggedIn = user && user.email;
   return (
-    <div className="flex justify-between items-center px-10 z-3 relative mb-15" >
+ 
+    <div className="flex justify-between items-center w-full max-w-[1600px] px-10 z-50 flexed top-0 bg-white shadow-md mb-10 ">
       <div className="left w-full flex-1/2 flex-wrap flex items-center">
         <div className="">
           <NavLink to="/">
@@ -23,7 +30,7 @@ function Navbar() {
                   isActive ? "active-link" : "menu-link"
                 }
               >
-              <span className="navber-icon text-lg">🏠</span>Home
+                <span className="navber-icon text-lg">🏠</span>Home
               </NavLink>
             </li>
             <li>
@@ -33,7 +40,7 @@ function Navbar() {
                   isActive ? "active-link" : "menu-link"
                 }
               >
-              <span className="navber-icon text-lg">🍴</span> Recipes
+                <span className="navber-icon text-lg">🍴</span> Recipes
               </NavLink>
             </li>
             <li>
@@ -43,7 +50,7 @@ function Navbar() {
                   isActive ? "active-link" : "menu-link"
                 }
               >
-               <span className="navber-icon text-lg">ℹ️</span> About
+                <span className="navber-icon text-lg">ℹ️</span> About
               </NavLink>
             </li>
             <li>
@@ -53,7 +60,7 @@ function Navbar() {
                   isActive ? "active-link" : "menu-link"
                 }
               >
-               <span className="navber-icon text-lg">📞</span> Contact
+                <span className="navber-icon text-lg">📞</span> Contact
               </NavLink>
             </li>
           </ul>
@@ -79,7 +86,13 @@ function Navbar() {
             {isLoggedIn ? (
               <div className="avatar">
                 <div className="w-10 h-10 rounded-full ring ring-[#E3F5ED] ring-offset-4">
-                  {user.image && <img src={user.image} alt="Profile" className="w-full h-full object-cover" />}
+                  {user.image && (
+                    <img
+                      src={user.image}
+                      alt="Profile"
+                      className="w-full h-full object-cover"
+                    />
+                  )}
                 </div>
               </div>
             ) : (
@@ -88,35 +101,116 @@ function Navbar() {
           </div>
           <ul
             tabIndex={0}
-            className="dropdown-content menu bg-[#FFFFFF] rounded-box z-1 w-52 p-2 shadow-sm"
+            className="dropdown-content w-[25rem] min-h-[100vh] flex flex-col items-center justify-start gap-4 absolute top-[-2.5rem] right-[-2.5rem] bg-[#326C56] text-white p-2 pt-20 shadow-sm"
           >
+            <NavLink>
+              <figure className="w-full flex justify-center items-center mb-5">
+                <img src={logo} alt="" className="w-[55%]" />
+              </figure>
+            </NavLink>
+            <div className="welcome">
+              {isLoggedIn ? (
+                <p className="text-lg font-bold text-white">
+                  Welcome, {user.username}
+                </p>
+              ) : (
+                <p></p>
+              )}
+            </div>
             {isLoggedIn ? (
               <>
-                <li>
-                  <NavLink to={"/profile"}>Profile</NavLink>
+                <li className="w-full flex justify-center items-center text-[#326C56] tracking-[1px] relative">
+                  <NavLink
+                    to={"/profile"}
+                    className={"w-full flex justify-center items-center"}
+                  >
+                    <button className="w-[70%] h-[3rem] bg-white cursor-pointer text-[1rem] text-[#326C56] uppercase rounded-md shadow-md hover:bg-[#FFC649] hover:text-white transition duration-300 ease-in-out flex items-center justify-center gap-2">
+                      <ImProfile className="text-inherit text-xl transition duration-300 ease-in-out" />
+                      Profile
+                    </button>
+                  </NavLink>
                 </li>
-                <li>
-                  <NavLink onClick={handleLogout}>Logout</NavLink>
+                <li className="w-full flex justify-center items-center text-[#326C56] tracking-[1px] relative">
+                  <NavLink
+                    to={"/food"}
+                    className={"w-full flex justify-center items-center"}
+                  >
+                    <button className="w-[70%] h-[3rem] bg-white cursor-pointer text-[1rem] text-[#326C56] uppercase rounded-md shadow-md hover:bg-[#FFC649] hover:text-white transition duration-300 ease-in-out flex items-center justify-center gap-2">
+                      <BiFoodMenu className="text-inherit text-xl transition duration-300 ease-in-out" />
+                      Recipe
+                    </button>
+                  </NavLink>
+                </li>
+                <li className="w-full flex justify-center items-center text-[#326C56] tracking-[1px] relative">
+                  <NavLink
+                    to={"/about"}
+                    className={"w-full flex justify-center items-center"}
+                  >
+                    <button className="w-[70%] h-[3rem] bg-white cursor-pointer text-[1rem] text-[#326C56] uppercase rounded-md shadow-md hover:bg-[#FFC649] hover:text-white transition duration-300 ease-in-out flex items-center justify-center gap-2">
+                      <BsBook className="text-inherit text-xl transition duration-300 ease-in-out" />
+                      About
+                    </button>
+                  </NavLink>
+                </li>
+                <li className="w-full flex justify-center items-center text-[#326C56] tracking-[1px] relative">
+                  <NavLink
+                    to={"/contact"}
+                    className={"w-full flex justify-center items-center"}
+                  >
+                    <button className="w-[70%] h-[3rem] bg-white cursor-pointer text-[1rem] text-[#326C56] uppercase rounded-md shadow-md hover:bg-[#FFC649] hover:text-white transition duration-300 ease-in-out flex items-center justify-center gap-2">
+                      <HiOutlineChatBubbleBottomCenterText className="text-inherit text-xl transition duration-300 ease-in-out" />
+                      Contact
+                    </button>
+                  </NavLink>
+                </li>
+                <li className="w-full flex justify-center items-center text-[#326C56] tracking-[1px] relative">
+                  <NavLink
+                    onClick={handleLogout}
+                    className={"w-full flex justify-center items-center"}
+                  >
+                    <button className="w-[70%] h-[3rem] bg-white cursor-pointer text-[1rem] text-[#326C56] uppercase rounded-md shadow-md hover:bg-[#FFC649] hover:text-white transition duration-300 ease-in-out flex items-center justify-center gap-2">
+                      <TbLogout2 className="text-inherit text-xl transition duration-300 ease-in-out" />
+                      Logout
+                    </button>
+                  </NavLink>
                 </li>
               </>
             ) : (
               <>
-                <li>
-                  <NavLink to={"/register"}>Register</NavLink>
+                <li className="w-full flex justify-center items-center text-[#326C56] tracking-[1px] relative">
+                  <NavLink
+                    to={"/register"}
+                    className={"w-full flex justify-center items-center"}
+                  >
+                    <button className="w-[70%] h-[3rem] bg-white cursor-pointer text-[1rem] text-[#326C56] uppercase rounded-md shadow-md hover:bg-[#FFC649] hover:text-white transition duration-300 ease-in-out flex items-center justify-center gap-2">
+                      <GiArchiveRegister />
+                      Register
+                    </button>
+                  </NavLink>
                 </li>
-                <li>
-                  <NavLink to={"/login"}>Login</NavLink>
+                <li className="w-full flex justify-center items-center text-[#326C56] tracking-[1px] relative">
+                  <NavLink
+                    to={"/login"}
+                    className={"w-full flex justify-center items-center"}
+                  >
+                    <button className="w-[70%] h-[3rem] bg-white cursor-pointer text-[1rem] text-[#326C56] uppercase rounded-md shadow-md hover:bg-[#FFC649] hover:text-white transition duration-300 ease-in-out flex items-center justify-center gap-2">
+                      <TbLogin2 className="text-inherit text-xl transition duration-300 ease-in-out" />
+                      Login
+                    </button>
+                  </NavLink>
                 </li>
               </>
             )}
           </ul>
         </div>
       </div>
+      
     </div>
+ 
+    
+    
   );
 }
-<nav>
-
-</nav>
+<nav></nav>;
 
 export default Navbar;

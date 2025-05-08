@@ -24,6 +24,7 @@ function App() {
     <div className="w-full bg-[#fcfcfc] ">
        <ScrollToTop />
       <Navbar />
+    
         <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/contact" element={<Contact />} />

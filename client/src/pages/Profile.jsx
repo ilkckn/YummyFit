@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import { AuthContext } from "../context/authContext";
 import { useNavigate } from "react-router-dom";
+import { IoReturnUpBack } from "react-icons/io5";
 
 function Profile() {
   const { user, handleLogout, sessionLoading } = useContext(AuthContext);
@@ -54,7 +55,15 @@ function Profile() {
                 )}
               </div>
             </div>
-            <p onClick={() => {navigate("/")}} className="absolute top-10 left-10 cursor-pointer text-white font-bold">Go to Home</p>
+            <p
+              onClick={() => {
+                navigate("/");
+              }}
+              className="flex items-center gap-2 absolute top-10 left-10 cursor-pointer text-white font-bold underline"
+            >
+              <IoReturnUpBack className="text-[1.2rem]"/>
+              Go to Home
+            </p>
             <h2 className="text-3xl font-bold mt-4">{username}</h2>
             <p className="text-sm italic mt-2">Role: {role}</p>
           </div>
@@ -105,7 +114,10 @@ function Profile() {
               <div>
                 <p className="text-sm text-gray-500">Target Weight Change</p>
                 <p className="text-lg font-semibold text-gray-800">
-                  {target_weight_change}
+                  {target_weight_change} -{" "}
+                  <span className="font-light text-[.8rem] tracking-[1px]">
+                    ( 1 Week )
+                  </span>
                 </p>
               </div>
               <div>

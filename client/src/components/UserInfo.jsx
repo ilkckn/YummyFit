@@ -4,7 +4,7 @@ import { AuthContext } from "../context/authContext";
 import { useState,useContext } from "react";
 
 function UserInfo() {
-  const { user,navigate,setError } = useContext(AuthContext);
+  const { user,navigate,setError, setUser } = useContext(AuthContext);
   const userId = user?.id;
   const [userInfo,setUserInfo] = useState({});
   const [gender, setGender] = useState("male");
@@ -32,7 +32,7 @@ function UserInfo() {
       }, {
         withCredentials: true,
       });
-      
+      setUser(response.data);
       navigate("/profile");
     } catch (error) {
       setError(error.response?.data?.message || "An error occurred while updating the user data.");

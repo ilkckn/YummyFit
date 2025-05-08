@@ -36,7 +36,7 @@ function Profile() {
     <div className="min-h-screen bg-gradient-to-r from-[#255140] via-[#FFC649] to-[#255140] flex justify-center items-center">
       <div className="card w-full max-w-6xl bg-white shadow-2xl rounded-lg overflow-hidden">
         <div className="grid grid-cols-1 md:grid-cols-2">
-          <div className="bg-[#255140] text-white flex flex-col justify-center items-center p-8">
+          <div className="bg-[#255140] text-white flex flex-col justify-center items-center p-8 relative">
             <div className="avatar">
               <div className="w-32 h-32 rounded-full ring ring-[#FFC649] ring-offset-4">
                 {image ? (
@@ -54,6 +54,7 @@ function Profile() {
                 )}
               </div>
             </div>
+            <p onClick={() => {navigate("/")}} className="absolute top-10 left-10 cursor-pointer text-white font-bold">Go to Home</p>
             <h2 className="text-3xl font-bold mt-4">{username}</h2>
             <p className="text-sm italic mt-2">Role: {role}</p>
           </div>

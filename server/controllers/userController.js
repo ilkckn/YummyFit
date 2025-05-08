@@ -234,6 +234,7 @@ export const logoutUser = (req, res) => {
 export const checkSession = (req, res) => {
   if(req.user){
     res.json({authenticated: true, user: req.user});
+    console.log("user", req.user);
   }else {
     res.json({authenticated: false});
   }

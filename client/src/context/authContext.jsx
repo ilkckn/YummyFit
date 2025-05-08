@@ -33,7 +33,7 @@ function AuthContextProvider({ children }) {
       });
       setUser(res.data.user);
       setError(null);
-      navigate("/account-setup");
+      navigate("/login");
     } catch (error) {
       setError("Registration failed. Please try again.");
     }
@@ -54,7 +54,7 @@ function AuthContextProvider({ children }) {
       );
       setUser(res.data.user);
       setError(null);
-      navigate("/");
+      navigate("/account-setup");
     } catch (error) {
       setError("Invalid email or password");
     }

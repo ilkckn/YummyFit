@@ -8,7 +8,7 @@ import { GiArchiveRegister } from "react-icons/gi";
 import { BiFoodMenu } from "react-icons/bi";
 import { BsBook } from "react-icons/bs";
 import { HiOutlineChatBubbleBottomCenterText } from "react-icons/hi2";
-import Search from "./Search";
+import avatar from "../assets/images/avatar/avatar.png";
 
 function Navbar() {
   const { handleLogout, user } = useContext(AuthContext);
@@ -71,8 +71,8 @@ function Navbar() {
       <div className="right flex items-center gap-5">
         <div className="welcome">
           {isLoggedIn ? (
-            <p className="text-lg font-bold text-[#1A1A1A]">
-              Welcome, {user.username}
+            <p className="text-lg font-medium text-[#1A1A1A]">
+              Welcome, {user.username}🍃
             </p>
           ) : (
             <p></p>
@@ -97,7 +97,7 @@ function Navbar() {
                 </div>
               </div>
             ) : (
-              <span className="text-sm">Avatar</span>
+              <img src={avatar} alt="" />
             )}
           </div>
           <ul

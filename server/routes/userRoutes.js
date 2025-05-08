@@ -15,6 +15,7 @@ import { auth } from "../middlewares/authMiddleware.js";
 const router = express.Router();
 const storage = multer.memoryStorage();
 const upload = multer({ storage });
+
 router.post(`/register`, createUser);
 router.post(`/login`, loginUser);
 router.post(`/logout`, logoutUser);

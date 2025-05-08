@@ -24,7 +24,7 @@ function App() {
     <div className="w-full bg-[#fcfcfc] ">
        <ScrollToTop />
       <Navbar />
-    
+      <div className="mt-35">
         <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/contact" element={<Contact />} />
@@ -54,11 +54,16 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/account-setup" element={<AccountSetup />} />
-          <Route path="/account-setup/food-preferences" element={<FoodPreferences />} />
+          <Route
+            path="/account-setup/food-preferences"
+            element={<FoodPreferences />}
+          />
           <Route path="/account-setup/food-avoid" element={<FoodAvoid />} />
           <Route path="/account-setup/user-info" element={<UserInfo />} />
         </Route>
       </Routes>
+      </div>
+        
     </div>
   );
 }

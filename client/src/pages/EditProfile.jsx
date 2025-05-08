@@ -47,10 +47,10 @@ function EditProfile() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-r from-[#255140] via-[#FFC649] to-[#255140] flex justify-center items-center">
+    <div className="min-h-screen bg-gradient-to-r from-[#255140] via-[#FFC649] to-[#255140] flex justify-center items-center px-4">
       <div className="card w-full max-w-6xl bg-white shadow-2xl rounded-lg overflow-hidden">
-        <div className="grid grid-cols-1 md:grid-cols-2">
-          {/* Left Side */}
+        <div className="flex flex-col">
+          {/* Top Section - Avatar */}
           <div className="bg-[#255140] text-white flex flex-col justify-center items-center p-8">
             <div className="avatar">
               <div className="w-32 h-32 rounded-full ring ring-[#FFC649] ring-offset-4 overflow-hidden">
@@ -67,11 +67,13 @@ function EditProfile() {
             <p className="text-sm italic mt-2">Update your profile information</p>
           </div>
 
-          {/* Right Side - Form */}
+          {/* Bottom Section - Form */}
           <div className="p-8">
             <h2 className="text-2xl font-bold text-[#255140] mb-4">Edit Profile</h2>
-            <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {[ 
+
+            <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-4 gap-1">
+              {/* Basic Fields */}
+              {[
                 { name: "first_name", label: "First Name" },
                 { name: "last_name", label: "Last Name" },
                 { name: "age", label: "Age", type: "number" },
@@ -92,6 +94,7 @@ function EditProfile() {
                 </div>
               ))}
 
+              {/* Select Fields */}
               <div>
                 <label className="label font-semibold">Gender</label>
                 <select
@@ -119,23 +122,71 @@ function EditProfile() {
                 </select>
               </div>
 
-              <div className="col-span-2">
-                <label className="label font-semibold">Activity Level</label>
-                <select
-                  name="activity_level"
-                  value={formData.activity_level || "sedentary"}
-                  onChange={handleChange}
-                  className="select select-bordered w-full"
-                >
-                  <option value="sedentary">Sedentary</option>
-                  <option value="lightly active">Lightly Active</option>
-                  <option value="moderately active">Moderately Active</option>
-                  <option value="very active">Very Active</option>
-                  <option value="super active">Super Active</option>
-                </select>
+              {/* Lifestyle and Preferences */}
+              <div className="md:col-span-4 grid grid-cols-1 md:grid-cols-5 gap-4">
+                <div>
+                  <label className="label font-semibold">Activity Level</label>
+                  <select
+                    name="activity_level"
+                    value={formData.activity_level || "sedentary"}
+                    onChange={handleChange}
+                    className="select select-bordered w-full"
+                  >
+                    <option value="sedentary">Sedentary</option>
+                    <option value="lightly active">Lightly Active</option>
+                    <option value="moderately active">Moderately Active</option>
+                    <option value="very active">Very Active</option>
+                    <option value="super active">Super Active</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label className="label font-semibold">Food Preference</label>
+                  <select
+                    name="food_preferences"
+                    value={formData.food_preferences?.[0] || ""}
+                    onChange={(e) =>
+                      setFormData((prev) => ({
+                        ...prev,
+                        food_preferences: [e.target.value],
+                      }))
+                    }
+                    className="select select-bordered w-full"
+                  >
+                    <option value="">Select a preference</option>
+                    <option value="vegetarian">Vegetarian</option>
+                    <option value="vegan">Vegan</option>
+                    <option value="paleo">Paleo</option>
+                    <option value="keto">Keto</option>
+                    <option value="gluten-free">Gluten-Free</option>
+                  </select>
+                </div>
+
+                {[
+                  { name: "allergies", label: "Allergies" },
+                  { name: "cuisine_preferences", label: "Cuisine Preferences" },
+                  { name: "disease", label: "Disease" },
+                ].map(({ name, label }) => (
+                  <div key={name}>
+                    <label className="label font-semibold">{label}</label>
+                    <input
+                      name={name}
+                      value={formData[name]?.join(", ") || ""}
+                      onChange={(e) =>
+                        setFormData({
+                          ...formData,
+                          [name]: e.target.value.split(",").map((s) => s.trim()),
+                        })
+                      }
+                      className="input input-bordered w-full"
+                      placeholder={`${label} (comma-separated)`}
+                    />
+                  </div>
+                ))}
               </div>
 
-              <div className="col-span-2">
+              {/* Password */}
+              <div className="md:col-span-2">
                 <label className="label font-semibold">New Password (optional)</label>
                 <input
                   name="password"
@@ -147,7 +198,8 @@ function EditProfile() {
                 />
               </div>
 
-              <div className="col-span-2">
+              {/* Profile Image */}
+              <div className="md:col-span-2">
                 <label className="label font-semibold">Profile Image</label>
                 <input
                   type="file"
@@ -157,60 +209,15 @@ function EditProfile() {
                 />
               </div>
 
-              <div className="col-span-2">
-                <label className="label font-semibold">Food Preferences</label>
-                <div className="grid grid-cols-2 gap-2">
-                  {["vegetarian", "vegan", "paleo", "keto", "gluten-free"].map((option) => (
-                    <label key={option} className="label cursor-pointer">
-                      <span className="label-text capitalize">{option}</span>
-                      <input
-                        type="checkbox"
-                        className="checkbox ml-2"
-                        checked={formData.food_preferences?.includes(option)}
-                        onChange={() =>
-                          setFormData((prev) => {
-                            const current = new Set(prev.food_preferences || []);
-                            if (current.has(option)) current.delete(option);
-                            else current.add(option);
-                            return { ...prev, food_preferences: [...current] };
-                          })
-                        }
-                      />
-                    </label>
-                  ))}
-                </div>
-              </div>
-
-              {[
-                { name: "allergies", label: "Allergies" },
-                { name: "cuisine_preferences", label: "Cuisine Preferences" },
-                { name: "disease", label: "Disease" },
-              ].map(({ name, label }) => (
-                <div className="col-span-2" key={name}>
-                  <label className="label font-semibold">{label}</label>
-                  <input
-                    name={name}
-                    value={formData[name]?.join(", ") || ""}
-                    onChange={(e) =>
-                      setFormData({
-                        ...formData,
-                        [name]: e.target.value.split(",").map((s) => s.trim()),
-                      })
-                    }
-                    className="input input-bordered w-full"
-                    placeholder={`${label} (comma-separated)`}
-                  />
-                </div>
-              ))}
-
-              <div className="col-span-2 flex justify-between pt-4">
-                <button type="submit" className="btn bg-[#FFC649] text-white hover:bg-[#e5b93f] btn-wide">
+              {/* Buttons */}
+              <div className="md:col-span-4 flex flex-col md:flex-row justify-between gap-4 mt-4">
+                <button type="submit" className="btn bg-[#FFC649] text-white hover:bg-[#e5b93f] w-full md:w-auto">
                   Save Changes
                 </button>
                 <button
                   type="button"
                   onClick={() => navigate("/profile")}
-                  className="btn btn-outline border-[#FFC649] text-[#FFC649] hover:bg-[#FFC649] hover:text-white btn-wide"
+                  className="btn btn-outline border-[#FFC649] text-[#FFC649] hover:bg-[#FFC649] hover:text-white w-full md:w-auto"
                 >
                   Cancel
                 </button>

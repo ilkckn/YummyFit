@@ -4,7 +4,7 @@ import AboutTacosImage from '../assets/images/aboutPage/about.png';
 
 const AboutPage = () => {
   return (
-    <div className="min-h-screen flex justify-center items-center py-10">
+    <div className="min-h-screen flex justify-center items-center py-10 pt-[140px]">
       <div className="w-11/12 md:w-3/4 flex flex-col md:flex-row items-center overflow-hidden rounded-lg">
 
         {/* Left Text Section */}

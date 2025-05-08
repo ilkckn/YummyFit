@@ -120,6 +120,35 @@ export const updateUser = asyncHandler(async (req, res, next) => {
     newData.image = existingUser.image;
   }
 
+  if(newData.age && newData.weight && newData.height){
+    let bmr;
+    if(!newData.gender || newData.gender === "male"){
+      bmr = 10 * newData.weight + 6.25 * newData.height - 5 * newData.age + 5;
+    }
+    else{
+      bmr = 10 * newData.weight + 6.25 * newData.height - 5 * newData.age - 161;
+    }
+
+    const activityMap ={
+      "sedentary": 1.2,
+      "lightly active": 1.375,
+      "moderately active": 1.55,
+      "very active": 1.725,
+      "super active": 1.9
+    }
+
+    const targetChange ={
+      "500g": 500,
+      "1kg": 1000
+    }
+
+    const activity_level = activityMap[newData.activity_level] || 1.2;
+
+    let tdee = bmr * activity_level;
+    let daily_calories = tdee - (targetChange[newData.target_weight_change] || 1000);
+    newData.daily_calories = daily_calories;
+  }
+
   const updatedUser = await User.findByIdAndUpdate(userId, newData, {
     new: true,
     runValidators: true,

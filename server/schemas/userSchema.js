@@ -95,11 +95,27 @@ const userSchema = new Schema(
     },
     food_preferences: {
       type: [String],
-      enum: ["vegetarian", "vegan", "paleo", "keto", "gluten-free"],
+      enum: ["anything","vegetarian", "vegan", "paleo", "keto", "gluten-free"],
       default: [],
     },
     cuisine_preferences: {
       type: [String],
+      enum: [
+        "italian",
+        "chinese",
+        "indian",
+        "mexican",
+        "japanese",
+        "french",
+        "greek",
+        "spanish",
+        "thai",
+        "mediterranean",
+        "american",
+        "korean",
+        "vietnamese",
+        "middle eastern",
+      ],
       default: [],
     },
     disease: {

@@ -5,18 +5,18 @@ import { ORIGIN_URL } from "../config";
 
 export const CommentContext = createContext();
 
-function CommentContextProvider({ children }) {
-  const { id } = useParams();
+function CommentContextProvider({ children, recipeId }) {
   const navigate = useNavigate();
   const [comments, setComments] = useState([]);
   const [error, setError] = useState(null);
 
   const fetchComments = async () => {
     try {
-      const res = await axios.get(`${ORIGIN_URL}/comments/recipe/${id}`, {
+      const res = await axios.get(`${ORIGIN_URL}/comments/recipe/${recipeId}`, {
         withCredentials: true,
       });
       setComments(res.data);
+      console.log("res.data", res.data);
       setError(null);
     } catch (error) {
       setError("Failed to fetch comments. Please try again.");
@@ -24,18 +24,40 @@ function CommentContextProvider({ children }) {
   };
 
   const addComment = async (newComment) => {
+    console.log("newComment", newComment);
     try {
       const res = await axios.post(
-        `${ORIGIN_URL}/comments/recipe/${id}`,
+        `${ORIGIN_URL}/comments/recipe/${recipeId}`,
         newComment,
         {
           withCredentials: true,
         }
       );
       setComments((prevComments) => [...prevComments, res.data]);
+      console.log("res.data", res.data);
       setError(null);
     } catch (error) {
       setError("Failed to add comment. Please try again.");
+    }
+  };
+
+  const updateComment = async (commentId, updates) => {
+    try {
+      const res = await axios.put(
+        `${ORIGIN_URL}/comments/${commentId}`,
+        updates,
+        {
+          withCredentials: true,
+        }
+      );
+      setComments((prevComments) =>
+        prevComments.map((comment) =>
+          comment._id === commentId ? res.data : comment
+        )
+      );
+      setError(null);
+    } catch (error) {
+      setError("Failed to update comment. Please try again.");
     }
   };
 
@@ -45,12 +67,13 @@ function CommentContextProvider({ children }) {
         value={{
           fetchComments,
           addComment,
-          id,
+          recipeId,
           comments,
           setComments,
           error,
           setError,
           navigate,
+          updateComment,
         }}
       >
         {children}

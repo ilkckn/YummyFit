@@ -37,7 +37,7 @@ const recipeSchema = new Schema(
         image: {
           type: String,
           default:
-            "https://www.nestledessertsarabia.com/sites/site.prod1.nestledessertsarabia.com/files/default_images/recipe-default-image.png"
+            "https://www.nestledessertsarabia.com/sites/site.prod1.nestledessertsarabia.com/files/default_images/recipe-default-image.png",
         },
       },
     ],
@@ -82,7 +82,7 @@ const recipeSchema = new Schema(
       type: [String],
       default: [],
     },
-    diets:{
+    diets: {
       type: [String],
       default: [],
     },

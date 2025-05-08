@@ -7,8 +7,8 @@ import About from "./pages/About";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Profile from "./pages/Profile";
-import RecipeDetail from './pages/RecipeDetail';
-import FoodType from './pages/FoodType';
+import RecipeDetail from "./pages/RecipeDetail";
+import FoodType from "./pages/FoodType";
 import AccountSetup from "./components/AccountSetup";
 import FoodPreferences from "./components/FoodPreferences";
 import FoodAvoid from "./components/FoodAvoid";
@@ -34,7 +34,10 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/account-setup" element={<AccountSetup />} />
-          <Route path="/account-setup/food-preferences" element={<FoodPreferences />} />
+          <Route
+            path="/account-setup/food-preferences"
+            element={<FoodPreferences />}
+          />
           <Route path="/account-setup/food-avoid" element={<FoodAvoid />} />
           <Route path="/account-setup/user-info" element={<UserInfo />} />
         </Route>

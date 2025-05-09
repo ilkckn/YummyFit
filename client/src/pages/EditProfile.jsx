@@ -44,7 +44,6 @@ function EditProfile() {
         headers: { "Content-Type": "multipart/form-data" },
       });
 
-      // Kullanıcı verilerini güncelle
       // setUser(res.data);
       setSessionCheckNeeded(true);
       console.log("Updated user data:", res.data);

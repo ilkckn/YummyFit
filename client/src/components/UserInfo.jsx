@@ -4,7 +4,7 @@ import { AuthContext } from "../context/authContext";
 import { useState,useContext } from "react";
 
 function UserInfo() {
-  const { user,navigate,setError } = useContext(AuthContext);
+  const { user,navigate,setError, setUser } = useContext(AuthContext);
   const userId = user?.id;
   const [userInfo,setUserInfo] = useState({});
   const [gender, setGender] = useState("male");
@@ -32,7 +32,7 @@ function UserInfo() {
       }, {
         withCredentials: true,
       });
-      
+      setUser(response.data);
       navigate("/profile");
     } catch (error) {
       setError(error.response?.data?.message || "An error occurred while updating the user data.");
@@ -49,7 +49,7 @@ function UserInfo() {
           <p className="text-lg mb-8">This information lets us estimate your nutrition requirements for each day.
           </p>
           <form onSubmit={handleSubmit}>
-            <div className="flex gap-4 mt-4 justify-between">
+            <div className="flex mt-4 justify-start gap-50">
               <div>
                 <div className="flex gap-5 items-center justify-between py-3">
                   <label htmlFor="gender" className="text-lg font-semibold">Gender</label>
@@ -75,7 +75,7 @@ function UserInfo() {
                   <label htmlFor="weight" className="text-lg font-semibold">Weight</label>
                   <div>
                     <input type="number" id="weight" name="weight" onChange={handleChange} value={userInfo.weight} 
-                    className="border-1 rounded-lg px-2 py-1 w-[50px] mr-1" required />
+                    className="border-1 rounded-lg px-2 py-1 w-[4rem] mr-1 text-center" required />
                     <span className="">kg</span>
                   </div>
                 </div>
@@ -83,7 +83,7 @@ function UserInfo() {
                   <label htmlFor="target_weight" className="text-lg font-semibold">Target Weight</label>
                   <div>
                     <input type="number" id="target_weight" name="target_weight" onChange={handleChange} value={userInfo.target_weight} 
-                    className="border-1 rounded-lg px-2 py-1 w-[50px] mr-1" required />
+                    className="border-1 rounded-lg px-2 py-1 w-[4rem] mr-1 text-center" required />
                     <span className="">kg</span>
                   </div>
                 </div>
@@ -104,7 +104,7 @@ function UserInfo() {
                   <label htmlFor="age" className="text-lg font-semibold">Age</label>
                   <div>
                     <input type="number" id="age" name="age" onChange={handleChange} value={userInfo.age} 
-                    className="border-1 rounded-lg px-2 py-1 w-[50px] mr-1" required />
+                    className="border-1 rounded-lg px-2 py-1 w-[4rem] mr-1 text-center" required />
                     <span className="">years</span>
                   </div>
                 </div>
@@ -112,7 +112,7 @@ function UserInfo() {
                   <label htmlFor="height" className="text-lg font-semibold">Height</label>
                   <div>
                     <input type="number" id="height" name="height" onChange={handleChange} value={userInfo.height} 
-                    className="border-1 rounded-lg px-2 py-1 w-[50px] mr-1" required />
+                    className="border-1 rounded-lg px-2 py-1 w-[4rem] mr-1 text-center" required />
                     <span className="">cm</span>
                   </div>
                 </div>

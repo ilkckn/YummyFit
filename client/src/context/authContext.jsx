@@ -12,6 +12,12 @@ function AuthContextProvider({ children }) {
   const [error, setError] = useState(null);
   const [successLoggedIn, setSuccessLoggedIn] = useState(false);
   const [successRegistered, setSuccessRegistered] = useState(false);
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
+
+  const handleClosePopup = () => {
+    setIsPopupOpen(false);
+    localStorage.setItem("popupClosed", "true");
+  };
 
   const handleChange = (e) => {
     setUser(prevUser => ({
@@ -33,7 +39,7 @@ function AuthContextProvider({ children }) {
       });
       setUser(res.data.user);
       setError(null);
-      navigate("/account-setup");
+      navigate("/login");
     } catch (error) {
       setError("Registration failed. Please try again.");
     }
@@ -69,6 +75,7 @@ function AuthContextProvider({ children }) {
       );
       setUser(null);
       setError(null);
+      localStorage.removeItem("popupClosed");
       navigate("/login");
     } catch (error) {
       setError("Logout failed. Please try again.");
@@ -116,7 +123,10 @@ useEffect(() => {
           setSuccessLoggedIn,
           successRegistered,
           setSuccessRegistered,
-          navigate
+          navigate,
+          handleClosePopup,
+          isPopupOpen,
+          setIsPopupOpen,
         }}
       >
         {children}

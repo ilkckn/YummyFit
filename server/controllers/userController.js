@@ -146,7 +146,7 @@ export const updateUser = asyncHandler(async (req, res, next) => {
 
     let tdee = bmr * activity_level;
     let daily_calories = tdee - (targetChange[newData.target_weight_change] || 1000);
-    newData.daily_calories = daily_calories;
+    newData.daily_calories = Math.round(daily_calories);
   }
 
   const updatedUser = await User.findByIdAndUpdate(userId, newData, {
@@ -234,6 +234,7 @@ export const logoutUser = (req, res) => {
 export const checkSession = (req, res) => {
   if(req.user){
     res.json({authenticated: true, user: req.user});
+    console.log("user", req.user);
   }else {
     res.json({authenticated: false});
   }

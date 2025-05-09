@@ -49,7 +49,7 @@ function EditProfile() {
   return (
     <div className="min-h-screen bg-gradient-to-r from-[#255140] via-[#FFC649] to-[#255140] flex justify-center items-center px-4">
       <div className="card w-full max-w-6xl bg-white shadow-2xl rounded-lg overflow-hidden">
-        <div className="flex flex-col">
+        <div className="flex flex-col text-white">
           {/* Top Section - Avatar */}
           <div className="bg-[#255140] text-white flex flex-col justify-center items-center p-8">
             <div className="avatar">
@@ -83,7 +83,7 @@ function EditProfile() {
                 { name: "daily_calories", label: "Daily Calories (kcal)", type: "number" },
               ].map(({ name, label, type = "text" }) => (
                 <div key={name}>
-                  <label className="label font-semibold">{label}</label>
+                  <label className="label font-semibold text-[#255140] mb-1">{label}</label>
                   <input
                     name={name}
                     type={type}
@@ -96,7 +96,7 @@ function EditProfile() {
 
               {/* Select Fields */}
               <div>
-                <label className="label font-semibold">Gender</label>
+                <label className="label font-semibold text-[#255140] mb-1">Gender</label>
                 <select
                   name="gender"
                   value={formData.gender || "male"}
@@ -110,7 +110,7 @@ function EditProfile() {
               </div>
 
               <div>
-                <label className="label font-semibold">Target Weight Change</label>
+                <label className="label font-semibold text-[#255140] mb-1">Target Weight Change</label>
                 <select
                   name="target_weight_change"
                   value={formData.target_weight_change || "1kg"}
@@ -125,7 +125,7 @@ function EditProfile() {
               {/* Lifestyle and Preferences */}
               <div className="md:col-span-4 grid grid-cols-1 md:grid-cols-5 gap-4">
                 <div>
-                  <label className="label font-semibold">Activity Level</label>
+                  <label className="label font-semibold text-[#255140] mb-1">Activity Level</label>
                   <select
                     name="activity_level"
                     value={formData.activity_level || "sedentary"}
@@ -141,7 +141,7 @@ function EditProfile() {
                 </div>
 
                 <div>
-                  <label className="label font-semibold">Food Preference</label>
+                  <label className="label font-semibold text-[#255140] mb-1">Food Preference</label>
                   <select
                     name="food_preferences"
                     value={formData.food_preferences?.[0] || ""}
@@ -168,7 +168,7 @@ function EditProfile() {
                   { name: "disease", label: "Disease" },
                 ].map(({ name, label }) => (
                   <div key={name}>
-                    <label className="label font-semibold">{label}</label>
+                    <label className="label font-semibold text-[#255140] mb-1">{label}</label>
                     <input
                       name={name}
                       value={formData[name]?.join(", ") || ""}
@@ -187,7 +187,7 @@ function EditProfile() {
 
               {/* Password */}
               <div className="md:col-span-2">
-                <label className="label font-semibold">New Password (optional)</label>
+                <label className="label font-semibold text-[#255140] mb-1">New Password (optional)</label>
                 <input
                   name="password"
                   type="password"
@@ -200,7 +200,7 @@ function EditProfile() {
 
               {/* Profile Image */}
               <div className="md:col-span-2">
-                <label className="label font-semibold">Profile Image</label>
+                <label className="label font-semibold text-[#255140] mb-1">Profile Image</label>
                 <input
                   type="file"
                   accept="image/*"

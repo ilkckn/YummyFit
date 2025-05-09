@@ -6,6 +6,7 @@ import UpdateCommentForm from "./UpdateComments.jsx";
 
 function Comments() {
   const { comments, fetchComments, error } = useContext(CommentContext);
+  console.log("comments", comments);
   const { user } = useContext(AuthContext);
   const [editingCommentId, setEditingCommentId] = useState(null);
 
@@ -38,7 +39,11 @@ function Comments() {
             className="w-full bg-white p-5 px-8 rounded-lg shadow-md mb-1"
           >
             <figure className="flex items-center gap-2 mb-2">
-              <img src={user?.image} alt="" className="w-[3rem] rounded-full" />
+              <img
+                src={comment.userId?.image}
+                alt={comment.userId?.username || "User"}
+                className="w-[3rem] h-[3rem] rounded-full object-cover"
+              />
             </figure>
             <p>
               <strong>{comment.userId?.username}:</strong> {comment.text}

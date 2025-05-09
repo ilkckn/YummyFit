@@ -27,8 +27,8 @@ function Profile() {
     cuisine_preferences,
     disease,
   } = user || {};
-  console.log("User id:", id);
-
+  console.log("User data:", user);
+  console.log("User ID:", id);
   if (sessionLoading) {
     return <div className="loading">Loading...</div>;
   }

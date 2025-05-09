@@ -13,6 +13,7 @@ function AuthContextProvider({ children }) {
   const [successLoggedIn, setSuccessLoggedIn] = useState(false);
   const [successRegistered, setSuccessRegistered] = useState(false);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const [sessionCheckNeeded, setSessionCheckNeeded] = useState(true);
 
   const handleClosePopup = () => {
     setIsPopupOpen(false);
@@ -101,10 +102,13 @@ useEffect(() => {
       console.error("Session check error:", error);
       setUser(null);
       setSessionLoading(false);
+    } finally{
+      setSessionCheckNeeded(false);
     }
   };
-  checkSession();
-}, []);
+  checkSession()
+  if (sessionCheckNeeded) checkSession();
+}, [sessionCheckNeeded]);
 
   return (
     <div>
@@ -127,6 +131,7 @@ useEffect(() => {
           handleClosePopup,
           isPopupOpen,
           setIsPopupOpen,
+          setSessionCheckNeeded
         }}
       >
         {children}

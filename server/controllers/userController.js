@@ -154,6 +154,7 @@ export const updateUser = asyncHandler(async (req, res, next) => {
     runValidators: true,
   });
 
+  res.setHeader("Cache-Control", "no-store");
   res.status(200).json(updatedUser);
 });
 
@@ -232,10 +233,10 @@ export const logoutUser = (req, res) => {
 };
 
 export const checkSession = (req, res) => {
-  if(req.user){
-    res.json({authenticated: true, user: req.user});
+  if (req.user) {
+    res.json({ authenticated: true, user: req.user });
     console.log("user", req.user);
-  }else {
-    res.json({authenticated: false});
+  } else {
+    res.json({ authenticated: false });
   }
-}
+};

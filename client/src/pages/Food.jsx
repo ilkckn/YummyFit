@@ -22,7 +22,7 @@ function Recipe() {
   const recipesToShow = searchedFood.length > 0 ? searchedFood : food;
 
   return (
-    <div className="w-full flex flex-col items-center justify-start">
+    <div className="w-full flex flex-col items-center justify-start pt-[12rem]">
       {loading && <p>Loading...</p>}
       <div className="search-heading text-center">
         <h2 className="text-3xl mb-1 lato-black">

@@ -10,6 +10,8 @@ import foodRoutes from "./routes/foodRoutes.js";
 import recipeRoutes from "./routes/recipeRoutes.js";
 import favoriteRoutes from "./routes/favoriteRoutes.js";
 import commentsRouter from "./routes/commentRoutes.js" 
+import mealPlanRoutes from "./routes/mealPlanRoutes.js";
+
 config();
 
 const app = express();
@@ -33,6 +35,7 @@ app.use("/food", foodRoutes);
 app.use("/recipes", recipeRoutes);
 app.use("/favorites", favoriteRoutes);
 app.use("/comments", commentsRouter); 
+app.use("/meal-plans", mealPlanRoutes);
 
 app.use("/", (req, res) => {
   res.send("Welcome to the server!");

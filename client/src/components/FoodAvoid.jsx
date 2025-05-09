@@ -6,7 +6,8 @@ import { useState,useContext } from "react";
 function FoodAvoid() {
   const [allergies, setAllergies] = useState([]);
   const [diseases, setDiseases] = useState([]);
-  const { user,navigate,setError } = useContext(AuthContext);
+  const [cuisine, setCuisine] = useState([]);
+  const { user,navigate,setError,setUser } = useContext(AuthContext);
   const userId = user?.id;
   const [activeBtn, setActiveBtn] = useState([]);
   
@@ -30,6 +31,16 @@ function FoodAvoid() {
     }
   }
 
+  const handleSelectCuisine = (userCuisine) => {
+    if (cuisine.includes(userCuisine)) {
+      setCuisine(cuisine.filter((item) => item !== userCuisine));
+      setActiveBtn(activeBtn.filter((item) => item !== userCuisine));
+    } else {
+      setCuisine([...cuisine, userCuisine]);
+      setActiveBtn([...activeBtn, userCuisine]);
+    }
+  }
+
   const handleClickNext = async () => {
     try {
       const response = await axios.put(`${ORIGIN_URL}/users/${userId}`, {
@@ -38,6 +49,7 @@ function FoodAvoid() {
       }, {
         withCredentials: true,
       });
+      setUser(response.data);
       navigate("/account-setup/user-info");
     } catch (error) {
       setError(error.response?.data?.message || "An error occurred while updating the user data.");
@@ -52,7 +64,7 @@ function FoodAvoid() {
             <h2 className="font-bold text-2xl mb-7">
               Do you have any food allergies or intolerances?
             </h2>
-            <div className="flex flex-wrap gap-4 mt-4">
+            <div className="flex flex-wrap gap-4 mt-4 justify-center items-center">
               <button type="button" 
                 className={`border-1 rounded-lg px-2 py-1 cursor-pointer ${activeBtn.includes("peanuts") ? "active-btn" : ""}`} 
                 onClick={()=>handleSelectAllergy("peanuts")}>
@@ -94,7 +106,7 @@ function FoodAvoid() {
             <h2 className="font-bold text-2xl mt-10 mb-7">
               Do you have any medical conditions or diseases?
             </h2>
-            <div className="flex flex-wrap gap-4 mt-4">
+            <div className="flex flex-wrap gap-4 mt-4 justify-center items-center">
               <button type="button" 
                 className={`border-1 rounded-lg px-2 py-1 cursor-pointer ${activeBtn.includes("Diabetes") ? "active-btn" : ""}`} 
                 onClick={()=>handleSelectDisease("Diabetes")}>
@@ -132,8 +144,85 @@ function FoodAvoid() {
               </button>
             </div>
           </div>
+
+          <div className="w-[80%] mx-auto mt-15">
+            <h2 className="font-bold text-2xl mt-10 mb-7">
+              Do you prefer any specific cuisine?
+            </h2>
+            <div className="flex flex-wrap gap-4 mt-4 justify-center items-center">
+              <button type="button" 
+                className={`border-1 rounded-lg px-2 py-1 cursor-pointer ${activeBtn.includes("italian") ? "active-btn" : ""}`} 
+                onClick={()=>handleSelectCuisine("italian")}>
+                Italian
+              </button>
+              <button type="button" 
+                className={`border-1 rounded-lg px-2 py-1 cursor-pointer ${activeBtn.includes("chinese") ? "active-btn" : ""}`} 
+                onClick={()=>handleSelectCuisine("chinese")}>
+                Chinese
+              </button>
+              <button type="button" 
+                className={`border-1 rounded-lg px-2 py-1 cursor-pointer ${activeBtn.includes("indian") ? "active-btn" : ""}`} 
+                onClick={()=>handleSelectCuisine("indian")}>
+                Indian
+              </button>
+              <button type="button" 
+                className={`border-1 rounded-lg px-2 py-1 cursor-pointer ${activeBtn.includes("mexican") ? "active-btn" : ""}`} 
+                onClick={()=>handleSelectCuisine("mexican")}>
+                Mexican
+              </button>
+              <button type="button" 
+                className={`border-1 rounded-lg px-2 py-1 cursor-pointer ${activeBtn.includes("japanese") ? "active-btn" : ""}`} 
+                onClick={()=>handleSelectCuisine("japanese")}>
+                Japanese
+              </button>
+              <button type="button" 
+                className={`border-1 rounded-lg px-2 py-1 cursor-pointer ${activeBtn.includes("french") ? "active-btn" : ""}`} 
+                onClick={()=>handleSelectCuisine("french")}>
+                French
+              </button>
+              <button type="button" 
+                className={`border-1 rounded-lg px-2 py-1 cursor-pointer ${activeBtn.includes("greek") ? "active-btn" : ""}`} 
+                onClick={()=>handleSelectCuisine("greek")}>
+                Greek
+              </button>
+              <button type="button" 
+                className={`border-1 rounded-lg px-2 py-1 cursor-pointer ${activeBtn.includes("thai") ? "active-btn" : ""}`} 
+                onClick={()=>handleSelectCuisine("thai")}>
+                Thai
+              </button>
+              <button type="button" 
+                className={`border-1 rounded-lg px-2 py-1 cursor-pointer ${activeBtn.includes("spanish") ? "active-btn" : ""}`} 
+                onClick={()=>handleSelectCuisine("spanish")}>
+                Spanish
+              </button>
+              <button type="button" 
+                className={`border-1 rounded-lg px-2 py-1 cursor-pointer ${activeBtn.includes("korean") ? "active-btn" : ""}`} 
+                onClick={()=>handleSelectCuisine("korean")}>
+                Korean
+              </button>
+              <button type="button" 
+                className={`border-1 rounded-lg px-2 py-1 cursor-pointer ${activeBtn.includes("mediterranean") ? "active-btn" : ""}`} 
+                onClick={()=>handleSelectCuisine("mediterranean")}>
+                Mediterranean
+              </button>
+              <button type="button" 
+                className={`border-1 rounded-lg px-2 py-1 cursor-pointer ${activeBtn.includes("american") ? "active-btn" : ""}`} 
+                onClick={()=>handleSelectCuisine("american")}>
+                American
+              </button>
+              <button type="button" 
+                className={`border-1 rounded-lg px-2 py-1 cursor-pointer ${activeBtn.includes("vietnamese") ? "active-btn" : ""}`} 
+                onClick={()=>handleSelectCuisine("vietnamese")}>
+                Vietnamese
+              </button>
+              <button type="button" 
+                className={`border-1 rounded-lg px-2 py-1 cursor-pointer ${activeBtn.includes("middle eastern") ? "active-btn" : ""}`} 
+                onClick={()=>handleSelectCuisine("middle eastern")}>
+                Middle Eastern
+              </button>
+            </div>
+          </div>
         </div>
-        
 
         <div className="flex flex-wrap flex-col justify-center items-center gap-[40%] mt-6 mr-[10%]">
             <button onClick={()=>navigate(-1)} className="yummy-btn px-4 py-2 lato-black cursor-pointer">

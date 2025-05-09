@@ -11,7 +11,7 @@ export const getCommentsByRecipe = asyncHandler(async (req, res, next) => {
 
   const comments = await Comment.find({ recipeId }).populate(
     "userId",
-    "username email"
+    "username email image"
   );
 
   if (!comments) {

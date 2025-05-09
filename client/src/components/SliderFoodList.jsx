@@ -41,7 +41,7 @@ function SliderFoodList({ foodList }) {
   };
 
   return (
-    <div className="slider-container w-full mx-auto px-4">
+    <div className="slider-container w-full mx-auto px-0">
       <Slider {...settings}>
         {foodList?.map((food, index) => {
           const id = food.id;

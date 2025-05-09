@@ -57,15 +57,15 @@ function FoodType() {
           const cookingTime = formatTime(item.readyInMinutes);
 
           return (
-            <Link to={`/food/${item.id}`} key={item.id} className="card w-96 h-auto shadow-sm hover:shadow-md transition duration-200">
-              <figure className="h-1/2 w-full overflow-hidden">
+            <Link to={`/food/${item.id}`} key={item.id} className="card w-96 h-[450px] flex flex-col shadow-sm hover:shadow-md transition duration-200">
+              <figure className="w-full h-[150px] overflow-hidden">
                 <img
-                  className="h-full w-full object-cover transition-transform duration-300 hover:scale-110"
+                  className="w-full h-full transition-transform duration-300 hover:scale-110"
                   src={item.image}
                   alt={item.title}
                 />
               </figure>
-              <div className="card-body">
+              <div className="card-body w-full flex flex-col justify-between p-4 bg-white">
                 <h2 className="card-title text-[#333d25]">{item.title}</h2>
                 <p className="text-[#333d25]">
                   {cleanAndLimitHtml(item.summary, 4)}
@@ -105,7 +105,7 @@ function FoodType() {
                   </div>
                 </div>
 
-                <div className="card-actions flex justify-end items-center gap-1 mt-4">
+                <div className="card-actions flex justify-end items-center gap-1">
                   <div className="text-[1rem] text-[#333d25] font-normal underline tracking-[.5px] border-none px-5 py-4">
                     View Details →
                   </div>

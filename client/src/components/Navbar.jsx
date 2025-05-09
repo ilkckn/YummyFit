@@ -8,13 +8,13 @@ import { GiArchiveRegister } from "react-icons/gi";
 import { BiFoodMenu } from "react-icons/bi";
 import { BsBook } from "react-icons/bs";
 import { HiOutlineChatBubbleBottomCenterText } from "react-icons/hi2";
-import Search from "./Search";
+import { MdWifiProtectedSetup } from "react-icons/md";
+import avatar from "../assets/images/avatar/avatar.png";
 
 function Navbar() {
   const { handleLogout, user } = useContext(AuthContext);
   const isLoggedIn = user && user.email;
   return (
- 
     <div className="flex justify-between items-center w-full max-w-[1600px] px-10 z-5 fixed top-0 bg-white shadow-md ">
       <div className="left w-full flex-1/2 flex-wrap flex items-center">
         <div className="">
@@ -71,8 +71,8 @@ function Navbar() {
       <div className="right flex items-center gap-5">
         <div className="welcome">
           {isLoggedIn ? (
-            <p className="text-lg font-bold text-[#1A1A1A]">
-              Welcome, {user.username}
+            <p className="text-lg font-medium text-[#1A1A1A]">
+              Welcome, {user.username}🍃
             </p>
           ) : (
             <p></p>
@@ -97,29 +97,42 @@ function Navbar() {
                 </div>
               </div>
             ) : (
-              <span className="text-sm">Avatar</span>
+              <img src={avatar} alt="" />
             )}
           </div>
           <ul
             tabIndex={0}
             className="dropdown-content w-[25rem] min-h-[100vh] flex flex-col items-center justify-start gap-4 absolute top-[-2.5rem] right-[-2.5rem] bg-[#326C56] text-white p-2 pt-20 shadow-sm"
           >
-            <NavLink>
-              <figure className="w-full flex justify-center items-center mb-5">
-                <img src={logo} alt="" className="w-[55%]" />
-              </figure>
-            </NavLink>
             <div className="welcome">
               {isLoggedIn ? (
-                <p className="text-lg font-bold text-white">
-                  Welcome, {user.username}
-                </p>
+                <div className="flex flex-col items-center justify-center gap-2">
+                  <img
+                    src={user?.image}
+                    alt=""
+                    className="w-[7rem] rounded-[50%] border-3 border-white"
+                  />
+                  <p className="text-lg font-medium text-white mb-5 underline tracking-[.5px]">
+                    Welcome, {user.username}
+                  </p>
+                </div>
               ) : (
                 <p></p>
               )}
             </div>
             {isLoggedIn ? (
               <>
+                <li className="w-full flex justify-center items-center text-[#326C56] tracking-[1px] relative">
+                  <NavLink
+                    to={"/account-setup"}
+                    className={"w-full flex justify-center items-center"}
+                  >
+                    <button className="w-[70%] h-[3rem] bg-white cursor-pointer text-[.9rem] text-[#326C56] uppercase rounded-md shadow-md hover:bg-[#FFC649] hover:text-white transition duration-300 ease-in-out flex items-center justify-center gap-2">
+                      <MdWifiProtectedSetup className="text-inherit text-xl transition duration-300 ease-in-out" />
+                      Account Setup
+                    </button>
+                  </NavLink>
+                </li>
                 <li className="w-full flex justify-center items-center text-[#326C56] tracking-[1px] relative">
                   <NavLink
                     to={"/profile"}
@@ -175,6 +188,11 @@ function Navbar() {
                     </button>
                   </NavLink>
                 </li>
+                <NavLink to={"/"}>
+                  <figure className="w-full flex justify-center items-center mb-5 absolute bottom-20 left-0 right-0">
+                    <img src={logo} alt="" className="w-[55%]" />
+                  </figure>
+                </NavLink>
               </>
             ) : (
               <>
@@ -205,11 +223,7 @@ function Navbar() {
           </ul>
         </div>
       </div>
-      
     </div>
- 
-    
-    
   );
 }
 <nav></nav>;

@@ -58,6 +58,12 @@ function Search() {
       setIsSearchInputActive(false);
     }
   };
+  const handleReset = () => {
+  setSearchTerm("");
+  setSelectedType("");
+  setSelectedCuisine("");
+  handleSearch("", "", ""); // Fetch all data 
+};
 
   return (
     <div className="w-full">
@@ -70,8 +76,13 @@ function Search() {
           placeholder="Search by title..."
           className="w-[25rem] p-2 border rounded-md"
         />
-
-        <div className="relative">
+           <button
+            onClick={handleReset}
+            className="px-8 py-2 bg-gray-300 text-black rounded-md hover:bg-gray-400 cursor-pointer"
+          >
+            Reset and show all
+          </button>
+                  <div className="relative">
           <div
             className="w-[10rem] p-2 border rounded-md bg-white cursor-pointer"
             onClick={toggleDishTypeDropdown}
@@ -89,6 +100,7 @@ function Search() {
                 >
                   All Dish Types
                 </div>
+                
                 {dishTypeList.map((type) => (
                   <div
                     key={type.id}
@@ -101,6 +113,7 @@ function Search() {
                   </div>
                 ))}
               </div>
+              
             </div>
           )}
         </div>

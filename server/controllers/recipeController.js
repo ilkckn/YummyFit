@@ -1,78 +1,88 @@
 import asyncHandler from "../utils/asyncHandler.js";
 import { CustomError } from "../utils/errorHandler.js";
 import Recipe from "../schemas/recipeSchema.js";
+import { bucket } from "../config/firebase.js";
 
-export const getRecipes = asyncHandler(async(req,res) => {
-    const recipes = await Recipe.find();
+export const getRecipes = asyncHandler(async (req, res) => {
+  const recipes = await Recipe.find().populate("userId", "username email");
 
-    if (!recipes)
-        throw new CustomError("recipes not found", 404);
+  if (!recipes) throw new CustomError("recipes not found", 404);
 
-    res.status(200).json(recipes);
-})
+  res.status(200).json({ recipes, user: req.user });
+});
 
-export const getRecipeById = asyncHandler(async(req,res) => {
-    const recipeId = req.params.id;
-    const recipe = await Recipe.findById(recipeId).populate("userId", "username email");
+export const getRecipeById = asyncHandler(async (req, res) => {
+  const recipeId = req.params.id;
+  const recipe = await Recipe.findById(recipeId).populate(
+    "userId",
+    "username email"
+  );
 
-    if (!recipe)
-        throw new CustomError("recipe not found", 404);
+  if (!recipe) throw new CustomError("recipe not found", 404);
 
-    res.status(200).json(recipe);
-})
+  res.status(200).json(recipe);
+});
 
-export const createRecipe = asyncHandler(async(req,res) => {
-    const {title, description,image, ingredients,steps,calories,prep_time,cook_time,carbs, fat, protein, food_type, diets,cuisine_type} = req.body;
-    // const userId = req.user.id;
+export const createRecipe = asyncHandler(async (req, res) => {
+  const {
+    title,
+    description,
+    calories,
+    prep_time,
+    cook_time,
+    carbs,
+    protein,
+    fat,
+  } = req.body;
 
-    const existingRecipe = await Recipe.findOne({title: title});
-    
-    if (existingRecipe)
-        throw new CustomError("recipe already exists", 400);
-    
-    const newRecipe = new Recipe({
-        title,
-        description,
-        image,
-        ingredients,
-        steps,
-        calories,
-        prep_time,
-        cook_time,
-        // userId,
-        carbs,
-        fat,
-        protein,
-        food_type,
-        diets,
-        cuisine_type,
-    });
+  const ingredients = JSON.parse(req.body.ingredients || "[]");
+  const steps = JSON.parse(req.body.steps || "[]");
+  const food_type = JSON.parse(req.body.food_type || "[]");
+  const diets = JSON.parse(req.body.diets || "[]");
+  const cuisine_type = JSON.parse(req.body.cuisine_type || "[]");
 
-    await newRecipe.save();
+  const image = req.file ? req.file.path : undefined;
 
-    res.status(201).json(newRecipe);
-})
+  const newRecipe = new Recipe({
+    title,
+    description,
+    image,
+    ingredients,
+    steps,
+    calories,
+    prep_time,
+    cook_time,
+    carbs,
+    protein,
+    fat,
+    food_type,
+    diets,
+    cuisine_type,
+  });
 
-export const updateRecipe = asyncHandler(async(req,res) => {
-    const recipeId = req.params.id;
-    const update = req.body;
+  const savedRecipe = await newRecipe.save();
+  res.status(201).json(savedRecipe);
+});
 
-    const updatedRecipe = await Recipe.findByIdAndUpdate(recipeId, update,
-        {new: true}).populate("userId", "username email");
+export const updateRecipe = asyncHandler(async (req, res) => {
+  const recipeId = req.params.id;
+  const update = req.body;
 
-    if (!updatedRecipe)
-        throw new CustomError("recipe not found", 404);
+  const updatedRecipe = await Recipe.findByIdAndUpdate(recipeId, update, {
+    new: true,
+  }).populate("userId", "username email");
 
-    res.status(200).json(updatedRecipe);
-})
+  if (!updatedRecipe) throw new CustomError("recipe not found", 404);
 
-export const deleteRecipe = asyncHandler(async(req,res) => {
-    const recipeId = req.params.id;
+  res.status(200).json(updatedRecipe);
+});
 
-    const deletedRecipe = await Recipe.findByIdAndDelete(recipeId);
+export const deleteRecipe = asyncHandler(async (req, res) => {
+  const recipeId = req.params.id;
 
-    if (!deletedRecipe)
-        throw new CustomError("recipe not found", 404);
+  const deletedRecipe = await Recipe.findByIdAndDelete(recipeId);
 
-    res.status(200).json({message: "recipe deleted successfully"});
-})
+  if (!deletedRecipe) throw new CustomError("recipe not found", 404);
+
+  res.status(200).json({ message: "recipe deleted successfully" });
+});

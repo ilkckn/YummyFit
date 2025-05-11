@@ -63,19 +63,31 @@ function Profile() {
               <IoReturnUpBack className="text-lg" />
               Go to Home
             </button>
-            <div className="mt-10 flex gap-4">
-              <button
-                className="btn bg-[#FFC649] text-white hover:bg-[#e5b93f] px-6 py-2 rounded-md"
-                onClick={() => navigate("/edit-profile")}
-              >
-                Edit Profile
-              </button>
-              <button
-                className="btn border border-[#FFC649] text-[#FFC649] hover:bg-[#FFC649] hover:text-white px-6 py-2 rounded-md"
-                onClick={handleLogout}
-              >
-                Logout
-              </button>
+            <div className="mt-10 flex flex-col items-center justify-center gap-2">
+              <div className="edit-logout">
+                <button
+                  className="btn bg-[#FFC649] text-white hover:bg-[#e5b93f] px-6 py-2 rounded-md"
+                  onClick={() => navigate("/edit-profile")}
+                >
+                  Edit Profile
+                </button>
+                <button
+                  className="btn border border-[#FFC649] text-[#FFC649] hover:bg-[#FFC649] hover:text-white px-6 py-2 rounded-md"
+                  onClick={handleLogout}
+                >
+                  Logout
+                </button>
+              </div>
+              {role === "admin" && (
+                <div className="w-full flex justify-center">
+                  <button
+                    className="btn w-full bg-transparent text-white border-white hover:bg-white hover:text-[#255140] px-6 py-2 rounded-md"
+                    onClick={() => navigate("/admin")}
+                  >
+                    Go to Admin Panel
+                  </button>
+                </div>
+              )}
             </div>
           </div>
 

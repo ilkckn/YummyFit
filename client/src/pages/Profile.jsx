@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import { AuthContext } from "../context/authContext";
 import { useNavigate } from "react-router-dom";
 import { IoReturnUpBack } from "react-icons/io5";
+import MealPlan from "../components/MealPlan";
 
 function Profile() {
   const { user, handleLogout, sessionLoading } = useContext(AuthContext);
@@ -12,7 +13,6 @@ function Profile() {
     email,
     image,
     role,
-    id,
     username,
     age,
     gender,
@@ -27,19 +27,18 @@ function Profile() {
     cuisine_preferences,
     disease,
   } = user || {};
-  console.log("User data:", user);
-  console.log("User ID:", id);
+
   if (sessionLoading) {
     return <div className="loading">Loading...</div>;
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-r from-[#255140] via-[#FFC649] to-[#255140] flex justify-center items-center">
-      <div className="card w-full max-w-6xl bg-white shadow-2xl rounded-lg overflow-hidden">
-        <div className="grid grid-cols-1 md:grid-cols-2">
-          <div className="bg-[#255140] text-white flex flex-col justify-center items-center p-8 relative">
-            <div className="avatar">
-              <div className="w-32 h-32 rounded-full ring ring-[#FFC649] ring-offset-4">
+    <div className="min-h-screen bg-gradient-to-r from-[#255140] via-[#FFC649] to-[#255140] flex flex-col items-center py-10 px-4">
+      <div className="w-full max-w-5xl bg-white shadow-lg rounded-lg overflow-hidden">
+        <div className="grid grid-cols-1 md:grid-cols-3">
+          <div className="bg-[#255140] text-white flex flex-col items-center p-6">
+            <div className="avatar mb-4 mt-15">
+              <div className="w-28 h-28 rounded-full ring ring-[#FFC649] ring-offset-4">
                 {image ? (
                   <img
                     src={image}
@@ -55,125 +54,97 @@ function Profile() {
                 )}
               </div>
             </div>
-            <p
-              onClick={() => {
-                navigate("/");
-              }}
-              className="flex items-center gap-2 absolute top-10 left-10 cursor-pointer text-white font-bold underline"
+            <h2 className="text-2xl font-bold">{username}</h2>
+            <p className="text-sm italic mt-1">Role: {role}</p>
+            <button
+              onClick={() => navigate("/")}
+              className="mt-4 text-sm flex items-center gap-2 text-[#FFC649] text-[1rem] font-medium hover:underline cursor-pointer"
             >
-              <IoReturnUpBack className="text-[1.2rem]"/>
+              <IoReturnUpBack className="text-lg" />
               Go to Home
-            </p>
-            <h2 className="text-3xl font-bold mt-4">{username}</h2>
-            <p className="text-sm italic mt-2">Role: {role}</p>
+            </button>
+            <div className="mt-10 flex flex-col items-center justify-center gap-2">
+              <div className="edit-logout">
+                <button
+                  className="btn bg-[#FFC649] text-white hover:bg-[#e5b93f] px-6 py-2 rounded-md"
+                  onClick={() => navigate("/edit-profile")}
+                >
+                  Edit Profile
+                </button>
+                <button
+                  className="btn border border-[#FFC649] text-[#FFC649] hover:bg-[#FFC649] hover:text-white px-6 py-2 rounded-md"
+                  onClick={handleLogout}
+                >
+                  Logout
+                </button>
+              </div>
+              {role === "admin" && (
+                <div className="w-full flex justify-center">
+                  <button
+                    className="btn w-full bg-transparent text-white border-white hover:bg-white hover:text-[#255140] px-6 py-2 rounded-md"
+                    onClick={() => navigate("/admin")}
+                  >
+                    Go to Admin Panel
+                  </button>
+                </div>
+              )}
+            </div>
           </div>
 
-          <div className="p-8">
-            <h2 className="text-2xl font-bold text-[#255140] mb-4">
+          <div className="col-span-2 p-6">
+            <h2 className="text-xl font-bold text-[#255140] mb-4">
               Profile Details
             </h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div>
-                <p className="text-sm text-gray-500">Full Name</p>
-                <p className="text-lg font-semibold text-gray-800">
-                  {first_name} {last_name}
-                </p>
-              </div>
-              <div>
-                <p className="text-sm text-gray-500">Email</p>
-                <p className="text-lg font-semibold text-gray-800">{email}</p>
-              </div>
-              <div>
-                <p className="text-sm text-gray-500">Age</p>
-                <p className="text-lg font-semibold text-gray-800">{age}</p>
-              </div>
-              <div>
-                <p className="text-sm text-gray-500">Gender</p>
-                <p className="text-lg font-semibold text-gray-800 capitalize">
-                  {gender}
-                </p>
-              </div>
-              <div>
-                <p className="text-sm text-gray-500">Weight</p>
-                <p className="text-lg font-semibold text-gray-800">
-                  {weight} kg
-                </p>
-              </div>
-              <div>
-                <p className="text-sm text-gray-500">Height</p>
-                <p className="text-lg font-semibold text-gray-800">
-                  {height} cm
-                </p>
-              </div>
-              <div>
-                <p className="text-sm text-gray-500">Target Weight</p>
-                <p className="text-lg font-semibold text-gray-800">
-                  {target_weight} kg
-                </p>
-              </div>
-              <div>
-                <p className="text-sm text-gray-500">Target Weight Change</p>
-                <p className="text-lg font-semibold text-gray-800">
-                  {target_weight_change} -{" "}
-                  <span className="font-light text-[.8rem] tracking-[1px]">
-                    ( 1 Week )
-                  </span>
-                </p>
-              </div>
-              <div>
-                <p className="text-sm text-gray-500">Daily Calories</p>
-                <p className="text-lg font-semibold text-gray-800">
-                  {daily_calories} kcal
-                </p>
-              </div>
-              <div>
-                <p className="text-sm text-gray-500">Activity Level</p>
-                <p className="text-lg font-semibold text-gray-800 capitalize">
-                  {activity_level}
-                </p>
-              </div>
-              <div>
-                <p className="text-sm text-gray-500">Food Preferences</p>
-                <p className="text-lg font-semibold text-gray-800">
-                  {food_preferences?.join(", ")}
-                </p>
-              </div>
-              <div>
-                <p className="text-sm text-gray-500">Allergies</p>
-                <p className="text-lg font-semibold text-gray-800">
-                  {allergies?.join(", ")}
-                </p>
-              </div>
-              <div>
-                <p className="text-sm text-gray-500">Cuisine Preferences</p>
-                <p className="text-lg font-semibold text-gray-800">
-                  {cuisine_preferences?.join(", ")}
-                </p>
-              </div>
-              <div>
-                <p className="text-sm text-gray-500">Diseases</p>
-                <p className="text-lg font-semibold text-gray-800">
-                  {disease?.join(", ")}
-                </p>
-              </div>
-            </div>
-            <div className="mt-6 flex gap-4">
-              <button
-                className="btn bg-[#FFC649] text-white hover:bg-[#e5b93f] btn-wide"
-                onClick={() => navigate("/edit-profile")}
-              >
-                Edit Profile
-              </button>
-              <button
-                className="btn btn-outline border-[#FFC649] text-[#FFC649] hover:bg-[#FFC649] hover:text-white btn-wide"
-                onClick={handleLogout}
-              >
-                Logout
-              </button>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <ProfileDetail
+                label="Full Name"
+                value={`${first_name} ${last_name}`}
+              />
+              <ProfileDetail label="Email" value={email} />
+              <ProfileDetail label="Age" value={age} />
+              <ProfileDetail label="Gender" value={gender} />
+              <ProfileDetail label="Weight" value={`${weight} kg`} />
+              <ProfileDetail label="Height" value={`${height} cm`} />
+              <ProfileDetail
+                label="Target Weight"
+                value={`${target_weight} kg`}
+              />
+              <ProfileDetail
+                label="Target Weight Change"
+                value={`${target_weight_change} (1 Week)`}
+              />
+              <ProfileDetail
+                label="Daily Calories"
+                value={`${daily_calories} kcal`}
+              />
+              <ProfileDetail label="Activity Level" value={activity_level} />
+              <ProfileDetail
+                label="Food Preferences"
+                value={food_preferences?.join(", ")}
+              />
+              <ProfileDetail label="Allergies" value={allergies?.join(", ")} />
+              <ProfileDetail
+                label="Cuisine Preferences"
+                value={cuisine_preferences?.join(", ")}
+              />
+              <ProfileDetail label="Diseases" value={disease?.join(", ")} />
             </div>
           </div>
         </div>
       </div>
+
+      <div className="w-full max-w-5xl mt-8">
+        <MealPlan />
+      </div>
+    </div>
+  );
+}
+
+function ProfileDetail({ label, value }) {
+  return (
+    <div>
+      <p className="text-sm text-gray-500">{label}</p>
+      <p className="text-lg font-semibold text-gray-800">{value || "N/A"}</p>
     </div>
   );
 }

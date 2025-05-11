@@ -38,7 +38,10 @@ function EditProfile() {
         headers: { "Content-Type": "multipart/form-data" },
       });
 
-      setUser(res.data);
+      // setUser(res.data);
+      setSessionCheckNeeded(true);
+      console.log("Updated user data:", res.data);
+      //setCheckSession(true)
       alert("Updated successfully");
       navigate("/profile");
     } catch (err) {

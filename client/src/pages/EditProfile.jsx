@@ -5,15 +5,9 @@ import { useNavigate } from "react-router-dom";
 import { ORIGIN_URL } from "../config";
 
 function EditProfile() {
-  // deconstruct checkSession state
-  const { user, setUser, setSessionCheckNeeded } = useContext(AuthContext);
-  console.log("user:", user);
+  const { user, setUser } = useContext(AuthContext);
   const navigate = useNavigate();
-  const [formData, setFormData] = useState({
-    ...user,
-    password: "",
-    image: null,
-  });
+  const [formData, setFormData] = useState({ ...user, password: "", image: null });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -39,16 +33,12 @@ function EditProfile() {
     }
 
     try {
-      const res = await axios.put(`${ORIGIN_URL}/users/${user.id}`, data, {
+      const res = await axios.put(`${ORIGIN_URL}/users/${user._id}`, data, {
         withCredentials: true,
         headers: { "Content-Type": "multipart/form-data" },
       });
 
-      // Kullanıcı verilerini güncelle
-      // setUser(res.data);
-      setSessionCheckNeeded(true);
-      console.log("Updated user data:", res.data);
-      //setCheckSession(true)
+      setUser(res.data);
       alert("Updated successfully");
       navigate("/profile");
     } catch (err) {
@@ -59,42 +49,29 @@ function EditProfile() {
   return (
     <div className="min-h-screen bg-gradient-to-r from-[#255140] via-[#FFC649] to-[#255140] flex justify-center items-center px-4">
       <div className="card w-full max-w-6xl bg-white shadow-2xl rounded-lg overflow-hidden">
-        <div className="flex flex-col text-white">
+        <div className="flex flex-col">
           {/* Top Section - Avatar */}
           <div className="bg-[#255140] text-white flex flex-col justify-center items-center p-8">
             <div className="avatar">
               <div className="w-32 h-32 rounded-full ring ring-[#FFC649] ring-offset-4 overflow-hidden">
                 {user.image ? (
-                  <img
-                    src={user.image}
-                    alt="Profile"
-                    className="w-full h-full object-cover"
-                  />
+                  <img src={user.image} alt="Profile" className="w-full h-full object-cover" />
                 ) : (
                   <div className="bg-gray-300 w-full h-full flex items-center justify-center text-gray-600">
-                    <span className="text-4xl font-bold">
-                      {user.username?.charAt(0)}
-                    </span>
+                    <span className="text-4xl font-bold">{user.username?.charAt(0)}</span>
                   </div>
                 )}
               </div>
             </div>
             <h2 className="text-3xl font-bold mt-4">{user.username}</h2>
-            <p className="text-sm italic mt-2">
-              Update your profile information
-            </p>
+            <p className="text-sm italic mt-2">Update your profile information</p>
           </div>
 
           {/* Bottom Section - Form */}
           <div className="p-8">
-            <h2 className="text-2xl font-bold text-[#255140] mb-4">
-              Edit Profile
-            </h2>
+            <h2 className="text-2xl font-bold text-[#255140] mb-4">Edit Profile</h2>
 
-            <form
-              onSubmit={handleSubmit}
-              className="grid grid-cols-1 md:grid-cols-4 gap-1"
-            >
+            <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-4 gap-1">
               {/* Basic Fields */}
               {[
                 { name: "first_name", label: "First Name" },
@@ -102,21 +79,11 @@ function EditProfile() {
                 { name: "age", label: "Age", type: "number" },
                 { name: "height", label: "Height (cm)", type: "number" },
                 { name: "weight", label: "Weight (kg)", type: "number" },
-                {
-                  name: "target_weight",
-                  label: "Target Weight (kg)",
-                  type: "number",
-                },
-                {
-                  name: "daily_calories",
-                  label: "Daily Calories (kcal)",
-                  type: "number",
-                },
+                { name: "target_weight", label: "Target Weight (kg)", type: "number" },
+                { name: "daily_calories", label: "Daily Calories (kcal)", type: "number" },
               ].map(({ name, label, type = "text" }) => (
                 <div key={name}>
-                  <label className="label font-semibold text-[#255140] mb-1">
-                    {label}
-                  </label>
+                  <label className="label font-semibold">{label}</label>
                   <input
                     name={name}
                     type={type}
@@ -129,9 +96,7 @@ function EditProfile() {
 
               {/* Select Fields */}
               <div>
-                <label className="label font-semibold text-[#255140] mb-1">
-                  Gender
-                </label>
+                <label className="label font-semibold">Gender</label>
                 <select
                   name="gender"
                   value={formData.gender || "male"}
@@ -145,9 +110,7 @@ function EditProfile() {
               </div>
 
               <div>
-                <label className="label font-semibold text-[#255140] mb-1">
-                  Target Weight Change
-                </label>
+                <label className="label font-semibold">Target Weight Change</label>
                 <select
                   name="target_weight_change"
                   value={formData.target_weight_change || "1kg"}
@@ -162,9 +125,7 @@ function EditProfile() {
               {/* Lifestyle and Preferences */}
               <div className="md:col-span-4 grid grid-cols-1 md:grid-cols-5 gap-4">
                 <div>
-                  <label className="label font-semibold text-[#255140] mb-1">
-                    Activity Level
-                  </label>
+                  <label className="label font-semibold">Activity Level</label>
                   <select
                     name="activity_level"
                     value={formData.activity_level || "sedentary"}
@@ -180,9 +141,7 @@ function EditProfile() {
                 </div>
 
                 <div>
-                  <label className="label font-semibold text-[#255140] mb-1">
-                    Food Preference
-                  </label>
+                  <label className="label font-semibold">Food Preference</label>
                   <select
                     name="food_preferences"
                     value={formData.food_preferences?.[0] || ""}
@@ -209,18 +168,14 @@ function EditProfile() {
                   { name: "disease", label: "Disease" },
                 ].map(({ name, label }) => (
                   <div key={name}>
-                    <label className="label font-semibold text-[#255140] mb-1">
-                      {label}
-                    </label>
+                    <label className="label font-semibold">{label}</label>
                     <input
                       name={name}
                       value={formData[name]?.join(", ") || ""}
                       onChange={(e) =>
                         setFormData({
                           ...formData,
-                          [name]: e.target.value
-                            .split(",")
-                            .map((s) => s.trim()),
+                          [name]: e.target.value.split(",").map((s) => s.trim()),
                         })
                       }
                       className="input input-bordered w-full"
@@ -232,9 +187,7 @@ function EditProfile() {
 
               {/* Password */}
               <div className="md:col-span-2">
-                <label className="label font-semibold text-[#255140] mb-1">
-                  New Password (optional)
-                </label>
+                <label className="label font-semibold">New Password (optional)</label>
                 <input
                   name="password"
                   type="password"
@@ -247,9 +200,7 @@ function EditProfile() {
 
               {/* Profile Image */}
               <div className="md:col-span-2">
-                <label className="label font-semibold text-[#255140] mb-1">
-                  Profile Image
-                </label>
+                <label className="label font-semibold">Profile Image</label>
                 <input
                   type="file"
                   accept="image/*"
@@ -260,10 +211,7 @@ function EditProfile() {
 
               {/* Buttons */}
               <div className="md:col-span-4 flex flex-col md:flex-row justify-between gap-4 mt-4">
-                <button
-                  type="submit"
-                  className="btn bg-[#FFC649] text-white hover:bg-[#e5b93f] w-full md:w-auto"
-                >
+                <button type="submit" className="btn bg-[#FFC649] text-white hover:bg-[#e5b93f] w-full md:w-auto">
                   Save Changes
                 </button>
                 <button

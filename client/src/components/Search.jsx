@@ -59,6 +59,13 @@ function Search() {
     }
   };
 
+const handleReset = () => {
+  setSearchTerm("");
+  setSelectedType("");
+  setSelectedCuisine("");
+  handleSearch("", "", ""); // Fetch all data 
+};
+
   return (
     <div className="w-full">
       <div className="flex gap-2">
@@ -70,7 +77,12 @@ function Search() {
           placeholder="Search by title..."
           className="w-[25rem] p-2 border rounded-md"
         />
-
+        <button
+  onClick={handleReset}
+  className="px-8 py-2 bg-gray-300 text-black rounded-md hover:bg-gray-400 cursor-pointer"
+>
+  Reset and show all
+</button>
         <div className="relative">
           <div
             className="w-[10rem] p-2 border rounded-md bg-white cursor-pointer"
@@ -104,7 +116,7 @@ function Search() {
             </div>
           )}
         </div>
-
+        
         <div className="relative">
           <div
             className="w-[10rem] p-2 border rounded-md bg-white cursor-pointer"

@@ -70,12 +70,12 @@ const recipeSchema = new Schema(
     },
     prep_time: {
       type: Number,
-      required: true,
+      // required: true,
       trim: true,
     },
     cook_time: {
       type: Number,
-      required: true,
+      // required: true,
       trim: true,
     },
     food_type: {

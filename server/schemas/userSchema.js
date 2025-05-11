@@ -75,6 +75,7 @@ const userSchema = new Schema(
     },
     daily_calories: {
       type: Number,
+      set: v => Math.round(v),
       // required: true,
       min: 0,
     },

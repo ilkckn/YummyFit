@@ -7,7 +7,7 @@ function FoodAvoid() {
   const [allergies, setAllergies] = useState([]);
   const [diseases, setDiseases] = useState([]);
   const [cuisine, setCuisine] = useState([]);
-  const { user,navigate,setError,setUser } = useContext(AuthContext);
+  const { user,navigate,setError,setUser,setSessionCheckNeeded } = useContext(AuthContext);
   const userId = user?.id;
   const [activeBtn, setActiveBtn] = useState([]);
   
@@ -49,7 +49,7 @@ function FoodAvoid() {
       }, {
         withCredentials: true,
       });
-      setUser(response.data);
+      setSessionCheckNeeded(true);
       navigate("/account-setup/user-info");
     } catch (error) {
       setError(error.response?.data?.message || "An error occurred while updating the user data.");

@@ -20,7 +20,7 @@ function FoodPreferences() {
     ];
 
     const [selectedDiet, setSelectedDiet] = useState("");
-    const { user,navigate,setError,setUser } = useContext(AuthContext);
+    const { user,navigate,setError,setUser,setSessionCheckNeeded } = useContext(AuthContext);
     const userId = user?.id;
  
     const handleNext = async () => {
@@ -30,7 +30,7 @@ function FoodPreferences() {
             }, {
                 withCredentials: true,
             });
-            setUser(response.data);
+            setSessionCheckNeeded(true);
             navigate("/account-setup/food-avoid");
         } catch (error) {
             setError(error.response?.data?.message || "An error occurred while updating the user data.");

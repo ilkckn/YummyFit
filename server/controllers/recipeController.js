@@ -3,12 +3,12 @@ import { CustomError } from "../utils/errorHandler.js";
 import Recipe from "../schemas/recipeSchema.js";
 
 export const getRecipes = asyncHandler(async(req,res) => {
-    const recipes = await Recipe.find().populate("userId", "username email");
+    const recipes = await Recipe.find();
 
     if (!recipes)
         throw new CustomError("recipes not found", 404);
 
-    res.status(200).json({recipes,user:req.user});
+    res.status(200).json(recipes);
 })
 
 export const getRecipeById = asyncHandler(async(req,res) => {
@@ -23,8 +23,13 @@ export const getRecipeById = asyncHandler(async(req,res) => {
 
 export const createRecipe = asyncHandler(async(req,res) => {
     const {title, description,image, ingredients,steps,calories,prep_time,cook_time,carbs, fat, protein, food_type, diets,cuisine_type} = req.body;
-    const userId = req.user.id;
+    // const userId = req.user.id;
 
+    const existingRecipe = await Recipe.findOne({title: title});
+    
+    if (existingRecipe)
+        throw new CustomError("recipe already exists", 400);
+    
     const newRecipe = new Recipe({
         title,
         description,
@@ -34,7 +39,7 @@ export const createRecipe = asyncHandler(async(req,res) => {
         calories,
         prep_time,
         cook_time,
-        userId,
+        // userId,
         carbs,
         fat,
         protein,

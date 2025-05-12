@@ -35,8 +35,8 @@ function FoodType() {
   };
 
   return (
-    <div>
-      <h2 className="text-3xl lato-black mb-4 text-center pt-[140px]">
+    <div className="w-full min-h-[calc(100vh-140px)] flex flex-col items-center justify-start mt-[140px]">
+      <h2 className="text-3xl lato-black mb-6 text-center pt-9">
         All {type} category
       </h2>
 

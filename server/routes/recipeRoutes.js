@@ -13,9 +13,9 @@ const router = express.Router();
 const storage = multer.memoryStorage();
 const upload = multer({ storage });
 
-router.get("/", auth, getRecipes);
+router.get("/", getRecipes);
 router.post("/", auth, admin, upload.single("image"), createRecipe);
-router.get("/:id", auth, getRecipeById);
+router.get("/:id", getRecipeById);
 router.put("/:id", auth, updateRecipe);
 router.delete("/:id", auth, deleteRecipe);
 

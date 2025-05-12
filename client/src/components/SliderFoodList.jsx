@@ -18,8 +18,6 @@ function SliderFoodList({ foodList }) {
         settings: {
           slidesToShow: 3,
           slidesToScroll: 3,
-          infinite: true,
-          dots: true,
         },
       },
       {
@@ -27,7 +25,6 @@ function SliderFoodList({ foodList }) {
         settings: {
           slidesToShow: 2,
           slidesToScroll: 2,
-          initialSlide: 2,
         },
       },
       {
@@ -44,18 +41,19 @@ function SliderFoodList({ foodList }) {
     <div className="slider-container w-full mx-auto px-0">
       <Slider {...settings}>
         {foodList?.map((food, index) => {
-          const id = food.id;
-          const foodName = food.title  // Fallback to id if name/title is not available
+          const id = food.id || food._id;
+          const foodName = food.title || "Untitled Recipe";
+
           return (
             <Link
-              key={index}
+              key={id || index}
               to={`/food/${id}`}
               className="slider-card mb-[10px] border-1 border-[#7fcfb054] shadow-[-1px_0px_5px_rgba(183,211,198,0.8)] rounded-lg overflow-hidden hover:shadow-md transition"
             >
               {food.image && (
                 <img
                   src={food.image}
-                  alt={id}
+                  alt={foodName}
                   className="slider-image w-full h-[150px] object-cover"
                 />
               )}

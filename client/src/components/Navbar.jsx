@@ -22,8 +22,8 @@ function Navbar() {
             <img src={logo} alt="YummyFit Logo" className="h-35 w-40" />
           </NavLink>
         </div>
-        <div className="ml-10">
-          <ul className="menu menu-horizontal px-1 gap-2 amatic-sc-bold text-2xl">
+        <div className="ml-25">
+          <ul className="menu menu-horizontal px-1 gap-2 nunito text-2xl font-bold">
             <li>
               <NavLink
                 to="/"

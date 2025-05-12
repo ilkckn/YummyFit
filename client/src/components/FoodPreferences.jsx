@@ -40,13 +40,13 @@ function FoodPreferences() {
   return (
     <div className="bg-[#f6f0ef]">
         <div className="food-preferences h-[100vh] flex flex-col justify-center items-center">
-            <h2 className="font-bold text-2xl pt-[3%] mb-7 mr-[8%]">
+            <h2 className="font-bold text-4xl pt-[3%] mb-7 mr-[8%] pb-7">
                 Which type of diet would you prefer?
             </h2>
             <ul>
                 {dietTypes.map((type, index) => (
                     <li key={index} className="">
-                        <label className="flex items-center gap-3 mb-4 cursor-pointer">
+                        <label className="flex items-center gap-3 mb-6 cursor-pointer">
                             <input 
                                 type="radio" 
                                 name="food_preferences" 
@@ -58,15 +58,15 @@ function FoodPreferences() {
                                 <img src={type.icon} alt={type.label} className=" h-[50px] object-cover inline" />
                             </div>
                             <div>
-                                <h3 className="text-lg font-bold">{type.label}</h3>
-                                <p className="text-sm text-gray-500">Excludes: {type.excludes}</p>
+                                <h3 className="text-2xl font-bold">{type.label}</h3>
+                                <p className="text-lg text-gray-500">Excludes: {type.excludes}</p>
                             </div>
                         </label>
                     </li>
                 ))}
             </ul>
             
-            <div className="flex flex-wrap flex-col justify-center items-center gap-[40%] mr-[10%]">
+            <div className="flex flex-wrap flex-col justify-center items-center gap-[60%] mr-[10%] pt-7 text-lg">
                 <button onClick={()=>navigate(-1)} className="yummy-btn px-4 py-2 lato-black cursor-pointer">
                     <i className="fa-solid fa-arrow-left pr-2"></i> Back
                 </button>

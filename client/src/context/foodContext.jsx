@@ -7,6 +7,7 @@ export const FoodContext = createContext();
 function FoodContextProvider({ children }) {
   const [food, setFood] = useState(() => {
     const localData = localStorage.getItem("foodData");
+    console.log(localData)
     return localData ? JSON.parse(localData) : [];
   });
   const [searchedFood, setSearchedFood] = useState([]);

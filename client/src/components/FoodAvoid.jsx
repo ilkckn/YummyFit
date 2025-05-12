@@ -59,9 +59,9 @@ function FoodAvoid() {
   return (
     <div className="bg-[#f6f0ef]">
       <div className="food-avoid h-[100vh] flex flex-col justify-center items-center">
-        <div className="my-8">
-          <div className="w-[80%] mx-auto mt-18">
-            <h2 className="font-bold text-2xl mb-7">
+        <div className="mt-15">
+          <div className="w-[85%] mx-auto mt-18 text-lg">
+            <h2 className="font-bold text-3xl mb-7">
               Do you have any food allergies or intolerances?
             </h2>
             <div className="flex flex-wrap gap-4 mt-4 justify-center items-center">
@@ -102,8 +102,8 @@ function FoodAvoid() {
               </button>
             </div>
           </div>
-          <div className="w-[80%] mx-auto mt-15">
-            <h2 className="font-bold text-2xl mt-10 mb-7">
+          <div className="w-[85%] mx-auto mt-15 text-lg">
+            <h2 className="font-bold text-3xl mt-10 mb-7">
               Do you have any medical conditions or diseases?
             </h2>
             <div className="flex flex-wrap gap-4 mt-4 justify-center items-center">
@@ -145,8 +145,8 @@ function FoodAvoid() {
             </div>
           </div>
 
-          <div className="w-[80%] mx-auto mt-15">
-            <h2 className="font-bold text-2xl mt-10 mb-7">
+          <div className="w-[85%] mx-auto mt-15 text-lg">
+            <h2 className="font-bold text-3xl mt-10 mb-7">
               Do you prefer any specific cuisine?
             </h2>
             <div className="flex flex-wrap gap-4 mt-4 justify-center items-center">
@@ -224,7 +224,7 @@ function FoodAvoid() {
           </div>
         </div>
 
-        <div className="flex flex-wrap flex-col justify-center items-center gap-[40%] mt-6 mr-[10%]">
+        <div className="flex flex-wrap flex-col justify-center items-center gap-[60%] mt-15 mr-[10%] text-lg">
             <button onClick={()=>navigate(-1)} className="yummy-btn px-4 py-2 lato-black cursor-pointer">
                 <i className="fa-solid fa-arrow-left pr-2"></i> Back
             </button>

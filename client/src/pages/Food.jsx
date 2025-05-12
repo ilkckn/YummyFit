@@ -5,36 +5,39 @@ import Search from "../components/Search";
 import FoodImages from "../components/FoodImages";
 
 function Recipe() {
-  const { food, setFood, searchedFood, loading,setLoading } = useContext(FoodContext);
-  const [recipesToShow, setRecipesToShow] = useState(searchedFood.length > 0 ? searchedFood : food)
-useEffect(() => {
-setLoading(false)
-}, [])
+  const { food, setFood, searchedFood, loading, setLoading } =
+    useContext(FoodContext);
+  const [recipesToShow, setRecipesToShow] = useState(
+    searchedFood.length > 0 ? searchedFood : food
+  );
+  console.log("recipesToShow", recipesToShow);
+  
+  useEffect(() => {
+    setRecipesToShow(searchedFood.length > 0 ? searchedFood : food)
+  }, [searchedFood, food]);
 
-
-
-
+  useEffect(() => {
+    setLoading(false);
+  }, []);
 
   return (
-    <div className="w-full flex flex-col items-center justify-start pt-[12rem]">
+    <div className="w-full min-h-[calc(100vh-140px)] flex flex-col items-center justify-start mt-[140px] pt-[5rem]">
       {/* {loading && <p>Loading...</p>} */}
       {!loading && (
         <>
-          <div className="search-heading text-center">
+          <div className="search-heading text-center mb-4">
             <h2 className="text-3xl mb-6 lato-black">
               Explore Our Delicious Recipes
             </h2>
             <Search />
           </div>
-
-          <div className="food-container w-full min-h-[100vh] flex flex-wrap justify-center items-start gap-3 pt-6 p-4">
+          <div className="food-container w-full flex flex-wrap justify-center items-start gap-3 pt-6 p-4">
             {/* {food?.map((item) => */}
             {recipesToShow.map((item) =>
               item.image ? (
                 <Link to={`/food/${item._id}`} key={item._id}>
                   <div className="card w-96 h-[420px] shadow-sm">
                     <FoodImages item={item} />
-
                     <div className="card-body px-4">
                       <h2 className="card-title text-[#333d25]">
                         {item.title.length > 35
@@ -59,7 +62,6 @@ setLoading(false)
                           />
                         )}
                       </span>
-
                       <div className="flex justify-between items-center mt-2 text-sm text-gray-700 font-semibold">
                         <div className="relative group">
                           ⏱️ {item.cook_time} min
@@ -103,5 +105,4 @@ setLoading(false)
     </div>
   );
 }
-
 export default Recipe;

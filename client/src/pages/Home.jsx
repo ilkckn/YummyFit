@@ -30,8 +30,8 @@ function Home() {
     <>
       <main className="pt-[140px]">
         {loading && <p>Loading...</p>}
-        <div className="relative flex flex-row items-start min-h-[600px]">
-          <div className="w-[50%] text-right px-9">
+        <div className="relative flex flex-row items-start min-h-[600px] justify-between">
+          <div className="w-[50%] text-right px-9 pt-10">
             <h1 className="text-6xl lato-black mb-2 mt-5">
               Fewer Calories <br /> And More
               <br /> Benefit
@@ -63,7 +63,7 @@ function Home() {
               </NavLink>
             </div>
           </div>
-          <div className="food-image-home w-[50%] max-w-[700px] h-[600px]"></div>
+          <div className="food-image-home w-[50%] max-w-[700px] h-[660px]"></div>
         </div>
         <div className="devider w-[50%] mx-auto h-[1px] bg-[#333d25] mt-18"></div>
 

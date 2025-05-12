@@ -7,7 +7,7 @@ import UpdateCommentForm from "./UpdateComments.jsx";
 function Comments() {
   const { comments, fetchComments, error } = useContext(CommentContext);
   console.log("comments", comments);
-  const { user } = useContext(AuthContext);
+  const { user, sessionCheckNeeded } = useContext(AuthContext);
   const [editingCommentId, setEditingCommentId] = useState(null);
 
   useEffect(() => {
@@ -49,7 +49,7 @@ function Comments() {
               <strong>{comment.userId?.username}:</strong> {comment.text}
             </p>
             <div className="flex justify-end gap-2 mt-2">
-              {user &&
+              {sessionCheckNeeded &&
                 (comment.userId?._id === user._id ||
                   comment.userId === user._id) && (
                   <button

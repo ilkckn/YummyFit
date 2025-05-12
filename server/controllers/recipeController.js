@@ -13,7 +13,7 @@ export const getRecipes = asyncHandler(async(req,res) => {
 
 export const getRecipeById = asyncHandler(async(req,res) => {
     const recipeId = req.params.id;
-    const recipe = await Recipe.findById(recipeId).populate("userId", "username email");
+    const recipe = await Recipe.findById(recipeId);
 
     if (!recipe)
         throw new CustomError("recipe not found", 404);

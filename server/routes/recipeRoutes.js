@@ -12,7 +12,7 @@ const router = express.Router();
 
 router.get("/", getRecipes);
 router.post("/", createRecipe);
-router.get("/:id",auth, getRecipeById);
+router.get("/:id", getRecipeById);
 router.put("/:id",auth, updateRecipe);
 router.delete("/:id",auth, deleteRecipe);
 

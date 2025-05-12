@@ -7,6 +7,7 @@ export const FoodContext = createContext();
 function FoodContextProvider({ children }) {
   const [food, setFood] = useState(() => {
     const localData = localStorage.getItem("foodData");
+    console.log(localData)
     return localData ? JSON.parse(localData) : [];
   });
   const [searchedFood, setSearchedFood] = useState([]);
@@ -37,52 +38,52 @@ function FoodContextProvider({ children }) {
   
       return matchesTitle && matchesType && matchesCuisine;
     });
-  
+  console.log(searchedFoodList)
     setSearchedFood(searchedFoodList);
   };
 
     useEffect(() => {
-    const storeFood = async () => {
-      try {
-        const res = await axios.get(
-          `https://api.spoonacular.com/recipes/random?apiKey=bd9b91146d2b4cdb859194b8e0ceb149&number=10&includeNutrition=true`
-        );
-        const spoonacularData = res.data.recipes;
-        await Promise.all(
-          spoonacularData.map(async (item) => {
-            try {
-              await axios.post(`${ORIGIN_URL}/recipes`, {
-                title: item.title,
-                description:item.summary,
-                image: item.image,
-                ingredients: item.extendedIngredients.map((ingredient) => ({
-                  title: ingredient.name,
-                  quantity: ingredient.amount + " " + ingredient.unit,
-                  image: ingredient.image,
-                })),
-                carbs: item.nutrition.nutrients[3].amount,
-                protein: item.nutrition.nutrients[10].amount,
-                fat: item.nutrition.nutrients[1].amount,
-                steps: item.analyzedInstructions[0].steps.map((step) => step.step),
-                calories: item.nutrition.nutrients[0].amount,
-                prep_time: item.preparationMinutes,
-                cook_time: item.readyInMinutes,
-                food_type: item.dishTypes,
-                diets: item.diets,
-                cuisine_type: item.cuisines,
-             } );
-            } catch (error) {
-              setError(error.message);
-            }
-          }))
-      } catch (error) {
-        setError(error.message);
-      } finally {
-        setLoading(false);
-      }
-    }
+    // const storeFood = async () => {
+    //   try {
+    //     const res = await axios.get(
+    //       `https://api.spoonacular.com/recipes/random?apiKey=bd9b91146d2b4cdb859194b8e0ceb149&number=10&includeNutrition=true`
+    //     );
+    //     const spoonacularData = res.data.recipes;
+    //     await Promise.all(
+    //       spoonacularData.map(async (item) => {
+    //         try {
+    //           await axios.post(`${ORIGIN_URL}/recipes`, {
+    //             title: item.title,
+    //             description:item.summary,
+    //             image: item.image,
+    //             ingredients: item.extendedIngredients.map((ingredient) => ({
+    //               title: ingredient.name,
+    //               quantity: ingredient.amount + " " + ingredient.unit,
+    //               image: ingredient.image,
+    //             })),
+    //             carbs: item.nutrition.nutrients[3].amount,
+    //             protein: item.nutrition.nutrients[10].amount,
+    //             fat: item.nutrition.nutrients[1].amount,
+    //             steps: item.analyzedInstructions[0].steps.map((step) => step.step),
+    //             calories: item.nutrition.nutrients[0].amount,
+    //             prep_time: item.preparationMinutes,
+    //             cook_time: item.readyInMinutes,
+    //             food_type: item.dishTypes,
+    //             diets: item.diets,
+    //             cuisine_type: item.cuisines,
+    //          } );
+    //         } catch (error) {
+    //           setError(error.message);
+    //         }
+    //       }))
+    //   } catch (error) {
+    //     setError(error.message);
+    //   } finally {
+    //     setLoading(false);
+    //   }
+    // }
     fetchFood();
-    storeFood();
+    // storeFood();
   }, []);
 
   const fetchFood= async () => {
@@ -96,12 +97,12 @@ function FoodContextProvider({ children }) {
     }
   }
    
-
   return (
     <FoodContext.Provider value={{
       food,
       setFood,
       loading,
+      setLoading,
       error,
       dishTypeList,
       // fetchFoodByType,

@@ -33,7 +33,7 @@ function CommentContextProvider({ children, recipeId }) {
           withCredentials: true,
         }
       );
-      setComments((prevComments) => [...prevComments, res.data]);
+      setComments((prevComments) => [res.data, ...prevComments]);
       console.log("res.data", res.data);
       setError(null);
     } catch (error) {

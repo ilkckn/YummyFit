@@ -27,7 +27,7 @@ export const getCommentsByRecipe = asyncHandler(async (req, res, next) => {
 export const getCommentById = asyncHandler(async (req, res, next) => {
   const comment = await Comment.findById(req.params.id).populate(
     "userId",
-    "username email"
+    "username email image"
   );
   if (!comment) {
     return next(new CustomError("Comment not found", 404));
@@ -35,7 +35,6 @@ export const getCommentById = asyncHandler(async (req, res, next) => {
   res.status(200).json(comment);
 });
 
-// Create a new comment for a recipe
 export const createComment = asyncHandler(async (req, res, next) => {
   const { text, recipeId } = req.body;
   // const recipeId = req.params.recipeId;
@@ -49,6 +48,19 @@ export const createComment = asyncHandler(async (req, res, next) => {
   //   return next(new CustomError('Recipe not found', 404));
   // }
 
+  const recipe = await Recipe.findById(recipeId);
+  if (!recipe) {
+    return next(new CustomError('Recipe not found', 404));
+  }
+
+  const existingComment = await Comment.findOne({ userId, recipeId });
+
+  if (existingComment) {
+    return next(
+      new CustomError("You have already commented on this recipe!", 403)
+    );
+  }
+
   let newComment = new Comment({
     text,
     userId,
@@ -57,12 +69,11 @@ export const createComment = asyncHandler(async (req, res, next) => {
 
   await newComment.save();
 
-  newComment = await newComment.populate("userId", "username email");
+  newComment = await newComment.populate("userId", "username email image");
 
   res.status(201).json(newComment);
 });
 
-// Update a comment by ID
 export const updateComment = asyncHandler(async (req, res, next) => {
   const commentId = req.params.id;
   const updates = req.body;

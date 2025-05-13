@@ -1,36 +1,36 @@
 import React from 'react';
 import { Link } from "react-router-dom";
 import AboutTacosImage from '../assets/images/aboutPage/about.png';
+import { useTranslation } from 'react-i18next';
 
 const AboutPage = () => {
+  const { t } = useTranslation();
+
   return (
     <div className="min-h-screen flex justify-center items-center py-10 pt-[140px]">
       <div className="w-11/12 md:w-3/4 flex flex-col md:flex-row items-center overflow-hidden rounded-lg">
 
-        {/* Left Text Section */}
         <div className="flex-1 p-5">
-          <h1 className="text-7xl font-light mb-8 text-green-600">Yummy Fit</h1>
+          <h1 className="text-7xl font-light mb-8 text-green-600">{t("about.brand")}</h1>
           <h2 className="text-6xl font-bold mb-8 leading-tight">
-            to live in <br />
-            <span className="border-l-4 border-orange-500 pl-4">the future</span>
+            {t("about.slogan_line1")}<br />
+            <span className="border-l-4 border-orange-500 pl-4">{t("about.slogan_line2")}</span>
           </h2>
 
           <p className="mb-1 text-2xl leading-relaxed text-gray-700 pl-4">
-            At YummyFit, we believe that eating healthy should be easy and enjoyable.
-            That’s why we’ve built a platform that combines smart technology with
-            thousands of delicious, nutritious recipes — all conveniently in one place.
+            {t("about.description")}
           </p>
 
-          <h3 className="text-3xl font-semibold text-green-600 mt-10 mb-4">What We Offer</h3>
+          <h3 className="text-3xl font-semibold text-green-600 mt-10 mb-4">{t("about.offer_title")}</h3>
           <ul className="list-disc list-inside mb-6 text-2xl text-gray-700 pl-8 leading-relaxed">
             <li>
-              <strong>Personalized Meal Planning:</strong> Tailor-made meal plans based on your health goals, dietary preferences, allergies, and fitness level.
+              <strong>{t("about.offer1.title")}</strong> {t("about.offer1.desc")}
             </li>
             <li>
-              <strong>Smart Recipe Search:</strong> Discover healthy recipes using ingredients you already have.
+              <strong>{t("about.offer2.title")}</strong> {t("about.offer2.desc")}
             </li>
             <li>
-              <strong>Nutrition Tracking:</strong> Keep track of calories, macronutrients, and daily goals with our easy-to-use dashboard.
+              <strong>{t("about.offer3.title")}</strong> {t("about.offer3.desc")}
             </li>
           </ul>
 
@@ -38,12 +38,10 @@ const AboutPage = () => {
             to="/register"
             className=" yummy-btn bg-green-500 text-white text-2xl font-bold px-8 py-4 rounded-lg hover:bg-green-600 transition inline-block"
           >
-            Register Now
+            {t("about.register_button")}
           </Link>
-          
         </div>
 
-        {/* Right Image Section */}
         <div className="flex-1 relative flex items-center justify-center p-6 w-full aspect-[4/5]">
           <div
             className="w-full h-full rounded-xl overflow-hidden shadow-md"
@@ -54,8 +52,6 @@ const AboutPage = () => {
             }}
           ></div>
         </div>
-
-        {/* Decorative Dots */}
       </div>
     </div>
   );

@@ -18,6 +18,7 @@ import UserInfo from "./components/UserInfo";
 import MainLayout from "./layouts/MainLayout";
 import BlankLayout from "./layouts/BlankLayout";
 import AdminPanel from "./pages/AdminPanel";
+import "./i18n";
 
 function App() {
   return (

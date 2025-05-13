@@ -49,9 +49,20 @@ function Comments() {
               <strong>{comment.userId?.username}:</strong> {comment.text}
             </p>
             <div className="flex justify-end gap-2 mt-2">
-              {sessionCheckNeeded &&
+              {/* {sessionCheckNeeded &&
                 (comment.userId?._id === user._id ||
                   comment.userId === user._id) && (
+                  <button
+                    onClick={() => handleEdit(comment._id)}
+                    className="px-6 py-1.5 bg-[#FFC649] text-white rounded-md hover:bg-[#e5b53d] cursor-pointer"
+                  >
+                    Edit
+                  </button>
+                )} */}
+              {user &&
+                (comment.userId?._id === user._id ||
+                  comment.userId === user._id ||
+                  comment.userId === user.id) && (
                   <button
                     onClick={() => handleEdit(comment._id)}
                     className="px-6 py-1.5 bg-[#FFC649] text-white rounded-md hover:bg-[#e5b53d] cursor-pointer"

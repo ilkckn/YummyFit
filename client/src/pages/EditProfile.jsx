@@ -14,6 +14,7 @@ function EditProfile() {
     password: "",
     image: null,
   });
+  console.log("formData:", formData);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -58,9 +59,9 @@ function EditProfile() {
   return (
     <div className="min-h-screen bg-gradient-to-r from-[#255140] via-[#FFC649] to-[#255140] flex justify-center items-center px-4">
       <div className="card w-full max-w-6xl bg-white shadow-2xl rounded-lg overflow-hidden">
-        <div className="flex flex-col text-white">
+        <div className="flex flex-col">
           {/* Top Section - Avatar */}
-          <div className="bg-[#255140] text-white flex flex-col justify-center items-center p-8">
+          <div className="bg-[#255140] flex flex-col justify-center items-center p-8">
             <div className="avatar">
               <div className="w-32 h-32 rounded-full ring ring-[#FFC649] ring-offset-4 overflow-hidden">
                 {user.image ? (
@@ -223,7 +224,7 @@ function EditProfile() {
                         })
                       }
                       className="input input-bordered w-full"
-                      placeholder={`${label} (comma-separated)`}
+                      placeholder={`${label}`}
                     />
                   </div>
                 ))}

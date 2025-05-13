@@ -27,7 +27,7 @@ function Profile() {
     cuisine_preferences,
     disease,
   } = user || {};
-
+  
   if (sessionLoading) {
     return <div className="loading">Loading...</div>;
   }
@@ -63,8 +63,8 @@ function Profile() {
               <IoReturnUpBack className="text-lg" />
               Go to Home
             </button>
-            <div className="mt-10 flex flex-col items-center justify-center gap-2">
-              <div className="edit-logout">
+            <div className="mt-10">
+              <div className="edit-logout flex items-center justify-center gap-6">
                 <button
                   className="btn bg-[#FFC649] text-white hover:bg-[#e5b93f] px-6 py-2 rounded-md"
                   onClick={() => navigate("/edit-profile")}
@@ -122,12 +122,12 @@ function Profile() {
                 label="Food Preferences"
                 value={food_preferences?.join(", ")}
               />
-              <ProfileDetail label="Allergies" value={allergies?.join(", ")} />
+              <ProfileDetail label="Allergies" value={allergies.length > 0 ? allergies.join(",") : `-`} />
               <ProfileDetail
                 label="Cuisine Preferences"
-                value={cuisine_preferences?.join(", ")}
+                value={cuisine_preferences.length > 0 ? cuisine_preferences.join(",") : `-`}
               />
-              <ProfileDetail label="Diseases" value={disease?.join(", ")} />
+              <ProfileDetail label="Diseases" value={disease.length > 0 ? disease.join(",") : `-`} />
             </div>
           </div>
         </div>
@@ -144,7 +144,7 @@ function ProfileDetail({ label, value }) {
   return (
     <div>
       <p className="text-sm text-gray-500">{label}</p>
-      <p className="text-lg font-semibold text-gray-800">{value || "N/A"}</p>
+      <p className="text-lg font-semibold text-gray-800">{value || "-"}</p>
     </div>
   );
 }

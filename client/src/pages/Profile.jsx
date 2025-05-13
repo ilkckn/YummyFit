@@ -159,15 +159,15 @@ function Profile() {
               />
               <ProfileDetail
                 label={t("profile.allergies")}
-                value={allergies?.join(", ")}
+                value={allergies.length > 0 ? allergies?.join(", ") : `-`}
               />
               <ProfileDetail
                 label={t("profile.cuisine_preferences")}
-                value={cuisine_preferences?.join(", ")}
+                value={cuisine_preferences.length > 0 ? cuisine_preferences?.join(", ") : `-`}
               />
               <ProfileDetail
                 label={t("profile.diseases")}
-                value={disease?.join(", ")}
+                value={disease.length > 0 ? disease?.join(", ") : `-`}
               />
             </div>
           </div>

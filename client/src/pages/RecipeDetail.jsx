@@ -62,8 +62,9 @@ function RecipeDetail() {
         </div>
         <div className="recipe-details w-[90%] mx-auto flex-wrap flex justify-between items-center py-10">
           <div className="w-[60%] pr-15">
+          <div className="flex items-start justify-between">
             <h1 className="text-4xl font-bold mb-7">{foodItem?.title}</h1>
-            <button
+              <button type="button"
               onClick={() => {
                 if (!user) {
                   alert("Please login to add favorites");
@@ -81,12 +82,13 @@ function RecipeDetail() {
                   addFavorite(id);
                 }
               }}
-              className={`px-2 py-1.5 rounded-md mb-2 text-[.9rem] hover:bg-red-500 transition-all duration-300 hover:text-white cursor-pointer ${
-                isFavorite ? "bg-red-500 text-white" : "bg-gray-200 text-black"
-              }`}
+              className={`px-2 mt-2 text-2xl cursor-pointer text-red-600 font-bold`}
             >
-              {isFavorite ? "Remove from Favorites" : "Add to Favorites"}
+              {isFavorite ? <i className="fa fa-heart" aria-hidden="true"></i> : <i className="fa-regular fa-heart text-red-600"></i> } 
             </button>
+          </div>
+           
+            
             <div
               className="text-xl text-justify"
               dangerouslySetInnerHTML={{

@@ -63,7 +63,7 @@ function Navbar() {
           </NavLink>
         </div>
         <div className="ml-25">
-          <ul className="menu menu-horizontal px-1 gap-2 nunito text-2xl font-bold">
+          <ul className="menu menu-horizontal px-1 gap-2 nunito text-lg font-bold">
             <li>
               <NavLink
                 to="/"

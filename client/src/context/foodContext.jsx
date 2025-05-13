@@ -11,6 +11,7 @@ function FoodContextProvider({ children }) {
   const { user } = useContext(AuthContext);
   const [food, setFood] = useState(() => {
     const localData = localStorage.getItem("foodData");
+    console.log(localData)
     return localData ? JSON.parse(localData) : [];
   });
   const [searchedFood, setSearchedFood] = useState([]);

@@ -67,7 +67,7 @@ function Home() {
               </NavLink>
             </div>
           </div>
-          <div className="food-image-home w-[50%] max-w-[700px] h-[600px]"></div>
+          <div className="food-image-home w-[50%] max-w-[700px] h-[660px]"></div>
         </div>
         <div className="devider w-[50%] mx-auto h-[1px] bg-[#333d25] mt-18"></div>
 

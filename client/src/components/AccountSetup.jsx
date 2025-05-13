@@ -24,11 +24,11 @@ function AccountSetup() {
         </p>
         <Link
           to={"/account-setup/food-preferences"}
-          className="yummy-btn mt-10 px-4 py-2 inline-block lato-black"
+          className="yummy-btn mt-10 px-4 py-2 inline-block lato-black text-lg"
         >
           {t('account_setup.get_started_button')}
         </Link>
-        <p onClick={handleBackToHome} className="flex items-center gap-2 tracking-[-.5px] mt-5 cursor-pointer">
+        <p onClick={handleBackToHome} className="flex items-center gap-2 tracking-[-.5px] mt-5 cursor-pointer text-md">
           <IoReturnUpBackOutline className="text-[1.3rem] text-[#FE486E]" />
           {t('account_setup.back_to_home')}
         </p>

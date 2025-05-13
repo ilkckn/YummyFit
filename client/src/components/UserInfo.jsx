@@ -68,7 +68,7 @@ function UserInfo() {
             {t("user_info.description")}
           </p>
           <form onSubmit={handleSubmit}>
-            <div className="flex mt-4 justify-start gap-50">
+            <div className="flex mt-4 justify-start gap-50 text-lg">
               <div>
                 <div className="flex gap-5 items-center justify-between py-3">
                   <label htmlFor="gender" className="text-lg font-semibold">

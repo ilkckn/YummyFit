@@ -91,8 +91,8 @@ function EditProfile() {
 
   return (
     <div className="min-h-screen bg-gradient-to-r from-[#255140] via-[#FFC649] to-[#255140] flex justify-center items-center px-4">
-      <div className="card w-full max-w-6xl bg-white shadow-2xl rounded-lg overflow-hidden">
-        <div className="flex flex-col text-white">
+      <div className="card w-full max-w-6xl shadow-2xl rounded-lg overflow-hidden">
+        <div className="flex flex-col">
 
           <div className="bg-[#255140] text-white flex flex-col justify-center items-center p-8">
             <div className="avatar">

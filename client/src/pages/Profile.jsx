@@ -89,8 +89,8 @@ function Profile() {
               <IoReturnUpBack className="text-lg" />
               {t("profile.go_home")}
             </button>
-            <div className="mt-10 flex flex-col items-center justify-center gap-2">
-              <div className="edit-logout">
+            <div className="mt-10">
+              <div className="edit-logout flex items-center justify-center gap-6">
                 <button
                   className="btn bg-[#FFC649] text-white hover:bg-[#e5b93f] px-6 py-2 rounded-md"
                   onClick={() => navigate("/edit-profile")}
@@ -159,15 +159,15 @@ function Profile() {
               />
               <ProfileDetail
                 label={t("profile.allergies")}
-                value={allergies?.join(", ")}
+                value={allergies.length > 0 ? allergies?.join(", ") : `-`}
               />
               <ProfileDetail
                 label={t("profile.cuisine_preferences")}
-                value={cuisine_preferences?.join(", ")}
+                value={cuisine_preferences.length > 0 ? cuisine_preferences?.join(", ") : `-`}
               />
               <ProfileDetail
                 label={t("profile.diseases")}
-                value={disease?.join(", ")}
+                value={disease.length > 0 ? disease?.join(", ") : `-`}
               />
             </div>
           </div>

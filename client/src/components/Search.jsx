@@ -1,7 +1,9 @@
 import React, { useContext, useState } from "react";
 import { FoodContext } from "../context/foodContext";
+import { useTranslation } from "react-i18next";
 
 function Search() {
+  const { t } = useTranslation();
   const { handleSearch, dishTypeList } = useContext(FoodContext);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedType, setSelectedType] = useState("");
@@ -62,7 +64,7 @@ function Search() {
   setSearchTerm("");
   setSelectedType("");
   setSelectedCuisine("");
-  handleSearch("", "", ""); // Fetch all data 
+  handleSearch("", "", "");
 };
 
   return (
@@ -73,14 +75,14 @@ function Search() {
           value={searchTerm}
           onClick={toggleSearchTypeDropdown}
           onChange={(e) => setSearchTerm(e.target.value)}
-          placeholder="Search by title..."
+          placeholder={`${t('search.placeholder_title')}`}
           className="w-[25rem] p-2 border rounded-md"
         />
            <button
             onClick={handleReset}
             className="px-8 py-2 bg-gray-300 text-black rounded-md hover:bg-gray-400 cursor-pointer"
           >
-            Reset and show all
+            {t('search.reset_show_all')}
           </button>
                   <div className="relative">
           <div
@@ -98,7 +100,7 @@ function Search() {
                   }`}
                   onClick={() => handleDishTypeSelect("")}
                 >
-                  All Dish Types
+                  {t('search.all_dish_types')}
                 </div>
                 
                 {dishTypeList.map((type) => (
@@ -134,7 +136,7 @@ function Search() {
                   }`}
                   onClick={() => handleCuisineSelect("")}
                 >
-                  All Cuisines
+                  {t('search.all_cuisines')}
                 </div>
                 {cuisines.map((cuisine) => (
                   <div
@@ -158,7 +160,7 @@ function Search() {
           onClick={handleSearchClick}
           className="px-8 py-2 bg-[#326C56] text-white rounded-md hover:bg-[#2a5546] cursor-pointer"
         >
-          Search
+          {t('search.search_button')}
         </button>
       </div>
     </div>

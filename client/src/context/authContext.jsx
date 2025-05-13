@@ -90,8 +90,6 @@ useEffect(() => {
         withCredentials: true,
       });
 
-      console.log("Session check response:", res.data);
-      
       if (res.data.authenticated && res.data.user) {
         setUser(res.data.user);
       } else {
@@ -102,11 +100,9 @@ useEffect(() => {
       console.error("Session check error:", error);
       setUser(null);
       setSessionLoading(false);
-    } finally{
-      setSessionCheckNeeded(false);
     }
   };
-  checkSession()
+
   if (sessionCheckNeeded) checkSession();
 }, [sessionCheckNeeded]);
 

@@ -1,19 +1,44 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { AuthContext } from "../context/authContext";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { ORIGIN_URL } from "../config";
+import { useTranslation } from "react-i18next";
 
 function EditProfile() {
-  // deconstruct checkSession state
+  const { t } = useTranslation();
   const { user, setUser, setSessionCheckNeeded } = useContext(AuthContext);
-  console.log("user:", user);
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
-    ...user,
+    first_name: "",
+    last_name: "",
+    username: "",
+    age: "",
+    height: "",
+    weight: "",
+    target_weight: "",
+    target_weight_change: "1kg",
+    daily_calories: "",
+    gender: "male",
+    activity_level: "sedentary",
+    food_preferences: [],
+    allergies: [],
+    cuisine_preferences: [],
+    disease: [],
     password: "",
     image: null,
   });
+
+  useEffect(() => {
+    if (user) {
+      setFormData(prev => ({
+        ...prev,
+        ...user,
+        password: "",
+        image: null
+      }));
+    }
+  }, [user]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -26,6 +51,11 @@ function EditProfile() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (!user || !user.id) {
+      alert(t("edit_profile.no_user_error"));
+      return;
+    }
 
     const data = new FormData();
     for (const key in formData) {
@@ -44,26 +74,36 @@ function EditProfile() {
         headers: { "Content-Type": "multipart/form-data" },
       });
 
-      // setUser(res.data);
       setSessionCheckNeeded(true);
-      console.log("Updated user data:", res.data);
-      //setCheckSession(true)
-      alert("Updated successfully");
+      alert(t("edit_profile.update_success"));
       navigate("/profile");
     } catch (err) {
       console.error("Update failed:", err);
+      alert(t("edit_profile.update_failed"));
     }
   };
+
+  if (!user) {
+    return <div className="flex justify-center items-center min-h-screen">
+      <div className="text-white text-lg">{t("edit_profile.loading")}</div>
+    </div>;
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-r from-[#255140] via-[#FFC649] to-[#255140] flex justify-center items-center px-4">
       <div className="card w-full max-w-6xl bg-white shadow-2xl rounded-lg overflow-hidden">
         <div className="flex flex-col text-white">
-          {/* Top Section - Avatar */}
+
           <div className="bg-[#255140] text-white flex flex-col justify-center items-center p-8">
             <div className="avatar">
               <div className="w-32 h-32 rounded-full ring ring-[#FFC649] ring-offset-4 overflow-hidden">
-                {user.image ? (
+                {formData.image instanceof File ? (
+                  <img
+                    src={URL.createObjectURL(formData.image)}
+                    alt="Profile"
+                    className="w-full h-full object-cover"
+                  />
+                ) : user?.image ? (
                   <img
                     src={user.image}
                     alt="Profile"
@@ -72,43 +112,40 @@ function EditProfile() {
                 ) : (
                   <div className="bg-gray-300 w-full h-full flex items-center justify-center text-gray-600">
                     <span className="text-4xl font-bold">
-                      {user.username?.charAt(0)}
+                      {formData.username?.charAt(0) || "?"}
                     </span>
                   </div>
                 )}
               </div>
             </div>
-            <h2 className="text-3xl font-bold mt-4">{user.username}</h2>
+            <h2 className="text-3xl font-bold mt-4">{formData.username || t("edit_profile.no_username")}</h2>
             <p className="text-sm italic mt-2">
-              Update your profile information
+              {t("edit_profile.update_message")}
             </p>
           </div>
-
-          {/* Bottom Section - Form */}
           <div className="p-8">
             <h2 className="text-2xl font-bold text-[#255140] mb-4">
-              Edit Profile
+              {t("edit_profile.title")}
             </h2>
 
             <form
               onSubmit={handleSubmit}
               className="grid grid-cols-1 md:grid-cols-4 gap-1"
             >
-              {/* Basic Fields */}
               {[
-                { name: "first_name", label: "First Name" },
-                { name: "last_name", label: "Last Name" },
-                { name: "age", label: "Age", type: "number" },
-                { name: "height", label: "Height (cm)", type: "number" },
-                { name: "weight", label: "Weight (kg)", type: "number" },
+                { name: "first_name", label: t("edit_profile.first_name") },
+                { name: "last_name", label: t("edit_profile.last_name") },
+                { name: "age", label: t("edit_profile.age"), type: "number" },
+                { name: "height", label: t("edit_profile.height"), type: "number" },
+                { name: "weight", label: t("edit_profile.weight"), type: "number" },
                 {
                   name: "target_weight",
-                  label: "Target Weight (kg)",
+                  label: t("edit_profile.target_weight"),
                   type: "number",
                 },
                 {
                   name: "daily_calories",
-                  label: "Daily Calories (kcal)",
+                  label: t("edit_profile.daily_calories"),
                   type: "number",
                 },
               ].map(({ name, label, type = "text" }) => (
@@ -125,11 +162,9 @@ function EditProfile() {
                   />
                 </div>
               ))}
-
-              {/* Select Fields */}
               <div>
                 <label className="label font-semibold text-[#255140] mb-1">
-                  Gender
+                  {t("edit_profile.gender")}
                 </label>
                 <select
                   name="gender"
@@ -137,15 +172,15 @@ function EditProfile() {
                   onChange={handleChange}
                   className="select select-bordered w-full"
                 >
-                  <option value="male">Male</option>
-                  <option value="female">Female</option>
-                  <option value="other">Other</option>
+                  {Object.entries(t("edit_profile.gender_options", { returnObjects: true })).map(([value, label]) => (
+                    <option key={value} value={value}>{label}</option>
+                  ))}
                 </select>
               </div>
 
               <div>
                 <label className="label font-semibold text-[#255140] mb-1">
-                  Target Weight Change
+                  {t("edit_profile.target_weight_change")}
                 </label>
                 <select
                   name="target_weight_change"
@@ -153,16 +188,15 @@ function EditProfile() {
                   onChange={handleChange}
                   className="select select-bordered w-full"
                 >
-                  <option value="500g">500g</option>
-                  <option value="1kg">1kg</option>
+                  {Object.entries(t("edit_profile.weight_change_options", { returnObjects: true })).map(([value, label]) => (
+                    <option key={value} value={value}>{label}</option>
+                  ))}
                 </select>
               </div>
-
-              {/* Lifestyle and Preferences */}
               <div className="md:col-span-4 grid grid-cols-1 md:grid-cols-5 gap-4">
                 <div>
                   <label className="label font-semibold text-[#255140] mb-1">
-                    Activity Level
+                    {t("edit_profile.activity_level")}
                   </label>
                   <select
                     name="activity_level"
@@ -170,17 +204,15 @@ function EditProfile() {
                     onChange={handleChange}
                     className="select select-bordered w-full"
                   >
-                    <option value="sedentary">Sedentary</option>
-                    <option value="lightly active">Lightly Active</option>
-                    <option value="moderately active">Moderately Active</option>
-                    <option value="very active">Very Active</option>
-                    <option value="super active">Super Active</option>
+                    {Object.entries(t("edit_profile.activity_levels", { returnObjects: true })).map(([value, label]) => (
+                      <option key={value} value={value}>{label}</option>
+                    ))}
                   </select>
                 </div>
 
                 <div>
                   <label className="label font-semibold text-[#255140] mb-1">
-                    Food Preference
+                    {t("edit_profile.food_preference")}
                   </label>
                   <select
                     name="food_preferences"
@@ -193,19 +225,17 @@ function EditProfile() {
                     }
                     className="select select-bordered w-full"
                   >
-                    <option value="">Select a preference</option>
-                    <option value="vegetarian">Vegetarian</option>
-                    <option value="vegan">Vegan</option>
-                    <option value="paleo">Paleo</option>
-                    <option value="keto">Keto</option>
-                    <option value="gluten-free">Gluten-Free</option>
+                    <option value="">{t("edit_profile.select_preference")}</option>
+                    {Object.entries(t("edit_profile.food_preference_options", { returnObjects: true })).map(([value, label]) => (
+                      <option key={value} value={value}>{label}</option>
+                    ))}
                   </select>
                 </div>
 
                 {[
-                  { name: "allergies", label: "Allergies" },
-                  { name: "cuisine_preferences", label: "Cuisine Preferences" },
-                  { name: "disease", label: "Disease" },
+                  { name: "allergies", label: t("edit_profile.allergies") },
+                  { name: "cuisine_preferences", label: t("edit_profile.cuisine_preferences") },
+                  { name: "disease", label: t("edit_profile.diseases") },
                 ].map(({ name, label }) => (
                   <div key={name}>
                     <label className="label font-semibold text-[#255140] mb-1">
@@ -223,31 +253,27 @@ function EditProfile() {
                         })
                       }
                       className="input input-bordered w-full"
-                      placeholder={`${label} (comma-separated)`}
+                      placeholder={`${label} (${t("edit_profile.comma_separated")})`}
                     />
                   </div>
                 ))}
               </div>
-
-              {/* Password */}
               <div className="md:col-span-2">
                 <label className="label font-semibold text-[#255140] mb-1">
-                  New Password (optional)
+                  {t("edit_profile.new_password")}
                 </label>
                 <input
                   name="password"
                   type="password"
                   value={formData.password}
                   onChange={handleChange}
-                  placeholder="Leave blank to keep current password"
+                  placeholder={t("edit_profile.password_placeholder")}
                   className="input input-bordered w-full"
                 />
               </div>
-
-              {/* Profile Image */}
               <div className="md:col-span-2">
                 <label className="label font-semibold text-[#255140] mb-1">
-                  Profile Image
+                  {t("edit_profile.profile_image")}
                 </label>
                 <input
                   type="file"
@@ -256,21 +282,19 @@ function EditProfile() {
                   className="file-input file-input-bordered w-full"
                 />
               </div>
-
-              {/* Buttons */}
               <div className="md:col-span-4 flex flex-col md:flex-row justify-between gap-4 mt-4">
                 <button
                   type="submit"
                   className="btn bg-[#FFC649] text-white hover:bg-[#e5b93f] w-full md:w-auto"
                 >
-                  Save Changes
+                  {t("edit_profile.save_changes")}
                 </button>
                 <button
                   type="button"
                   onClick={() => navigate("/profile")}
                   className="btn btn-outline border-[#FFC649] text-[#FFC649] hover:bg-[#FFC649] hover:text-white w-full md:w-auto"
                 >
-                  Cancel
+                  {t("edit_profile.cancel")}
                 </button>
               </div>
             </form>

@@ -7,7 +7,7 @@ config();
 
 export const auth = async (req, res, next) => {
   try {
-    const token = req.cookies.token;
+    const token = req.cookies.token || req.headers.authorization?.split(" ")[1];
     if (!token) {
       return next(new CustomError("Authentication failed", 401));
     }

@@ -1,10 +1,14 @@
-import React, { useState, useEffect, createContext } from "react";
+import React, { useState, useEffect, createContext, useContext } from "react";
 import axios from "axios";
 import { ORIGIN_URL } from "../config";
+import { AuthContext } from "./authContext";
+import { useNavigate } from "react-router-dom";
 
 export const FoodContext = createContext();
 
 function FoodContextProvider({ children }) {
+  const navigate = useNavigate();
+  const { user } = useContext(AuthContext);
   const [food, setFood] = useState(() => {
     const localData = localStorage.getItem("foodData");
     return localData ? JSON.parse(localData) : [];
@@ -12,6 +16,8 @@ function FoodContextProvider({ children }) {
   const [searchedFood, setSearchedFood] = useState([]);
   const [loading, setLoading] = useState(food.length === 0);
   const [error, setError] = useState(null);
+  const [favorites, setFavorites] = useState([]);
+
   const dishTypeList = [
     {
       id: 1,
@@ -64,6 +70,60 @@ function FoodContextProvider({ children }) {
   ];
   const [foodByType, setFoodByType] = useState([]);
 
+const fetchFavorites = async () => {
+  try {
+    const res = await axios.get(`${ORIGIN_URL}/favorites`, {
+      withCredentials: true,
+    });
+    const userFavorites = res.data.filter(fav => 
+      fav.userId._id === user?._id || fav.userId === user?._id
+    );
+    setFavorites(userFavorites);
+  } catch (error) {
+    console.error("Error fetching favorites:", error);
+    setError(error.response?.data?.message || error.message);
+  }
+};
+
+  const addFavorite = async (recipeId) => {
+    if (!user) {
+      alert("Please login to add favorites");
+      navigate("/login");
+      return;
+    }
+    try {
+      await axios.post(
+        `${ORIGIN_URL}/favorites`,
+        { recipeId },
+        {
+          withCredentials: true,
+        }
+      );
+      await fetchFavorites();
+    } catch (error) {
+      console.error("Error adding favorite:", error);
+      setError(error.response?.data?.message || error.message);
+    }
+  };
+
+  const removeFavorite = async (recipeId) => {
+  try {
+    await axios.delete(`${ORIGIN_URL}/favorites/${recipeId}`, {
+      withCredentials: true,
+    });
+    setFavorites(prev => prev.filter(fav => 
+      fav.recipeId._id !== recipeId && fav.recipeId !== recipeId
+    ));
+  } catch (error) {
+    console.error("Error removing favorite:", error);
+  }
+};
+
+  useEffect(() => {
+    fetchFood();
+    fetchFavorites();
+  }, []);
+
   const handleSearch = (search, type = "", cuisine = "") => {
     const searchedFoodList = food.filter((foodItem) => {
       const matchesTitle = foodItem.title
@@ -85,7 +145,7 @@ function FoodContextProvider({ children }) {
     console.log(searchedFoodList);
     setSearchedFood(searchedFoodList);
   };
-  
+
   useEffect(() => {
     // const storeFood = async () => {
     //   try {
@@ -132,8 +192,7 @@ function FoodContextProvider({ children }) {
   const fetchFood = async () => {
     try {
       const res = await axios.get(`${ORIGIN_URL}/recipes`);
-      setFood(res.data);
-      console.log("res.data", res.data);
+      setFood(res.data.recipes);
       localStorage.removeItem("foodData");
       localStorage.setItem("foodData", JSON.stringify(res.data));
     } catch (error) {
@@ -155,6 +214,9 @@ function FoodContextProvider({ children }) {
         searchedFood,
         setSearchedFood,
         handleSearch,
+        favorites,
+        addFavorite,
+        removeFavorite,
       }}
     >
       {children}

@@ -3,24 +3,40 @@ import { useContext } from "react";
 import { useParams } from "react-router-dom";
 import Comments from "../components/Comments";
 import CommentContextProvider from "../context/commentContext";
+import { AuthContext } from "../context/authContext";
 
 function RecipeDetail() {
+  const { user } = useContext(AuthContext);
   const { id } = useParams();
-  const { food, loading } = useContext(FoodContext);
-  const foodItem = food?.find((item) => item?._id?.toString() === id);
+  const { food, loading, addFavorite, favorites, removeFavorite } =
+    useContext(FoodContext);
+
+  const foodItem = Array.isArray(food)
+    ? food.find((item) => item?._id?.toString() === id)
+    : null;
+
+  const isFavorite = favorites.some(
+    (fav) =>
+      (fav.recipeId._id === id || fav.recipeId === id) &&
+      (fav.userId._id === user?._id || fav.userId === user?._id)
+  );
 
   const toFixed = (value) => {
     return Number(value).toFixed(1);
   };
 
   function cleanAndLimitHtml(htmlString, sentenceLimit = 6) {
+    if (!htmlString) {
+      return "";
+    }
     const sentences = htmlString.match(/[^.!?]+[.!?]/g) || [];
     const limitedSentences = sentences.slice(0, sentenceLimit).join(" ");
     return limitedSentences;
   }
 
-  const totalNutrition = foodItem?.carbs + foodItem?.protein + foodItem?.fat || 0;
-  const proteinPercent =(foodItem?.protein * 100) / totalNutrition || 0;
+  const totalNutrition =
+    foodItem?.carbs + foodItem?.protein + foodItem?.fat || 0;
+  const proteinPercent = (foodItem?.protein * 100) / totalNutrition || 0;
   const carbsPercent = (foodItem?.carbs * 100) / totalNutrition || 0;
   const bg = `conic-gradient(
         #ef4444 0% ${carbsPercent}%,
@@ -47,10 +63,34 @@ function RecipeDetail() {
         <div className="recipe-details w-[90%] mx-auto flex-wrap flex justify-between items-center py-10">
           <div className="w-[60%] pr-15">
             <h1 className="text-4xl font-bold mb-7">{foodItem?.title}</h1>
+            <button
+              onClick={() => {
+                if (!user) {
+                  alert("Please login to add favorites");
+                  navigate("/login");
+                  return;
+                }
+                if (isFavorite) {
+                  const fav = favorites.find(
+                    (fav) => fav.recipeId._id === id || fav.recipeId === id
+                  );
+                  if (fav) {
+                    removeFavorite(fav.recipeId._id || fav.recipeId);
+                  }
+                } else {
+                  addFavorite(id);
+                }
+              }}
+              className={`px-2 py-1.5 rounded-md mb-2 text-[.9rem] hover:bg-red-500 transition-all duration-300 hover:text-white cursor-pointer ${
+                isFavorite ? "bg-red-500 text-white" : "bg-gray-200 text-black"
+              }`}
+            >
+              {isFavorite ? "Remove from Favorites" : "Add to Favorites"}
+            </button>
             <div
               className="text-xl text-justify"
               dangerouslySetInnerHTML={{
-                __html: cleanAndLimitHtml(foodItem?.description),
+                __html: cleanAndLimitHtml(foodItem?.description || ""),
               }}
             />
             <div className="food-types pt-5">
@@ -154,9 +194,7 @@ function RecipeDetail() {
                 <div className="text-[#333d25] font-bold text-lg pb-2">
                   Step {index + 1}
                 </div>
-                <div className="text-[#333d25] text-center text-lg">
-                  {step}
-                </div>
+                <div className="text-[#333d25] text-center text-lg">{step}</div>
               </li>
             ))}
           </ul>

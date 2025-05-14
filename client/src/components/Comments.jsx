@@ -25,10 +25,10 @@ function Comments() {
   useEffect(() => {
     if (error) {
       const timeout = setTimeout(() => {
-        setError(null); 
+        setError(null);
       }, 3000);
 
-      return () => clearTimeout(timeout); 
+      return () => clearTimeout(timeout);
     }
   }, [error]);
 
@@ -79,6 +79,7 @@ function Comments() {
                 className="w-[3rem] h-[3rem] rounded-full object-cover"
               />
             </figure>
+            <p>{new Date(comment.updatedAt).toLocaleString()}</p>
             <p>
               <strong>{comment.userId?.username}:</strong> {comment.text}
             </p>

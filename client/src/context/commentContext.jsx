@@ -10,6 +10,8 @@ function CommentContextProvider({ children, recipeId }) {
   const [comments, setComments] = useState([]);
   const [error, setError] = useState(null);
 
+  console.log("comments", comments);
+
   const fetchComments = async () => {
     try {
       const res = await axios.get(`${ORIGIN_URL}/comments/recipe/${recipeId}`, {

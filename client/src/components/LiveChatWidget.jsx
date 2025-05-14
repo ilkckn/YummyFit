@@ -30,7 +30,6 @@ const LiveChatWidget = () => {
     script.async = true;
     document.body.appendChild(script);
 
-    // Widget'ın DOM elementini de güncelle
     const updateWidgetDomPosition = () => {
       const widget = document.querySelector('iframe[src*="livechat"]')?.parentElement;
       if (widget) {
@@ -52,12 +51,10 @@ const LiveChatWidget = () => {
 
     window.addEventListener("resize", updatePosition);
 
-    // LiveChat yüklendiğinde pozisyonu tekrar güncelle
     window.__lc.asyncInit = function () {
       updatePosition();
     };
 
-    // Sürekli pozisyonu güncelle (her 500ms'de bir)
     const interval = setInterval(updatePosition, 500);
 
     return () => {

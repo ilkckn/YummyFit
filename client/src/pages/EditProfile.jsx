@@ -68,13 +68,13 @@ function EditProfile() {
         data.append(key, formData[key]);
       }
     }
-
+    
     try {
       const res = await axios.put(`${ORIGIN_URL}/users/${user.id}`, data, {
         withCredentials: true,
         headers: { "Content-Type": "multipart/form-data" },
       });
-
+      
       setSessionCheckNeeded(true);
       setSuccess("Profile updated successfully", true);
       alert(t("edit_profile.update_success"));
@@ -173,7 +173,9 @@ function EditProfile() {
                     type={type}
                     value={formData[name] || ""}
                     onChange={handleChange}
+
                     className="input input-bordered w-full bg-white border-[#255140]"
+                    disabled={name === "daily_calories"}
                   />
                 </div>
               ))}

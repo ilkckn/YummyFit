@@ -13,6 +13,7 @@ function Profile() {
   const { favorites, removeFavorite } = useContext(FoodContext);
   const [showFavorites, setShowFavorites] = useState(false);
   const { user, handleLogout, sessionLoading } = useContext(AuthContext);
+  console.log("user", user);
   const navigate = useNavigate();
 
   const {
@@ -41,11 +42,11 @@ function Profile() {
     return t(`profile.gender_options.${gender.toLowerCase()}`) || gender;
   };
 
-  const translateActivityLevel = (level) => {
-    if (!level) return t("profile.not_available");
-    const key = level.toLowerCase().replace(" ", "_");
-    return t(`profile.activity_levels.${key}`) || level;
-  };
+  // const translateActivityLevel = (level) => {
+  //   if (!level) return t("profile.not_available");
+  //   const key = level.toLowerCase().replace(" ", "_");
+  //   return t(`profile.activity_levels.${key}`) || level;
+  // };
 
   if (sessionLoading) {
     return <div className="loading">{t("navbar.loading")}</div>;
@@ -164,7 +165,11 @@ function Profile() {
               />
               <ProfileDetail
                 label={t("profile.cuisine_preferences")}
-                value={cuisine_preferences?.length > 0 ? cuisine_preferences?.join(", ") : `-`}
+                value={
+                  cuisine_preferences?.length > 0
+                    ? cuisine_preferences?.join(", ")
+                    : `-`
+                }
               />
               <ProfileDetail
                 label={t("profile.diseases")}
@@ -177,65 +182,79 @@ function Profile() {
 
       {showFavorites && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
-          <div className="bg-white p-6 rounded-lg shadow-lg w-[90%] max-w-3xl overflow-auto max-h-[100vh]">
-            <h2 className="text-2xl font-bold mb-4">
+          <div className="bg-white py-20 px-6 rounded-lg shadow-lg w-[90%] max-w-3xl min-h-[60%] overflow-auto max-h-[100vh] relative">
+            {/* <h2 className="text-2xl font-bold mb-4">
               {t("profile.your_favorites")}
-            </h2>
+            </h2> */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {favorites.map((fav) => (
-                <div
-                  key={fav.recipeId._id}
-                  className="card w-full h-[350px] shadow-sm relative"
-                >
-                  <Link
-                    to={`/food/${fav.recipeId._id}`}
-                    className="w-full h-full flex flex-col"
-                  >
-                    <img
-                      src={fav.recipeId.image}
-                      alt={fav.recipeId.title}
-                      className="w-full h-[200px] object-cover rounded-t-lg"
-                    />
-                    <div className="card-body px-4 py-2">
-                      <h2 className="card-title text-[#333d25]">
-                        {fav.recipeId.title.length > 35
-                          ? `${fav.recipeId.title.substring(0, 35)}...`
-                          : fav.recipeId.title}
-                      </h2>
-                      {fav.recipeId.description?.length > 100 ?
-                      ( <p
-                        dangerouslySetInnerHTML={{
-                          __html: `${fav.recipeId.description.substring(
-                            0,
-                            130
-                          )}...`,
-                        }}
-                      />
-                    ) : (
-                      <p
-                        dangerouslySetInnerHTML={{
-                          __html: fav.recipeId.description,
-                        }}
-                      />
-                    )}
-                      <div className="flex justify-between items-center mt-2 text-sm text-gray-700 font-semibold">
-                        <span>⏱️ {fav.recipeId.cook_time} min</span>
-                        <span>🔥 {Math.round(fav.recipeId.calories)} cals</span>
-                      </div>
-                      <button
-                        onClick={() => removeFavorite(fav.recipeId._id)}
-                        className="absolute top-2 right-2 text-white bg-red-600 rounded-md px-2 py-1 text-md cursor-pointer"
+              {favorites?.length > 0 ? (
+                <>
+                  {favorites.map((fav) => (
+                    <div
+                      key={fav.recipeId._id}
+                      className="card w-full h-[350px] shadow-sm relative"
+                    >
+                      <Link
+                        to={`/food/${fav.recipeId._id}`}
+                        className="w-full h-full flex flex-col"
                       >
-                        <i className="fa fa-heart" aria-hidden="true"></i>
-                      </button>
+                        <img
+                          src={fav.recipeId.image}
+                          alt={fav.recipeId.title}
+                          className="w-full h-[200px] object-cover rounded-t-lg"
+                        />
+                        <div className="card-body px-4 py-2">
+                          <h2 className="card-title text-[#333d25]">
+                            {fav.recipeId.title.length > 35
+                              ? `${fav.recipeId.title.substring(0, 35)}...`
+                              : fav.recipeId.title}
+                          </h2>
+                          {fav.recipeId.description?.length > 100 ? (
+                            <p
+                              dangerouslySetInnerHTML={{
+                                __html: `${fav.recipeId.description.substring(
+                                  0,
+                                  130
+                                )}...`,
+                              }}
+                            />
+                          ) : (
+                            <p
+                              dangerouslySetInnerHTML={{
+                                __html: fav.recipeId.description,
+                              }}
+                            />
+                          )}
+                          <div className="flex justify-between items-center mt-2 text-sm text-gray-700 font-semibold">
+                            <span>⏱️ {fav.recipeId.cook_time} min</span>
+                            <span>
+                              🔥 {Math.round(fav.recipeId.calories)} cals
+                            </span>
+                          </div>
+                          <button
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              e.preventDefault();
+                              removeFavorite(fav.recipeId._id);
+                            }}
+                            className="absolute top-2 right-2 text-white bg-red-600 rounded-md px-2 py-1 text-md cursor-pointer"
+                          >
+                            <i className="fa fa-heart" aria-hidden="true"></i>
+                          </button>
+                        </div>
+                      </Link>
                     </div>
-                  </Link>
-                </div>
-              ))}
+                  ))}
+                </>
+              ) : (
+                <p className="text-center text-gray-500 text-4xl font-medium absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                  {t("favorite.no_favorites")}
+                </p>
+              )}
             </div>
             <button
               onClick={() => setShowFavorites(false)}
-              className="mt-4 px-4 py-2 bg-red-500 text-white rounded-md"
+              className="mt-4 px-4 py-2 bg-red-500 text-white rounded-md absolute top-3 right-6 cursor-pointer"
             >
               {t("profile.close")}
             </button>

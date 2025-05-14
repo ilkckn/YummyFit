@@ -63,7 +63,7 @@ function RecipeDetail() {
         <div className="recipe-details w-[90%] mx-auto flex-wrap flex justify-between items-center py-10">
           <div className="w-[60%] pr-15">
           <div className="flex items-start justify-between">
-            <h1 className="text-4xl font-bold mb-7">{foodItem?.title}</h1>
+            <h1 className="text-4xl font-bold mb-7 capitalize">{foodItem?.title}</h1>
               <button type="button"
               onClick={() => {
                 if (!user) {

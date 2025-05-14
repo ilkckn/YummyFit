@@ -4,7 +4,7 @@ import { AuthContext } from "../context/authContext";
 import { useState,useContext, use } from "react";
 
 function UserInfo() {
-  const { user,navigate,setError, setUser,setSessionCheckNeeded } = useContext(AuthContext);
+  const { user,navigate,setError, setUser,setSessionCheckNeeded, handleLogout } = useContext(AuthContext);
   const userId = user?.id;
   const [userInfo,setUserInfo] = useState({});
   const [gender, setGender] = useState("male");
@@ -32,7 +32,8 @@ function UserInfo() {
         withCredentials: true,
       });
       setUser(response.data)
-      navigate("/");
+      handleLogout();
+      // navigate("/");
     } catch (error) {
       setError(error.response?.data?.message || "An error occurred while updating the user data.");
     }

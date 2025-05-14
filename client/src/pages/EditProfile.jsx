@@ -7,7 +7,8 @@ import { useTranslation } from "react-i18next";
 
 function EditProfile() {
   const { t } = useTranslation();
-  const { user, setUser, setSessionCheckNeeded } = useContext(AuthContext);
+  const { user, setUser, setSessionCheckNeeded, handleLogout } =
+    useContext(AuthContext);
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     first_name: "",
@@ -68,7 +69,7 @@ function EditProfile() {
         data.append(key, formData[key]);
       }
     }
-    
+
     try {
       const res = await axios.put(`${ORIGIN_URL}/users/${user.id}`, data, {
         withCredentials: true,
@@ -79,9 +80,12 @@ function EditProfile() {
       setSessionCheckNeeded(true);
       setSuccess("Profile updated successfully");
       // alert(t("edit_profile.update_success"));
+
+      // navigate("/profile");
+
       setTimeout(() => {
-        navigate("/profile");
-      }, 1800);
+        handleLogout();
+      }, 2000);
     } catch (err) {
       console.error("Update failed:", err);
       setSuccess("Profile update failed");
@@ -177,7 +181,6 @@ function EditProfile() {
                     type={type}
                     value={formData[name] || ""}
                     onChange={handleChange}
-
                     className="input input-bordered w-full bg-white border-[#255140]"
                   />
                 </div>

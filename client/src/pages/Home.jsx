@@ -30,7 +30,7 @@ function Home() {
 
   return (
     <>
-      <main className="pt-[140px]">
+      <main className="pt-[130px]">
         {/* {loading && <p>Loading...</p>} */}
         <div className="relative flex flex-row items-start min-h-[600px]">
           <div className="w-[50%] text-right px-9">

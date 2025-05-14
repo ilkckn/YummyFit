@@ -5,7 +5,6 @@ import Recipe from "../schemas/recipeSchema.js";
 import { CustomError } from "../utils/errorHandler.js";
 import asyncHandler from "../utils/asyncHandler.js";
 
-// Get all comments for a specific recipe
 export const getCommentsByRecipe = asyncHandler(async (req, res, next) => {
   const recipeId = req.params.recipeId;
 
@@ -23,7 +22,6 @@ export const getCommentsByRecipe = asyncHandler(async (req, res, next) => {
   res.status(200).json(filteredComments);
 });
 
-// Get a single comment by ID
 export const getCommentById = asyncHandler(async (req, res, next) => {
   const comment = await Comment.findById(req.params.id).populate(
     "userId",
@@ -91,7 +89,7 @@ export const updateComment = asyncHandler(async (req, res, next) => {
   const updatedComment = await Comment.findByIdAndUpdate(commentId, updates, {
     new: true,
     runValidators: true,
-  }).populate("userId", "username email");
+  }).populate("userId", "username email image");
 
   res.status(200).json(updatedComment);
 });

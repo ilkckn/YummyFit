@@ -228,7 +228,7 @@ function Navbar() {
           </div>
           <ul
             tabIndex={0}
-            className="dropdown-content w-[25rem] min-h-[100vh] flex flex-col items-center justify-start gap-4 absolute top-[-2.5rem] right-[-2.5rem] bg-[#326C56] text-white p-2 pt-20 shadow-sm"
+            className="dropdown-content w-[25rem] min-h-[100vh] flex flex-col items-center justify-start gap-4 absolute top-[-2.5rem] right-[-2.5rem] bg-[#326C56] text-white p-2 pt-20 mt-1 shadow-sm"
           >
             <div className="welcome">
               {isLoggedIn ? (
@@ -236,7 +236,7 @@ function Navbar() {
                   <img
                     src={user?.image}
                     alt=""
-                    className="w-[7rem] rounded-[50%] border-3 border-white"
+                    className="w-[7rem] h-[7rem] rounded-[50%] border-3 border-white"
                   />
                   <p className="text-lg font-medium text-white mb-5 underline tracking-[.5px]">
                     {t("navbar.welcome")}, {user.username}

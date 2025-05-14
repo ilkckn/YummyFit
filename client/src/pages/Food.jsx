@@ -31,7 +31,7 @@ function Recipe() {
   }, []);
 
   return (
-    <div className="w-full min-h-[calc(100vh-130px)] flex flex-col items-center justify-start mt-[130px] pt-[5rem]">
+    <div className="w-full min-h-[100vh] flex flex-col items-center justify-start mt-[130px] pt-[5rem]">
       {!loading && (
         <>
           <div className="search-heading text-center mb-4">

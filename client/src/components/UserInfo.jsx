@@ -31,8 +31,8 @@ function UserInfo() {
       }, {
         withCredentials: true,
       });
-      
-      navigate("/profile");
+      setUser(response.data)
+      navigate("/");
     } catch (error) {
       setError(error.response?.data?.message || "An error occurred while updating the user data.");
     }

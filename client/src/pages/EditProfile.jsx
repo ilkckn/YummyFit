@@ -74,7 +74,8 @@ function EditProfile() {
         withCredentials: true,
         headers: { "Content-Type": "multipart/form-data" },
       });
-      
+      setUser(res.data);
+      console.log("User updated:", res.data);
       setSessionCheckNeeded(true);
       setSuccess("Profile updated successfully", true);
       alert(t("edit_profile.update_success"));
@@ -175,7 +176,6 @@ function EditProfile() {
                     onChange={handleChange}
 
                     className="input input-bordered w-full bg-white border-[#255140]"
-                    disabled={name === "daily_calories"}
                   />
                 </div>
               ))}

@@ -46,6 +46,7 @@ function FoodAvoid() {
       const response = await axios.put(`${ORIGIN_URL}/users/${userId}`, {
         allergies: allergies,
         disease: diseases,
+        cuisine_preferences: cuisine,
       }, {
         withCredentials: true,
       });

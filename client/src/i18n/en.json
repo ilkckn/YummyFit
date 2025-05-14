@@ -220,6 +220,9 @@
       "american": "American"
     }
   },
+  "favorite": {
+    "no_favorites": "No favorites"
+  },
   "account_setup": {
     "title": "Set up your account",
     "welcome": "Welcome to",

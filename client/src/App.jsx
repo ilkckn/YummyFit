@@ -22,7 +22,7 @@ import "./i18n";
 
 function App() {
   return (
-    <div className="w-full bg-[#fcfcfc]">
+    <div className="w-full bg-[#fcfcfc] relative">
       <ScrollToTop />
       <Routes>
         <Route element={<MainLayout />}>

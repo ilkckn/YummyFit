@@ -77,12 +77,15 @@ function EditProfile() {
       setUser(res.data);
       console.log("User updated:", res.data);
       setSessionCheckNeeded(true);
-      setSuccess("Profile updated successfully", true);
-      alert(t("edit_profile.update_success"));
-      navigate("/profile");
+      setSuccess("Profile updated successfully");
+      // alert(t("edit_profile.update_success"));
+      setTimeout(() => {
+        navigate("/profile");
+      }, 1800);
     } catch (err) {
       console.error("Update failed:", err);
-      alert(t("edit_profile.update_failed"));
+      setSuccess("Profile update failed");
+      // alert(t("edit_profile.update_failed"));
     }
   };
 
@@ -342,6 +345,11 @@ function EditProfile() {
                 </button>
               </div>
             </form>
+            {success && (
+              <div className="alert alert-success mt-4">
+                <span>{success}</span>
+              </div>
+            )}
           </div>
         </div>
       </div>

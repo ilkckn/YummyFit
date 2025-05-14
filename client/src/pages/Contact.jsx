@@ -15,6 +15,7 @@ export default function ContactUs() {
     subject: "",
     message: "",
   });
+  const [success, setSuccess] = useState(false);
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -33,12 +34,14 @@ export default function ContactUs() {
       .then(
         (result) => {
           console.log("SUCCESS!", result.text);
-          alert(t("contact.success"));
+          setSuccess("Email sent successfully!");
+          // alert(t("contact.success"));
           setForm({ name: "", email: "", subject: "", message: "" });
         },
         (error) => {
           console.error("FAILED...", error.text);
-          alert(t("contact.error"));
+          setSuccess("Failed to send email. Please try again later.");
+          // alert(t("contact.error"));
         }
       );
   };
@@ -99,6 +102,11 @@ export default function ContactUs() {
             ></textarea>
             <LuMessageSquare className="text-gray-500 absolute top-10 left-4" />
           </div>
+          {success && (
+            <div className="text-white bg-green-500 text-lg font-semibold mb-4 px-4 py-2 rounded">
+              {success}
+            </div>
+          )}
           <button
             type="submit"
             className="bg-green-600 text-white text-[1.25rem] tracking-[.1rem] px-4 py-3 rounded hover:bg-green-700 transition"

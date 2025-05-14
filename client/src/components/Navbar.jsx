@@ -55,11 +55,11 @@ function Navbar() {
   }, [languageDropdownRef]);
 
   return (
-    <div className="flex justify-between items-center w-full max-w-[1600px] px-10 z-5 fixed top-0 bg-white shadow-md ">
+    <div className="flex justify-between items-center w-full max-w-[1600px] px-10  py-4 z-5 fixed top-0 bg-white shadow-md ">
       <div className="left w-full flex-1/2 flex-wrap flex items-center">
         <div className="">
           <NavLink to="/">
-            <img src={logo} alt="YummyFit Logo" className="h-35 w-40" />
+            <img src={logo} alt="YummyFit Logo" className="h-25 w-30" />
           </NavLink>
         </div>
         <div className="ml-25">

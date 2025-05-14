@@ -1,29 +1,13 @@
-import axios from "axios";
+import axios, { all } from "axios";
 import { ORIGIN_URL } from "../config";
 import { AuthContext } from "../context/authContext";
-import { useState, useContext, useEffect } from "react";
-import { useTranslation } from "react-i18next"; 
+import { useState,useContext, use } from "react";
 
 function UserInfo() {
-  const { t } = useTranslation();
-  const { user, navigate, setError, setUser, setSessionCheckNeeded } = useContext(AuthContext);
+  const { user,navigate,setError, setUser,setSessionCheckNeeded } = useContext(AuthContext);
   const userId = user?.id;
-  const [userInfo, setUserInfo] = useState({});
+  const [userInfo,setUserInfo] = useState({});
   const [gender, setGender] = useState("male");
-
-  useEffect(() => {
-    if (user) {
-      setUserInfo({
-        age: user.age || "",
-        weight: user.weight || "",
-        height: user.height || "",
-        target_weight: user.target_weight || "",
-        target_weight_change: user.target_weight_change || "1kg_week",
-        activity_level: user.activity_level || "sedentary", 
-      });
-      setGender(user.gender || "male"); 
-    }
-  }, [user]); 
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -31,160 +15,131 @@ function UserInfo() {
       ...prev,
       [name]: value,
     }));
-  };
-
+  }
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const response = await axios.put(`${ORIGIN_URL}/users/${userId}`, {
-        age: parseInt(userInfo.age),
-        weight: parseFloat(userInfo.weight),
-        height: parseFloat(userInfo.height),
-        target_weight: parseFloat(userInfo.target_weight),
+        age: userInfo.age,
+        weight: userInfo.weight,
+        height: userInfo.height,
+        target_weight: userInfo.target_weight,
         target_weight_change: userInfo.target_weight_change,
         activity_level: userInfo.activity_level,
-        gender: gender,
+        gender:gender,
       }, {
         withCredentials: true,
       });
-      setUser(response.data);
-      setSessionCheckNeeded(true);
+      
       navigate("/profile");
     } catch (error) {
-      setError(error.response?.data?.message || t("user_info.update_error")); 
+      setError(error.response?.data?.message || "An error occurred while updating the user data.");
     }
-  };
-
-  const buttonBaseClasses = "rounded-lg px-2 py-1 cursor-pointer hover:bg-gray-50";
+  }
 
   return (
     <div className="bg-[#f6f0ef]">
       <div className="user-info h-[100vh]">
-        <div className="w-[60%] mx-auto pt-35">
-          <h2 className="font-bold text-2xl">
-            {t("user_info.title")}
+        <div className="w-[60%] mx-auto pt-[18%]">
+          <h2 className="font-bold text-4xl">
+            Tell us about yourself
           </h2>
-          <p className="text-lg mb-8">
-            {t("user_info.description")}
+          <p className="text-2xl mb-15 pt-3">This information lets us estimate your nutrition requirements for each day.
           </p>
           <form onSubmit={handleSubmit}>
             <div className="flex mt-4 justify-start gap-50 text-lg">
               <div>
-                <div className="flex gap-5 items-center justify-between py-3">
-                  <label htmlFor="gender" className="text-lg font-semibold">
-                    {t("profile.gender")}
-                  </label>
+                <div className="flex gap-5 items-center justify-between py-5">
+                  <label htmlFor="gender" className="text-2xl font-semibold">Gender</label>
                   <div className="flex gap-1 border-1 p-[2px] rounded-lg">
                     <button type="button"
-                      className={`${buttonBaseClasses} ${gender === "male" ? "active-btn" : ""}`}
+                      className={`rounded-lg px-2 py-1 cursor-pointer hover:bg-gray-50 ${gender === "male" ? "active-btn" : ""}`}
                       onClick={() => setGender("male")}>
-                      {t("profile.gender_options.male")}
+                      Male
                     </button>
                     <button type="button"
-                      className={`${buttonBaseClasses} ${gender === "female" ? "active-btn" : ""}`}
+                      className={`rounded-lg px-2 py-1 cursor-pointer hover:bg-gray-50 ${gender === "female" ? "active-btn" : ""}`}
                       onClick={() => setGender("female")}>
-                      {t("profile.gender_options.female")}
+                      Female
                     </button>
                     <button type="button"
-                      className={`${buttonBaseClasses} ${gender === "other" ? "active-btn" : ""}`}
+                      className={`rounded-lg px-2 py-1 cursor-pointer hover:bg-gray-50 ${gender === "other" ? "active-btn" : ""}`}
                       onClick={() => setGender("other")}>
-                      {t("profile.gender_options.other")}
+                      Other
                     </button>
                   </div>
                 </div>
-                <div className="flex gap-5 items-center justify-between py-3">
-                  <label htmlFor="weight" className="text-lg font-semibold">
-                    {t("profile.weight")}
-                  </label>
+                <div className="flex gap-5 items-center justify-between py-5">
+                  <label htmlFor="weight" className="text-2xl font-semibold">Weight</label>
                   <div>
-                    <input type="number" id="weight" name="weight" onChange={handleChange} value={userInfo.weight}
-                      className="border-1 rounded-lg px-2 py-1 w-[4rem] mr-1 text-center" required />
-                    <span className="">{t("profile.kg")}</span>
+                    <input type="number" id="weight" name="weight" onChange={handleChange} value={userInfo.weight} 
+                    className="border-1 rounded-lg px-2 py-1 w-[4rem] mr-1 text-center" required />
+                    <span className="">kg</span>
                   </div>
                 </div>
-                <div className="flex gap-5 items-center justify-between py-3">
-                  <label htmlFor="target_weight" className="text-lg font-semibold">
-                    {t("profile.target_weight")}
-                  </label>
+                <div className="flex gap-5 items-center justify-between py-5">
+                  <label htmlFor="target_weight" className="text-2xl font-semibold">Target Weight</label>
                   <div>
-                    <input type="number" id="target_weight" name="target_weight" onChange={handleChange} value={userInfo.target_weight}
-                      className="border-1 rounded-lg px-2 py-1 w-[4rem] mr-1 text-center" required />
-                    <span className="">{t("profile.kg")}</span>
+                    <input type="number" id="target_weight" name="target_weight" onChange={handleChange} value={userInfo.target_weight} 
+                    className="border-1 rounded-lg px-2 py-1 w-[4rem] mr-1 text-center" required />
+                    <span className="">kg</span>
                   </div>
                 </div>
-                <div className="flex gap-5 items-center justify-between py-3">
-                  <label htmlFor="activity_level" className="text-lg font-semibold">
-                    {t("profile.activity_level")}
-                  </label>
-                  <select
-                    id="activity_level"
-                    name="activity_level"
-                    onChange={handleChange}
-                    value={userInfo.activity_level}
-                    className="border-1 rounded-lg px-2 py-1"
-                  >
-                    <option value="sedentary">{t("edit_profile.activity_levels.sedentary")}</option>
-                    <option value="lightly active">{t("edit_profile.activity_levels.lightly active")}</option>
-                    <option value="moderately active">{t("edit_profile.activity_levels.moderately active")}</option>
-                    <option value="very active">{t("edit_profile.activity_levels.very active")}</option>
-                    <option value="super active">{t("edit_profile.activity_levels.super active")}</option>
+                <div className="flex gap-5 items-center justify-between py-5">
+                  <label htmlFor="activity" className="text-2xl font-semibold">Activity Level</label>
+                  <select id="activity_level" name="activity_level" onChange={handleChange} className="border-1 rounded-lg px-2 py-1">
+                    <option value="sedentary">Sedentary</option>
+                    <option value="lightly active">Lightly Active</option>
+                    <option value="moderately active">Moderately Active</option>
+                    <option value="very active">Very Active</option>
+                    <option value="super active">Super Active</option>
                   </select>
                 </div>
               </div>
 
               <div>
-                <div className="flex gap-5 items-center justify-between py-3">
-                  <label htmlFor="age" className="text-lg font-semibold">
-                    {t("profile.age")}
-                  </label>
+                <div className="flex gap-5 items-center justify-between py-5">
+                  <label htmlFor="age" className="text-2xl font-semibold">Age</label>
                   <div>
-                    <input type="number" id="age" name="age" onChange={handleChange} value={userInfo.age}
-                      className="border-1 rounded-lg px-2 py-1 w-[4rem] mr-1 text-center" required />
-                    <span className="">{t("profile.years")}</span>
+                    <input type="number" id="age" name="age" onChange={handleChange} value={userInfo.age} 
+                    className="border-1 rounded-lg px-2 py-1 w-[4rem] mr-1 text-center" required />
+                    <span className="">years</span>
                   </div>
                 </div>
-                <div className="flex gap-5 items-center justify-between py-3">
-                  <label htmlFor="height" className="text-lg font-semibold">
-                    {t("profile.height")}
-                  </label>
+                <div className="flex gap-5 items-center justify-between py-5">
+                  <label htmlFor="height" className="text-2xl font-semibold">Height</label>
                   <div>
-                    <input type="number" id="height" name="height" onChange={handleChange} value={userInfo.height}
-                      className="border-1 rounded-lg px-2 py-1 w-[4rem] mr-1 text-center" required />
-                    <span className="">{t("profile.cm")}</span>
+                    <input type="number" id="height" name="height" onChange={handleChange} value={userInfo.height} 
+                    className="border-1 rounded-lg px-2 py-1 w-[4rem] mr-1 text-center" required />
+                    <span className="">cm</span>
                   </div>
                 </div>
-                <div className="flex gap-5 items-center justify-between py-3">
-                  <label htmlFor="target_weight_change" className="text-lg font-semibold">
-                    {t("profile.target_weight_change")}
-                  </label>
+                <div className="flex gap-5 items-center justify-between py-5">
+                  <label htmlFor="target_weight_change" className="text-2xl font-semibold">Target Weight Change</label>
                   <div>
-                    <select
-                      id="target_weight_change"
-                      name="target_weight_change"
-                      onChange={handleChange}
-                      value={userInfo.target_weight_change} 
-                      className="border-1 rounded-lg px-2 py-1"
-                    >
-                      <option value="1kg_week">{t("edit_profile.weight_change_options.1kg_week")}</option>
-                      <option value="500g_week">{t("edit_profile.weight_change_options.500g_week")}</option>
-                    </select>
+                  <select id="target_weight_change" name="target_weight_change" onChange={handleChange} 
+                    className="border-1 rounded-lg px-2 py-1">
+                    <option value="1kg">1 kg/week</option>
+                    <option value="500g">0.5 kg/week</option>
+                  </select>
                   </div>
                 </div>
               </div>
             </div>
-            <div className="flex flex-wrap justify-center items-center gap-[20%] mt-25 mr-[10%]">
-              <button onClick={() => navigate(-1)} className="yummy-btn px-4 py-2 lato-black cursor-pointer">
-                <i className="fa-solid fa-arrow-left pr-2"></i> {t("food_avoid.back")} 
+            <div className="flex flex-wrap justify-center items-center gap-[12%] mt-25 mr-[5%] text-lg">
+              <button onClick={()=>navigate(-1)} className="yummy-btn px-4 py-2 lato-black cursor-pointer">
+                  <i className="fa-solid fa-arrow-left pr-2"></i> Back
               </button>
               <button type="submit" className="yummy-btn px-4 py-2 lato-black cursor-pointer">
-                {t("user_info.lets_go")}
+                 Let’s Go!
               </button>
             </div>
           </form>
         </div>
       </div>
     </div>
-  );
+  )
 }
 
-export default UserInfo;
+export default UserInfo

@@ -49,7 +49,6 @@ function FoodPreferences() {
     },
   ];
 
-  const [shouldRefresh, setShouldRefresh] = useState(false);
   const [selectedDiet, setSelectedDiet] = useState("");
   const { user, navigate, setError, setUser, setSessionCheckNeeded } =
     useContext(AuthContext);
@@ -74,10 +73,6 @@ function FoodPreferences() {
       );
     }
   };
-
-  useEffect(() => {
-    setShouldRefresh((prev) => !prev);
-  }, [shouldRefresh]);
 
   return (
     <div className="bg-[#f6f0ef]">

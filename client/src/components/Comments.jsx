@@ -5,7 +5,8 @@ import AddCommentForm from "./AddCommentForm.jsx";
 import UpdateCommentForm from "./UpdateComments.jsx";
 
 function Comments() {
-  const { comments, fetchComments, error } = useContext(CommentContext);
+  const { comments, fetchComments, error, setError } =
+    useContext(CommentContext);
   const { user, sessionLoading } = useContext(AuthContext);
   const [editingCommentId, setEditingCommentId] = useState(null);
   const [commentsLoading, setCommentsLoading] = useState(true);
@@ -20,6 +21,16 @@ function Comments() {
       loadComments();
     }
   }, [user]);
+
+  useEffect(() => {
+    if (error) {
+      const timeout = setTimeout(() => {
+        setError(null); 
+      }, 3000);
+
+      return () => clearTimeout(timeout); 
+    }
+  }, [error]);
 
   const handleEdit = (commentId) => {
     setEditingCommentId(commentId);
@@ -44,7 +55,11 @@ function Comments() {
   return (
     <div className="w-[70%] flex flex-col justify-center items-center gap-2">
       <h3 className="text-xl font-bold mb-4">Comments</h3>
-      {error && <p className="text-red-500">{error}</p>}
+      {error && (
+        <p className="w-full text-center text-white bg-red-400 font-medium text-[1rem] tracking-[1px] py-3 mb-4 rounded-[5px]">
+          {error}
+        </p>
+      )}
       {comments.map((comment) =>
         editingCommentId === comment._id ? (
           <UpdateCommentForm

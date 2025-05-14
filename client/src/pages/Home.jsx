@@ -31,7 +31,7 @@ function Home() {
   return (
     <>
       <main className="pt-[140px]">
-        {loading && <p>Loading...</p>}
+        {/* {loading && <p>Loading...</p>} */}
         <div className="relative flex flex-row items-start min-h-[600px]">
           <div className="w-[50%] text-right px-9">
             <h1 className="text-6xl lato-black mb-2 mt-15">

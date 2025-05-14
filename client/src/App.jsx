@@ -19,11 +19,13 @@ import MainLayout from "./layouts/MainLayout";
 import BlankLayout from "./layouts/BlankLayout";
 import AdminPanel from "./pages/AdminPanel";
 import "./i18n";
+import LiveChatWidget from "./components/LiveChatWidget";
 
 function App() {
   return (
     <div className="w-full bg-[#fcfcfc] relative">
       <ScrollToTop />
+      <LiveChatWidget />
       <Routes>
         <Route element={<MainLayout />}>
           <Route path="/" element={<Home />} />

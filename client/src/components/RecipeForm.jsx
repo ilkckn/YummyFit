@@ -257,17 +257,17 @@ function RecipeForm({
       </div>
 
       <div className="mt-6 flex justify-end gap-4">
-        <button
+        {/* <button
           type="button"
           onClick={onCancel}
           className="px-6 py-3 rounded-md bg-gray-400 text-white hover:bg-gray-500"
         >
           Cancel
-        </button>
+        </button> */}
         <button
           type="submit"
           disabled={loading}
-          className={`px-6 py-3 rounded-md ${
+          className={`px-6 py-3 rounded-md cursor-pointer ${
             loading
               ? "bg-gray-400 text-white"
               : "bg-[#FFC649] text-white hover:bg-[#e5b93f]"

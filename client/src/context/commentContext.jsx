@@ -16,7 +16,6 @@ function CommentContextProvider({ children, recipeId }) {
         withCredentials: true,
       });
       setComments(res.data);
-      console.log("res.data", res.data);
       setError(null);
     } catch (error) {
       setError("Failed to fetch comments. Please try again.");
@@ -37,7 +36,7 @@ function CommentContextProvider({ children, recipeId }) {
       console.log("res.data", res.data);
       setError(null);
     } catch (error) {
-      setError("Failed to add comment. Please try again.");
+      setError("You have already commented on this recipe!");
     }
   };
 

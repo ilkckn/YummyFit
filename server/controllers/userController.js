@@ -8,7 +8,7 @@ import { JWT_EXPIRES_IN, JWT_SECRET, NODE_ENV } from "../config/config.js";
 
 // Get all users
 export const getAllUsers = asyncHandler(async (req, res) => {
-  const users = await User.find();
+  const users = await User.find().select("-password");
   if (!users) {
     throw new CustomError("users not found", 404);
   }

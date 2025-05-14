@@ -5,7 +5,7 @@ import MealPlan from "../schemas/mealPlanSchema.js";
 import User from "../schemas/userSchema.js";
 
 export const generateMealPlan = asyncHandler(async (req, res) => {
-  const { message } = req.body; // Bu 'message' değişkeni prompt içinde kullanılmıyor, eğer dışarıdan bir mesajla prompt oluşturulmuyorsa kaldırılabilir.
+  const { message } = req.body; 
   const userId = req.user.id;
   const user = await User.findById(userId);
   if (!user) {

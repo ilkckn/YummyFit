@@ -6,13 +6,20 @@ import UpdateCommentForm from "./UpdateComments.jsx";
 
 function Comments() {
   const { comments, fetchComments, error } = useContext(CommentContext);
-  console.log("comments", comments);
-  const { user, sessionCheckNeeded } = useContext(AuthContext);
+  const { user, sessionLoading } = useContext(AuthContext);
   const [editingCommentId, setEditingCommentId] = useState(null);
+  const [commentsLoading, setCommentsLoading] = useState(true);
 
   useEffect(() => {
-    fetchComments();
-  }, []);
+    const loadComments = async () => {
+      await fetchComments();
+      setCommentsLoading(false);
+    };
+
+    if (user) {
+      loadComments();
+    }
+  }, [user]);
 
   const handleEdit = (commentId) => {
     setEditingCommentId(commentId);
@@ -20,6 +27,18 @@ function Comments() {
 
   const handleCancelEdit = () => {
     setEditingCommentId(null);
+  };
+
+  if (sessionLoading || commentsLoading) {
+    return <div>Yükleniyor...</div>;
+  }
+
+  const isUserComment = (commentUserId) => {
+    if (!user || !commentUserId) return false;
+    const commentId =
+      typeof commentUserId === "object" ? commentUserId._id : commentUserId;
+    const userId = user._id || user.id;
+    return commentId?.toString() === userId?.toString();
   };
 
   return (
@@ -49,27 +68,14 @@ function Comments() {
               <strong>{comment.userId?.username}:</strong> {comment.text}
             </p>
             <div className="flex justify-end gap-2 mt-2">
-              {/* {sessionCheckNeeded &&
-                (comment.userId?._id === user._id ||
-                  comment.userId === user._id) && (
-                  <button
-                    onClick={() => handleEdit(comment._id)}
-                    className="px-6 py-1.5 bg-[#FFC649] text-white rounded-md hover:bg-[#e5b53d] cursor-pointer"
-                  >
-                    Edit
-                  </button>
-                )} */}
-              {user &&
-                (comment.userId?._id === user._id ||
-                  comment.userId === user._id ||
-                  comment.userId === user.id) && (
-                  <button
-                    onClick={() => handleEdit(comment._id)}
-                    className="px-6 py-1.5 bg-[#FFC649] text-white rounded-md hover:bg-[#e5b53d] cursor-pointer"
-                  >
-                    Edit
-                  </button>
-                )}
+              {isUserComment(comment.userId) && (
+                <button
+                  onClick={() => handleEdit(comment._id)}
+                  className="px-6 py-1.5 bg-[#FFC649] text-white rounded-md hover:bg-[#e5b53d] cursor-pointer"
+                >
+                  Edit
+                </button>
+              )}
             </div>
           </div>
         )
